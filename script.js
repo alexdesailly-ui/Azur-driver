@@ -5,7 +5,7 @@ const CONFIG = {
   // Lien WhatsApp : peut être un code QR (wa.me/qr/XXXX) ou un numéro (33612345678)
   whatsappLink: 'https://wa.me/qr/L3OQ2PIJX6EIF1',
   // Numéro de téléphone affichable (laisser vide pour masquer le bouton appel)
-  phoneNumber: '',
+  phoneNumber: '+33 6 99 18 22 70',
   // Délai minimum de réservation (en heures)
   minBookingHours: 24,
 };
