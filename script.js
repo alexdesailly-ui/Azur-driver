@@ -160,6 +160,16 @@ form.addEventListener('submit', e => {
   window.open(url, '_blank', 'noopener');
 });
 
+// === Fallback images ===
+// Si une photo distante ne charge pas, marque le conteneur pour afficher un
+// dégradé de remplacement (CSS) — pas d'image cassée visible.
+$$('.gallery-item img, .vehicle-photo').forEach(img => {
+  img.addEventListener('error', () => {
+    img.closest('.gallery-item, .vehicle-card')?.classList.add('img-fallback');
+    img.remove();
+  }, { once: true });
+});
+
 // === Consentement cookies ===
 (() => {
   const STORAGE_KEY = 'azur_cookie_consent';
