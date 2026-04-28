@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Azur Driver — Service VTC privé à Aix-en-Provence et Marseille. Courses privées, longue distance, 24h/24, 7j/7. Réservation 24 heures à l'avance." />
   <meta name="theme-color" content="#0b0b0d" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <title>Azur Driver — Chauffeur privé VTC à Aix-en-Provence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +16,21 @@
   <!-- NAV -->
   <header class="nav" id="nav">
     <a href="#hero" class="brand" aria-label="Azur Driver — accueil">
-      <span class="brand-mark">A</span>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="navGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#e6c98a"/>
+              <stop offset="60%" stop-color="#caa45a"/>
+              <stop offset="100%" stop-color="#8a6f33"/>
+            </linearGradient>
+          </defs>
+          <path d="M22 9 L36 35" stroke="url(#navGold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M22 9 L8 35" stroke="url(#navGold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M14 26 L26 26" stroke="url(#navGold)" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <circle cx="36" cy="35" r="1.6" fill="url(#navGold)"/>
+        </svg>
+      </span>
       <span class="brand-text">Azur<span> Driver</span></span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
@@ -240,7 +255,21 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="brand-mark">A</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="footGold" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#e6c98a"/>
+                <stop offset="60%" stop-color="#caa45a"/>
+                <stop offset="100%" stop-color="#8a6f33"/>
+              </linearGradient>
+            </defs>
+            <path d="M22 9 L36 35" stroke="url(#footGold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M22 9 L8 35" stroke="url(#footGold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M14 26 L26 26" stroke="url(#footGold)" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <circle cx="36" cy="35" r="1.6" fill="url(#footGold)"/>
+          </svg>
+        </span>
         <div>
           <p class="footer-title">Azur Driver</p>
           <p class="footer-sub">Chauffeur privé VTC · Aix-en-Provence</p>
@@ -253,6 +282,15 @@
       <p class="footer-copy">
         © <span id="year"></span> Azur Driver. Tous droits réservés. ·
         <button type="button" class="footer-link" id="cookieReopen">Préférences cookies</button>
+      </p>
+      <p class="footer-credit">
+        Conçu &amp; développé par
+        <a href="https://agilecorp.fr" target="_blank" rel="noopener" class="agilecorp-link">
+          <svg viewBox="0 0 14 14" width="12" height="12" aria-hidden="true">
+            <path d="M7 1 L13 13 L1 13 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+          Agilecorp
+        </a>
       </p>
     </div>
   </footer>
