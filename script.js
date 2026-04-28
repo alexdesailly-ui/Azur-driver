@@ -2,10 +2,10 @@
 
 // === Configuration — à personnaliser ===
 const CONFIG = {
-  // Numéro WhatsApp au format international, sans + ni espaces (ex: 33612345678)
-  whatsappNumber: '33600000000',
-  // Numéro de téléphone affichable
-  phoneNumber: '+33 6 00 00 00 00',
+  // Lien WhatsApp : peut être un code QR (wa.me/qr/XXXX) ou un numéro (33612345678)
+  whatsappLink: 'https://wa.me/qr/L3OQ2PIJX6EIF1',
+  // Numéro de téléphone affichable (laisser vide pour masquer le bouton appel)
+  phoneNumber: '',
   // Délai minimum de réservation (en heures)
   minBookingHours: 24,
 };
@@ -20,16 +20,23 @@ $('#year').textContent = new Date().getFullYear();
 // === Lien d'appel téléphonique ===
 const phoneLink = $('#phoneLink');
 if (phoneLink) {
-  phoneLink.href = `tel:${CONFIG.phoneNumber.replace(/\s/g, '')}`;
-  phoneLink.textContent = `Appeler ${CONFIG.phoneNumber}`;
+  if (CONFIG.phoneNumber) {
+    phoneLink.href = `tel:${CONFIG.phoneNumber.replace(/\s/g, '')}`;
+    phoneLink.textContent = `Appeler ${CONFIG.phoneNumber}`;
+  } else {
+    phoneLink.style.display = 'none';
+  }
 }
 
 // === Liens WhatsApp ===
 function buildWhatsappUrl(message = '') {
-  const text = message
-    ? `?text=${encodeURIComponent(message)}`
-    : `?text=${encodeURIComponent("Bonjour Azur Driver, j'aimerais des informations.")}`;
-  return `https://wa.me/${CONFIG.whatsappNumber}${text}`;
+  // Base : URL complète OU numéro brut (33612345678)
+  const raw = CONFIG.whatsappLink || '';
+  const base = raw.startsWith('http') ? raw : `https://wa.me/${raw}`;
+  const defaultMsg = "Bonjour Azur Driver, j'aimerais des informations.";
+  const text = encodeURIComponent(message || defaultMsg);
+  const sep = base.includes('?') ? '&' : '?';
+  return `${base}${sep}text=${text}`;
 }
 $$('[data-whatsapp]').forEach(link => {
   link.href = buildWhatsappUrl();
