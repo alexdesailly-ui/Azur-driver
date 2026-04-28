@@ -250,9 +250,35 @@
         <p>Aix-en-Provence &amp; Marseille · Trajets longue distance</p>
         <p>Disponible 24h/24 — 7j/7 · Sur réservation 24h à l'avance</p>
       </div>
-      <p class="footer-copy">© <span id="year"></span> Azur Driver. Tous droits réservés.</p>
+      <p class="footer-copy">
+        © <span id="year"></span> Azur Driver. Tous droits réservés. ·
+        <button type="button" class="footer-link" id="cookieReopen">Préférences cookies</button>
+      </p>
     </div>
   </footer>
+
+  <!-- Cookie consent -->
+  <aside class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Préférences cookies" hidden>
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <p class="cookie-title">🍪 Vos préférences cookies</p>
+        <p class="cookie-desc">
+          Ce site utilise uniquement des cookies essentiels à son bon fonctionnement
+          (mémorisation de votre choix). Aucun cookie publicitaire, aucun traqueur tiers.
+          <button type="button" class="cookie-more" id="cookieMore" aria-expanded="false">En savoir plus</button>
+        </p>
+        <div class="cookie-details" id="cookieDetails" hidden>
+          <p><strong>Cookies strictement nécessaires</strong> — Mémorisation de votre choix de consentement (LocalStorage). Ces cookies ne nécessitent pas de consentement.</p>
+          <p><strong>Polices Google Fonts</strong> — Chargées depuis fonts.googleapis.com pour l'affichage typographique. Aucune donnée personnelle n'est collectée sans votre accord.</p>
+          <p><strong>Vos droits</strong> — Conformément au RGPD, vous pouvez modifier vos préférences à tout moment via le lien « Préférences cookies » en pied de page.</p>
+        </div>
+      </div>
+      <div class="cookie-actions">
+        <button type="button" class="btn btn-ghost cookie-btn" id="cookieRefuse">Refuser</button>
+        <button type="button" class="btn btn-primary cookie-btn" id="cookieAccept">Accepter</button>
+      </div>
+    </div>
+  </aside>
 
   <!-- Sticky WhatsApp button -->
   <a href="#" class="fab-whatsapp" data-whatsapp aria-label="Contacter sur WhatsApp">

@@ -159,3 +159,61 @@ form.addEventListener('submit', e => {
   note.textContent = 'Redirection vers WhatsApp…';
   window.open(url, '_blank', 'noopener');
 });
+
+// === Consentement cookies ===
+(() => {
+  const STORAGE_KEY = 'azur_cookie_consent';
+  const VERSION = '1';
+  const banner = $('#cookieBanner');
+  if (!banner) return;
+
+  const acceptBtn = $('#cookieAccept');
+  const refuseBtn = $('#cookieRefuse');
+  const moreBtn = $('#cookieMore');
+  const details = $('#cookieDetails');
+  const reopenBtn = $('#cookieReopen');
+
+  function show() {
+    banner.hidden = false;
+    requestAnimationFrame(() => banner.setAttribute('data-visible', 'true'));
+  }
+  function hide() {
+    banner.removeAttribute('data-visible');
+    setTimeout(() => { banner.hidden = true; }, 600);
+  }
+  function save(value) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        v: VERSION,
+        choice: value,
+        ts: Date.now(),
+      }));
+    } catch (_) { /* localStorage indisponible — silence */ }
+  }
+  function read() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      return data.v === VERSION ? data.choice : null;
+    } catch (_) { return null; }
+  }
+
+  // Affichage initial si aucun choix enregistré
+  if (!read()) show();
+
+  acceptBtn.addEventListener('click', () => { save('accepted'); hide(); });
+  refuseBtn.addEventListener('click', () => { save('refused'); hide(); });
+
+  moreBtn.addEventListener('click', () => {
+    const open = details.hidden;
+    details.hidden = !open;
+    moreBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    moreBtn.textContent = open ? 'Réduire' : 'En savoir plus';
+  });
+
+  reopenBtn?.addEventListener('click', e => {
+    e.preventDefault();
+    show();
+  });
+})();
