@@ -6,11 +6,22 @@ opérant dans le bassin Aix–Marseille (courses privées et trajets longue dist
 ## Caractéristiques
 
 - Design sombre & or, typographies *Cormorant Garamond* + *Inter*, animations fluides
-- Sections : héro, services, présentation du véhicule (BMW 330e), formulaire de réservation, contact
+- Sections : héro, services, galerie, présentation générique du véhicule, formulaire de réservation, contact
 - Réservation en ligne validée côté client (minimum 24 h à l'avance)
 - Soumission du formulaire via **WhatsApp** (message pré-rempli) — aucun backend nécessaire
 - Bouton WhatsApp flottant et liens d'appel direct
 - Responsive (mobile, tablette, desktop), accessible (aria, reduced-motion)
+
+## Images
+
+Les visuels (galerie + photo véhicule) utilisent par défaut des hotlinks Unsplash
+(`https://images.unsplash.com/photo-XXXX`). Pour les remplacer par vos propres
+photos :
+
+1. Placer les fichiers dans `images/` (créer le dossier si besoin)
+2. Remplacer dans `index.html` les `src="https://images.unsplash.com/..."`
+   par `src="images/votre-photo.jpg"`
+3. Conserver l'attribut `loading="lazy"` pour les performances
 
 ## Personnalisation
 

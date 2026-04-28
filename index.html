@@ -34,6 +34,7 @@
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
       <a href="#services">Services</a>
+      <a href="#galerie">Galerie</a>
       <a href="#vehicule">Véhicule</a>
       <a href="#reservation">Réservation</a>
       <a href="#contact">Contact</a>
@@ -53,8 +54,8 @@
       <h1>L'élégance d'un trajet, <span class="accent">à votre rythme.</span></h1>
       <p class="lead">
         Chauffeur privé VTC haut de gamme. Courses privées et trajets longue distance,
-        en BMW Série&nbsp;3 hybride. Disponible <strong>24h/24, 7j/7</strong>, sur réservation
-        au moins 24&nbsp;heures à l'avance.
+        en berline premium hybride rechargeable. Disponible <strong>24h/24, 7j/7</strong>,
+        sur réservation au moins 24&nbsp;heures à l'avance.
       </p>
       <div class="hero-cta">
         <a href="#reservation" class="btn btn-primary">Réserver en ligne</a>
@@ -110,57 +111,66 @@
     </div>
   </section>
 
+  <!-- GALERIE -->
+  <section class="section gallery" id="galerie">
+    <div class="section-head">
+      <p class="eyebrow">L'expérience à bord</p>
+      <h2>Chaque trajet, une parenthèse de calme.</h2>
+      <p class="section-sub">De la prise en charge à votre destination — le confort, la discrétion et la ponctualité, sans compromis.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="gallery-item gallery-item--tall">
+        <img loading="lazy" decoding="async"
+             src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80&auto=format&fit=crop"
+             alt="Berline noire en route au crépuscule" />
+        <figcaption>Trajets longue distance</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img loading="lazy" decoding="async"
+             src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80&auto=format&fit=crop"
+             alt="Intérieur cuir d'une berline premium" />
+        <figcaption>Confort feutré</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img loading="lazy" decoding="async"
+             src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80&auto=format&fit=crop"
+             alt="Trajet de nuit en ville" />
+        <figcaption>Service de nuit</figcaption>
+      </figure>
+      <figure class="gallery-item gallery-item--wide">
+        <img loading="lazy" decoding="async"
+             src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=80&auto=format&fit=crop"
+             alt="Route sinueuse en Provence" />
+        <figcaption>Aix-Marseille &amp; Côte d'Azur</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- VEHICULE -->
   <section class="section vehicle" id="vehicule">
     <div class="vehicle-grid">
       <div class="vehicle-text">
         <p class="eyebrow">Le véhicule</p>
-        <h2>BMW 330e — l'alliance de la performance et du raffinement.</h2>
+        <h2>Une berline premium pensée pour votre confort.</h2>
         <p>
-          Berline hybride rechargeable haut de gamme, finition premium, intérieur cuir,
-          ambiance feutrée. Une conduite silencieuse et fluide, pensée pour transformer
-          chaque trajet en parenthèse de calme.
+          Voiture haut de gamme, hybride rechargeable, finition premium et intérieur cuir.
+          Une conduite silencieuse et fluide qui transforme chaque déplacement en moment
+          de sérénité — discret, ponctuel, irréprochable.
         </p>
         <ul class="specs">
           <li><strong>4</strong><span>Passagers</span></li>
           <li><strong>3</strong><span>Bagages</span></li>
-          <li><strong>Hybride</strong><span>Essence + Électrique</span></li>
+          <li><strong>Hybride</strong><span>Rechargeable</span></li>
           <li><strong>Premium</strong><span>Finition cuir</span></li>
         </ul>
       </div>
-      <div class="vehicle-visual" aria-hidden="true">
+      <div class="vehicle-visual">
         <div class="vehicle-card">
           <div class="vehicle-glow"></div>
-          <svg viewBox="0 0 600 280" class="vehicle-svg">
-            <defs>
-              <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#1c1d22"/>
-                <stop offset="100%" stop-color="#0a0a0c"/>
-              </linearGradient>
-              <linearGradient id="windowGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#3a4252"/>
-                <stop offset="100%" stop-color="#11141b"/>
-              </linearGradient>
-              <radialGradient id="headlight" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#fff8e1"/>
-                <stop offset="100%" stop-color="#caa45a" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <ellipse cx="300" cy="240" rx="260" ry="14" fill="#000" opacity="0.55"/>
-            <path d="M70 200 C 90 150, 140 120, 200 110 L 260 90 C 310 80, 360 80, 410 95 L 470 115 C 510 125, 535 150, 545 195 L 545 215 L 70 215 Z" fill="url(#bodyGrad)" stroke="#caa45a" stroke-width="0.6" stroke-opacity="0.4"/>
-            <path d="M210 115 L 260 95 C 310 86, 360 86, 405 100 L 445 115 L 430 165 L 220 165 Z" fill="url(#windowGrad)"/>
-            <path d="M315 95 L 315 165" stroke="#0a0a0c" stroke-width="2"/>
-            <circle cx="170" cy="215" r="32" fill="#0a0a0c" stroke="#2a2c34" stroke-width="2"/>
-            <circle cx="170" cy="215" r="20" fill="#1a1c22"/>
-            <circle cx="170" cy="215" r="6" fill="#caa45a"/>
-            <circle cx="450" cy="215" r="32" fill="#0a0a0c" stroke="#2a2c34" stroke-width="2"/>
-            <circle cx="450" cy="215" r="20" fill="#1a1c22"/>
-            <circle cx="450" cy="215" r="6" fill="#caa45a"/>
-            <ellipse cx="525" cy="170" rx="22" ry="8" fill="url(#headlight)"/>
-            <rect x="510" y="180" width="30" height="4" rx="2" fill="#caa45a" opacity="0.7"/>
-            <path d="M85 195 L 130 175" stroke="#caa45a" stroke-width="1" opacity="0.4"/>
-          </svg>
-          <p class="vehicle-caption">BMW 330e · Hybride rechargeable</p>
+          <img class="vehicle-photo" loading="lazy" decoding="async"
+               src="https://images.unsplash.com/photo-1605515298946-d062f2e9da53?w=1200&q=85&auto=format&fit=crop"
+               alt="Berline premium hybride rechargeable" />
+          <p class="vehicle-caption">Berline premium · Hybride rechargeable</p>
         </div>
       </div>
     </div>
