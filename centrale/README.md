@@ -1,4 +1,4 @@
-# Clé en Van — le transfert inclus dans la location (démonstration)
+# Clé en Van — de la gare à la porte de la location (démonstration)
 
 Branche de travail `centrale-vtc`, distincte du site Azur Driver en ligne. Rien ici n'est publié sur le site, et aucun parcours n'envoie de données ni ne prend de paiement.
 
