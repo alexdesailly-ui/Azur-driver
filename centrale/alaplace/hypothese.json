@@ -1,0 +1,23 @@
+{
+  "ecrit_le": "2026-10-12T22:54",
+  "regle": "Écrit AVANT de construire la preuve de « À la place » (D6 : la forme de la preuve se choisit après le Top 3, sans toucher au classement ; D8 : recadrage d'Alex du 12/10 à 22:37).",
+  "concept": "Un réseau ouvert où chaque chauffeur VTC vend des places sur des trajets réservés à l'avance, là où le transport public lâche. Clé en Van (Aix TGV et aéroport de Marseille vers Vars et Risoul) est le trajet n°1.",
+  "hypotheses": {
+    "chauffeurs": "Des chauffeurs VTC demandent à ouvrir un trajet à la place quand ils voient ce qu'il rapporte à l'heure par rapport à leur heure Uber.",
+    "passagers": "Des voyageurs paient une place à l'avance (prévente Clé en Van, protocole existant).",
+    "visibilite": "Un trajet se décrit dans le format ouvert des transports (GTFS-Flex, adopté en mars 2024) comme un service à la demande, sans horaire fixe : il devient lisible par les calculateurs d'itinéraires.",
+    "copie": "Ce qui a de la valeur n'est pas le code : c'est le registre commun des trajets, le moteur de règles et les données de prévente. Forker revient à publier son trajet dans le même registre."
+  },
+  "ce_qui_compte_comme_preuve": [
+    "Chauffeurs : des demandes d'ouverture de trajet venues de chauffeurs qui ne connaissent pas Alex, après une publication dans des groupes de chauffeurs.",
+    "Passagers : des places payées par des inconnus (protocole de prévente Clé en Van).",
+    "Visibilité : un flux GTFS-Flex généré depuis la description du trajet, sans erreur au contrôle des règles Flex de la spécification, et qui ne contient aucun horaire fixe.",
+    "Copie : la spécification du trajet tient en un fichier ouvert ; deux trajets écrits par deux chauffeurs différents s'assemblent dans un même flux sans conflit."
+  ],
+  "criteres_de_reussite": {
+    "chauffeurs": "Au moins 20 demandes d'ouverture de trajet en 14 jours après la publication d'Alex dans 3 groupes de chauffeurs. Échec : moins de 5.",
+    "passagers": "Critères de centrale/preuve/hypothese.json (au moins 12 places payées et 2 conciergeries au 15/12).",
+    "visibilite": "0 erreur au contrôle écrit des règles Flex ; validateur officiel MobilityData à lancer dès que le réseau le permet (à justifier).",
+    "copie": "Un flux unique construit depuis plusieurs fichiers de trajet de chauffeurs différents, identifiants sans collision."
+  }
+}

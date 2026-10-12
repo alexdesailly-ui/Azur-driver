@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>À la place — vends tes places, pas tes heures</title>
+<meta name="description" content="Démonstration : un réseau ouvert où chaque chauffeur VTC vend des places sur des trajets réservés à l'avance, publiés dans le format ouvert des transports.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700;800&family=Overpass+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/centrale.css">
+<style>
+/* À la place : même famille visuelle que Clé en Van (trajet n°1 du réseau). Élément signature : le plan des places du van. */
+.hero-ap { padding-block: clamp(36px, 6vw, 72px); }
+.hero-ap .cadre { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+@media (max-width: 900px) { .hero-ap .cadre { grid-template-columns: 1fr; } }
+.hero-ap h1 { font-size: clamp(2.3rem, 5.4vw, 3.9rem); font-weight: 800; max-width: 14ch; }
+.hero-ap .accroche { font-size: 1.18rem; max-width: 40ch; margin-top: 18px; }
+.hero-ap .source-loi { margin-top: 14px; font-size: 0.88rem; color: var(--encre-douce); max-width: 52ch; }
+
+.calcul { background: var(--tableau); color: var(--volet); border-radius: 12px; padding: 20px; display: grid; gap: 16px; min-width: 0; }
+.calcul label, .calcul .lib { color: var(--volet-doux); font-family: var(--mono); font-size: 0.78rem; }
+.calcul select, .calcul input[type="number"] { width: 100%; padding: 8px 10px; border-radius: var(--rayon); border: 1px solid var(--tableau-trait); background: #0f1822; color: #fff7dc; font-size: 0.98rem; font-family: var(--texte); }
+.calcul input[type="range"] { width: 100%; }
+.calcul .rangee { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 12px; }
+.calcul .champ-c { display: grid; gap: 4px; min-width: 0; }
+.van { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: center; }
+.plan { display: grid; grid-template-columns: repeat(2, 30px); gap: 6px; padding: 10px 12px 10px 10px; border: 2px solid var(--tableau-trait); border-radius: 16px 16px 8px 8px; position: relative; }
+.plan::before { content: ""; grid-column: 1 / 3; height: 12px; border-bottom: 2px solid var(--tableau-trait); margin-bottom: 4px; }
+.siege { width: 30px; height: 30px; border-radius: 6px 6px 3px 3px; background: var(--tableau-trait); display: grid; place-items: center; font-family: var(--mono); font-size: 0.6rem; color: transparent; }
+.siege.vendu { background: var(--volet); color: var(--tableau); font-weight: 700; }
+@media (prefers-reduced-motion: no-preference) { .siege { transition: background-color .25s steps(2); } }
+.resultats { display: grid; gap: 10px; min-width: 0; }
+.gros { font-family: var(--mono); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; color: #fff7dc; font-variant-numeric: tabular-nums; line-height: 1; }
+.barres { display: grid; gap: 6px; }
+.barre { display: grid; grid-template-columns: 8rem minmax(0, 1fr) 4.5rem; gap: 8px; align-items: center; font-family: var(--mono); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.barre .piste { height: 12px; background: var(--tableau-trait); border-radius: 3px; overflow: hidden; }
+.barre .rempli { height: 100%; background: var(--volet); }
+.barre.uber .rempli { background: var(--volet-doux); }
+.barre span:last-child { text-align: right; color: #fff7dc; }
+.calcul .note-c { font-size: 0.74rem; color: var(--volet-doux); font-family: var(--mono); line-height: 1.5; }
+
+.bloc { padding-block: clamp(44px, 6vw, 80px); border-top: 1px solid var(--trait); }
+.constructeur { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: clamp(24px, 4vw, 48px); margin-top: 28px; align-items: start; }
+@media (max-width: 900px) { .constructeur { grid-template-columns: 1fr; } }
+.champ input[type="text"], .champ input[type="time"], .champ input[type="number"] { padding: 10px 12px; border-radius: var(--rayon); border: 1px solid var(--trait); background: var(--neige); color: var(--encre); font-size: 1rem; font-family: var(--texte); width: 100%; }
+.deux-c { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.jours { display: flex; flex-wrap: wrap; gap: 6px; }
+.jours label { display: inline-flex; gap: 6px; align-items: center; padding: 6px 10px; border: 1px solid var(--trait); border-radius: var(--rayon); font-size: 0.9rem; background: var(--neige); cursor: pointer; }
+.jours input { accent-color: var(--jalon); }
+.sortie-code { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; min-width: 0; }
+.sortie-code > * { min-width: 0; }
+.sortie-code h3 { font-size: 1rem; font-weight: 800; }
+pre.code { margin: 6px 0 0; background: var(--tableau); color: #fff7dc; border-radius: 10px; padding: 14px; font-family: var(--mono); font-size: 0.76rem; line-height: 1.55; overflow-x: auto; max-height: 22rem; }
+.controle { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.92rem; }
+.controle li { padding-left: 24px; position: relative; }
+.controle li::before { position: absolute; left: 0; font-weight: 800; }
+.controle li.ok::before { content: "✓"; color: var(--ok); }
+.controle li.ko::before { content: "✗"; color: var(--jalon); }
+.controle li.afaire::before { content: "○"; color: var(--encre-douce); }
+.comparaison td:first-child, .comparaison th:first-child { font-weight: 700; }
+.comparaison td.nous { background: var(--jalon-fond); padding-left: 10px; }
+.comparaison th:last-child { padding-left: 10px; }
+.trois { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 24px 40px; margin-top: 24px; }
+.trois h3 { font-size: 1.08rem; font-weight: 800; margin-bottom: 6px; }
+.trois p { color: var(--encre-douce); }
+</style>
+</head>
+<body>
+<div class="demo-bandeau" role="note">
+  <div class="cadre"><span><strong>Démonstration.</strong> Trajets fictifs, aucune réservation, aucun paiement, aucune donnée envoyée.</span><span>Nom de travail provisoire : À la place</span></div>
+</div>
+
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="index.html" aria-label="À la place, accueil">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="4" width="18" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M5 20 H27 V26 H5 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M9 26 V29 M23 26 V29" stroke="#c2362b" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>À la place <small>le réseau des chauffeurs qui vendent leurs places</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="#calcul">Combien ça rapporte</a>
+      <a href="#ouvrir">Ouvrir un trajet</a>
+      <a href="#pourquoi">Pas un Uber de plus</a>
+      <a href="../index.html">Clé en Van, trajet n°1</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero-ap" id="calcul" style="padding-top:clamp(36px,6vw,72px)">
+    <div class="cadre">
+      <div>
+        <h1>Vends tes places, pas tes heures.</h1>
+        <p class="accroche">Un chauffeur VTC peut vendre son trajet à la place, sur réservation. À la place te donne le moteur, les règles et la visibilité pour remplir ton van là où le car ne passe pas&nbsp;: la nuit, en grève, vers les stations, à la sortie des événements.</p>
+        <p class="source-loi">La loi Grandguillaume «&nbsp;autorise dorénavant la vente à la place aux VTC et aux taxis en réservation préalable&nbsp;» (réponse ministérielle à la question écrite n° 4293, publiée le 1er mai 2018). Ton van ne part que si le seuil de places est atteint&nbsp;; sinon, les acomptes sont rendus.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+          <a class="bouton" href="#ouvrir">Ouvrir mon trajet</a>
+          <a class="bouton secondaire" href="#pourquoi">Pourquoi ce n'est pas un Uber de plus</a>
+        </div>
+      </div>
+
+      <form class="calcul" id="calc" aria-label="Combien rapporte ton trajet" novalidate>
+        <div class="champ-c"><label for="k-trajet">Trajet</label>
+          <select id="k-trajet">
+            <option value="ski">Clé en Van : Aix TGV, Vars, retour rempli</option>
+            <option value="nuit">Derniers vols : aéroport, Aix centre</option>
+            <option value="perso">Mon trajet</option>
+          </select></div>
+        <div class="van">
+          <div class="plan" id="plan" aria-hidden="true"></div>
+          <div class="resultats" aria-live="polite">
+            <span class="lib">ton heure sur ce trajet</span>
+            <span class="gros" id="k-heure">0 €/h</span>
+            <div class="barres">
+              <div class="barre"><span>À la place</span><span class="piste"><span class="rempli" id="b-ap" style="display:block;width:0"></span></span><span id="v-ap">0 €</span></div>
+              <div class="barre uber"><span>Ton heure Uber</span><span class="piste"><span class="rempli" id="b-ub" style="display:block;width:0"></span></span><span id="v-ub">0 €</span></div>
+            </div>
+            <span class="lib" id="k-ratio"></span>
+          </div>
+        </div>
+        <div class="rangee">
+          <div class="champ-c"><label for="k-places">Places vendues (par trajet)</label><input type="range" id="k-places" min="1" max="8" value="6"></div>
+          <div class="champ-c"><label for="k-capacite">Places du véhicule</label><select id="k-capacite"><option value="4">4 (berline)</option><option value="8" selected>8 (van)</option></select></div>
+          <div class="champ-c"><label for="k-prix">Prix de la place (€)</label><input type="number" id="k-prix" min="1" step="1" value="55"></div>
+          <div class="champ-c"><label for="k-trajets">Trajets payés dans la mission</label><input type="number" id="k-trajets" min="1" max="4" step="1" value="2"></div>
+          <div class="champ-c"><label for="k-duree">Durée totale de la mission (h)</label><input type="number" id="k-duree" min="0.5" step="0.5" value="7"></div>
+          <div class="champ-c"><label for="k-uber">Ton heure Uber, brut (€/h)</label><input type="number" id="k-uber" min="1" step="1" value="20"></div>
+        </div>
+        <p class="note-c" id="k-note">Montants bruts, avant frais de route. Part du réseau&nbsp;: 10&nbsp;% (exemple). Repère Uber&nbsp;: 10 à 34&nbsp;€ de l'heure brut sur tout le temps de travail, mesuré sur 15 chauffeurs à Paris, 2019-2022 (étude digipower). Mets ta propre heure.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <div class="cadre">
+      <h2 class="titre-section">Comment ça marche</h2>
+      <ol class="etapes">
+        <li><h3>Tu décris ton trajet</h3><p>Deux zones, une fenêtre de prise en charge, des jours, un prix par place, un seuil de départ. Jamais d'horaire fixe.</p></li>
+        <li><h3>Il est publié en format ouvert</h3><p>Le format des transports à la demande (GTFS-Flex, adopté en 2024) le rend lisible par les calculateurs d'itinéraires.</p></li>
+        <li><h3>Les voyageurs réservent</h3><p>Par ton lien, ou par le message d'une conciergerie. Le van part au seuil&nbsp;; sinon les acomptes sont rendus.</p></li>
+        <li><h3>Le moteur gère le reste</h3><p>Composition des départs, retards de train, remboursements&nbsp;: des règles écrites, pas des coups de fil.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="bloc" id="ouvrir">
+    <div class="cadre">
+      <h2 class="titre-section">Ouvre ton trajet</h2>
+      <p class="chapo">Remplis la fiche&nbsp;: elle produit le fichier de ton trajet et sa traduction dans le format ouvert, contrôlée sur place. Rien n'est envoyé.</p>
+      <div class="constructeur">
+        <form class="champs" id="form-trajet" novalidate>
+          <div class="deux-c">
+            <div class="champ"><label for="t-chauffeur">Ton identifiant</label><input type="text" id="t-chauffeur" value="mon-van" autocomplete="off"></div>
+            <div class="champ"><label for="t-nom">Nom du trajet</label><input type="text" id="t-nom" value="sortie-concert" autocomplete="off"></div>
+          </div>
+          <div class="deux-c">
+            <div class="champ"><label for="t-de">Zone de départ</label><input type="text" id="t-de" value="Dôme de Marseille" autocomplete="off"></div>
+            <div class="champ"><label for="t-vers">Zone d'arrivée</label><input type="text" id="t-vers" value="Aix-en-Provence centre" autocomplete="off"></div>
+          </div>
+          <div class="deux-c">
+            <div class="champ"><label for="t-pc1">Prise en charge, de</label><input type="time" id="t-pc1" value="22:30"></div>
+            <div class="champ"><label for="t-pc2">à</label><input type="time" id="t-pc2" value="23:59"></div>
+          </div>
+          <div class="deux-c">
+            <div class="champ"><label for="t-dp1">Dépose, de</label><input type="time" id="t-dp1" value="23:00"></div>
+            <div class="champ"><label for="t-dp2">à</label><input type="time" id="t-dp2" value="23:59"></div>
+          </div>
+          <div class="champ"><span style="font-weight:700;font-size:0.95rem" id="l-jours">Jours</span>
+            <div class="jours" id="t-jours" role="group" aria-labelledby="l-jours"></div></div>
+          <div class="deux-c">
+            <div class="champ"><label for="t-cap">Places</label><input type="number" id="t-cap" min="1" max="8" value="8"></div>
+            <div class="champ"><label for="t-seuil">Seuil de départ</label><input type="number" id="t-seuil" min="1" max="8" value="5"></div>
+          </div>
+          <div class="champ"><label for="t-prix">Prix de la place (€)</label><input type="number" id="t-prix" min="1" value="18"></div>
+        </form>
+        <div class="sortie-code">
+          <div><h3>Contrôle</h3><ul class="controle" id="t-controle" aria-live="polite"></ul></div>
+          <div><h3>Fichier de ton trajet</h3><pre class="code" id="t-json" tabindex="0"></pre></div>
+          <div><h3>Dans le format ouvert (extrait de stop_times.txt)</h3><pre class="code" id="t-gtfs" tabindex="0"></pre></div>
+          <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap"><button class="bouton secondaire" type="button" id="t-copier">Copier le fichier du trajet</button></div>
+          <p class="retour note" id="t-retour" role="status"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="pourquoi">
+    <div class="cadre">
+      <h2 class="titre-section">Pourquoi ce n'est pas un Uber de plus</h2>
+      <div class="table-defile">
+        <table class="donnees comparaison">
+          <thead><tr><th></th><th>Uber, Bolt</th><th>Comin, Maze</th><th>BlaBlaCar</th><th>Car régional</th><th>À la place</th></tr></thead>
+          <tbody>
+            <tr><td>Ce qui est vendu</td><td>ton heure, course par course</td><td>ton heure, avec une commission plus basse (Comin) ou partagée (Maze, coopérative)</td><td>un partage de frais, sans bénéfice</td><td>un siège, sur une ligne et un horaire fixes</td><td class="nous">une place sur ton trajet</td></tr>
+            <tr><td>Qui fixe le prix</td><td>la plateforme</td><td>la plateforme</td><td>le conducteur, dans une limite</td><td>l'autorité de transport</td><td class="nous">toi</td></tr>
+            <tr><td>Quand le véhicule roule</td><td>dès qu'une course tombe, souvent à vide entre deux</td><td>idem</td><td>quand le conducteur part de toute façon</td><td>à l'horaire, plein ou vide</td><td class="nous">au seuil de places payées</td></tr>
+            <tr><td>Où l'on te trouve</td><td>dans l'appli</td><td>dans l'appli</td><td>dans l'appli</td><td>dans les calculateurs d'itinéraires</td><td class="nous">par ton lien, les conciergeries et, en format ouvert, les calculateurs d'itinéraires</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:12px">Sources&nbsp;: Comin (commission d'environ 10&nbsp;%) et Maze (coopérative), Maddyness, 3 avril 2024. Temps à vide&nbsp;: depuis avril 2020, les chauffeurs Uber étudiés à Paris roulent autant ou plus à vide qu'en charge (étude digipower, PersonalData.IO).</p>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <div class="cadre">
+      <h2 class="titre-section">Le réseau, pas le code</h2>
+      <div class="trois">
+        <div><h3>Le code est libre</h3><p>Licence AGPL&nbsp;: tout le monde peut le lire, le corriger, l'héberger. Ce qui a de la valeur ne tient pas dans le code.</p></div>
+        <div><h3>Le registre est commun</h3><p>Chaque trajet est publié dans un même flux ouvert. Forker, c'est ajouter ton trajet à ce registre&nbsp;: tu rejoins le réseau au lieu de repartir de zéro.</p></div>
+        <div><h3>Les règles sont écrites une fois</h3><p>Réservation préalable, seuil, remboursement, pas d'horaire fixe&nbsp;: les règles du transport VTC sont dans le moteur et contrôlées à chaque publication.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pied">
+  <div class="cadre">
+    <span>Démonstration. Trajets et chauffeurs fictifs&nbsp;; Clé en Van est le premier trajet du réseau. Le format, son contrôle et ses tests sont dans le dossier <code>alaplace/</code> de ce dépôt.</span>
+    <span>À vérifier avant toute ouverture&nbsp;: validation juridique du mode «&nbsp;à la demande&nbsp;» par le bureau des transports publics particuliers ou un avocat.</span>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

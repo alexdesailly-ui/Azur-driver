@@ -1,0 +1,71 @@
+{
+  "id": "demo-chauffeur-2.aeroport-nuit",
+  "nom": "Derniers vols : aéroport de Marseille vers Aix-en-Provence",
+  "operateur": {
+    "id": "demo-chauffeur-2",
+    "nom": "Chauffeur de démonstration 2 (fictif)",
+    "registre_evtc": "à renseigner",
+    "site": "https://example.org/demo-chauffeur-2"
+  },
+  "mode": "a_la_demande",
+  "note_juridique": "Aucun horaire publié : chaque départ est composé à partir des réservations.",
+  "periode": {
+    "debut": "2026-12-01",
+    "fin": "2027-03-31",
+    "jours": [
+      "lundi",
+      "mardi",
+      "mercredi",
+      "jeudi",
+      "vendredi",
+      "samedi",
+      "dimanche"
+    ]
+  },
+  "zones": [
+    {
+      "id": "mrs-aeroport",
+      "nom": "Aéroport Marseille Provence",
+      "boite": [
+        5.2,
+        43.428,
+        5.232,
+        43.446
+      ]
+    },
+    {
+      "id": "aix-centre",
+      "nom": "Aix-en-Provence, centre et alentours",
+      "boite": [
+        5.4,
+        43.5,
+        5.48,
+        43.55
+      ]
+    }
+  ],
+  "trajets": [
+    {
+      "id": "nuit-mrs-aix",
+      "de": "mrs-aeroport",
+      "vers": "aix-centre",
+      "prise_en_charge": [
+        "22:30",
+        "25:30"
+      ],
+      "depose": [
+        "23:00",
+        "26:15"
+      ]
+    }
+  ],
+  "capacite": 4,
+  "seuil": 3,
+  "prix_place_eur": 25,
+  "reservation": {
+    "preavis_minutes": 120,
+    "ouverture_jours_avant": 60,
+    "url": "https://example.org/demo-chauffeur-2/nuit"
+  },
+  "note_zones": "Corridor fictif pour montrer l'assemblage de deux chauffeurs dans un même flux."
+}

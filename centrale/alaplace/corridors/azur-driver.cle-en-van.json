@@ -1,0 +1,26 @@
+{
+  "id": "azur-driver.cle-en-van",
+  "nom": "Clé en Van : gares et aéroport vers Vars et Risoul",
+  "operateur": {"id": "azur-driver", "nom": "Azur Driver (démonstration)", "registre_evtc": "à renseigner", "site": "https://example.org/azur-driver"},
+  "mode": "a_la_demande",
+  "note_juridique": "Aucun horaire publié : chaque départ est composé à partir des réservations et confirmé 7 jours avant s'il atteint le seuil.",
+  "periode": {"debut": "2026-12-19", "fin": "2027-03-06", "jours": ["samedi"]},
+  "zones": [
+    {"id": "aix-tgv", "nom": "Gare d'Aix-en-Provence TGV", "boite": [5.305, 43.448, 5.330, 43.462]},
+    {"id": "mrs-aeroport", "nom": "Aéroport Marseille Provence", "boite": [5.200, 43.428, 5.232, 43.446]},
+    {"id": "vars", "nom": "Vars (village et station)", "boite": [6.660, 44.530, 6.730, 44.600]},
+    {"id": "risoul", "nom": "Risoul (village et station 1850)", "boite": [6.610, 44.610, 6.670, 44.660]}
+  ],
+  "trajets": [
+    {"id": "montee-aix-vars", "de": "aix-tgv", "vers": "vars", "prise_en_charge": ["10:00", "17:00"], "depose": ["12:45", "20:30"]},
+    {"id": "montee-aix-risoul", "de": "aix-tgv", "vers": "risoul", "prise_en_charge": ["10:00", "17:00"], "depose": ["12:40", "20:30"]},
+    {"id": "montee-mrs-risoul", "de": "mrs-aeroport", "vers": "risoul", "prise_en_charge": ["10:00", "17:30"], "depose": ["12:51", "21:00"]},
+    {"id": "descente-vars-aix", "de": "vars", "vers": "aix-tgv", "prise_en_charge": ["07:00", "14:00"], "depose": ["09:45", "16:45"]},
+    {"id": "descente-risoul-mrs", "de": "risoul", "vers": "mrs-aeroport", "prise_en_charge": ["07:00", "14:00"], "depose": ["09:51", "16:51"]}
+  ],
+  "capacite": 8,
+  "seuil": 6,
+  "prix_place_eur": 55,
+  "reservation": {"jours_avant_min": 1, "heure_limite": "18:00", "ouverture_jours_avant": 90, "url": "https://example.org/azur-driver/cle-en-van"},
+  "note_zones": "Zones approximatives (rectangles), à redessiner avec les conciergeries."
+}
