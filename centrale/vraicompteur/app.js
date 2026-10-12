@@ -45,6 +45,14 @@
       $("sous-chiffre").textContent = "Il te reste " + fmt2.format(r.netCourse) + " € pour " + r.minutesTotales + " min (approche, course et attente après la dépose). Ton objectif : " + fmt.format(r.objectifHeure) + " €/h.";
     }
     r.raisons.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
+    var acc = $("accord"); while (acc.firstChild) acc.removeChild(acc.firstChild);
+    if (r.verdict !== "incomplet") {
+      M.reperesAccord(lireOffre()).forEach(function (x) {
+        var li = document.createElement("li"); li.className = x.respecte ? "ok" : "ko";
+        li.textContent = (x.respecte ? "Respecté : " : "Sous le repère : ") + x.repere;
+        acc.appendChild(li);
+      });
+    }
     return r;
   }
   CHAMPS.concat(["destination"]).forEach(function (k) { $(k).addEventListener("input", function () { $("c-" + k) && $("c-" + k).classList.remove("lu"); afficher(); }); });

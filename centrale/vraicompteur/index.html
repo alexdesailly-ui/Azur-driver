@@ -75,6 +75,11 @@ a { color: inherit; }
 .raisons li { padding-left: 16px; position: relative; }
 .raisons li.alerte { color: var(--ambre); font-weight: 600; }
 .raisons li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; background: var(--ambre); border-radius: 1px; }
+.accord-d { padding: 4px 22px 0; font-size: 0.92rem; }
+.accord-d summary { cursor: pointer; color: var(--doux); }
+.accord { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 4px; }
+.accord li.ok { color: var(--vert); }
+.accord li.ko { color: var(--rouge); }
 .onglets { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--trait); border-bottom: 1px solid var(--trait); margin-top: 14px; }
 .onglets button { all: unset; cursor: pointer; text-align: center; padding: 12px; font-weight: 600; color: var(--doux); border-bottom: 3px solid transparent; }
 .onglets button[aria-selected="true"] { color: var(--texte); border-bottom-color: var(--ambre); }
@@ -167,6 +172,8 @@ a { color: inherit; }
           </div>
         </div>
         <ul class="raisons" id="raisons"></ul>
+        <details class="accord-d"><summary>Repères des accords de la profession</summary><ul class="accord" id="accord" aria-live="polite"></ul>
+          <p class="note">Accords homologués par l'ARPE : 9 € net minimum par course, 1 € minimum par kilomètre, 30 € net par heure d'activité (Legisocial, 2 avril 2024 ; Uber, mai 2024). Repères indicatifs, définitions exactes à vérifier.</p></details>
         <div class="onglets" role="tablist" aria-label="Comment entrer l'offre">
           <button role="tab" id="o-capture" aria-controls="v-capture" aria-selected="true">Lire une capture</button>
           <button role="tab" id="o-saisie" aria-controls="v-saisie" aria-selected="false" tabindex="-1">Saisir l'offre</button>
@@ -245,7 +252,7 @@ a { color: inherit; }
       <h2>Tout se passe sur ton téléphone</h2>
       <div class="trois">
         <div><h3>Lecture sur l'appareil</h3><p>La capture est lue par un moteur de reconnaissance de texte qui tourne dans ton navigateur, sans connexion. Mesure de cette démo plus bas.</p></div>
-        <div><h3>Rien n'est stocké</h3><p>Ni la capture, ni le prénom du passager s'il apparaît. Seuls tes réglages restent, sur ton téléphone.</p></div>
+        <div><h3>Rien n'est stocké</h3><p>Ni la capture, ni le prénom du passager s'il apparaît : rien n'est conservé. Seuls tes réglages restent, sur ton téléphone.</p></div>
         <div><h3>Partage au choix</h3><p>Plus tard, si tu le veux&nbsp;: des moyennes anonymes par zone et par heure («&nbsp;après une dépose à l'aéroport à 23 h, on attend 25 minutes&nbsp;»), pour que tous les chauffeurs calculent mieux.</p></div>
       </div>
     </div>

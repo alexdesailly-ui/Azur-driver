@@ -60,3 +60,15 @@ test("semaine : revenu net réel à l'heure, charges fixes comprises", () => {
   assert.strictEqual(arrondi(s.net), 311);
   assert.strictEqual(arrondi(s.netHeure), 6.9);
 });
+
+test("repères de l'accord : une course à 7,80 € est sous les 9 € net minimum", () => {
+  const r = M.reperesAccord({ prixNet: 7.8, approcheMin: 11, approcheKm: 5.6, courseMin: 7, courseKm: 2.4 });
+  assert.strictEqual(r[0].respecte, false);
+  assert.strictEqual(r[1].respecte, false);   // 7,80 € pour 8 km
+  assert.strictEqual(r[2].respecte, false);   // 7,80 € pour 18 min = 26 €/h
+});
+
+test("repères de l'accord : une course à 12 € pour 6,5 km et 16 min les respecte", () => {
+  const r = M.reperesAccord({ prixNet: 12, approcheMin: 4, approcheKm: 1.5, courseMin: 12, courseKm: 5 });
+  assert.deepStrictEqual(r.map((x) => x.respecte), [true, true, true]);
+});

@@ -51,6 +51,19 @@
     };
   }
 
+  // Repères des accords homologués par l'ARPE (chauffeurs indépendants passant par une plateforme) :
+  // 9 € net minimum par course (depuis 2024), 1 € minimum par kilomètre, 30 € net minimum par heure d'activité (approche comprise).
+  // La garantie horaire s'apprécie sur une période, pas course par course : ici, c'est un repère, pas un contrôle.
+  var ACCORD = { parCourse: 9, parKm: 1, parHeureActivite: 30 };
+  function reperesAccord(offre) {
+    var km = offre.courseKm + offre.approcheKm, minutes = offre.approcheMin + offre.courseMin;
+    return [
+      { repere: "9 € net minimum par course", valeur: offre.prixNet, respecte: offre.prixNet >= ACCORD.parCourse },
+      { repere: "1 € minimum par kilomètre (approche comprise ici, définition à vérifier)", valeur: km > 0 ? offre.prixNet / km : null, respecte: km > 0 && offre.prixNet / km >= ACCORD.parKm },
+      { repere: "30 € net par heure d'activité, approche comprise (s'apprécie sur une période)", valeur: minutes > 0 ? offre.prixNet / minutes * 60 : null, respecte: minutes > 0 && offre.prixNet / minutes * 60 >= ACCORD.parHeureActivite }
+    ];
+  }
+
   // Le vrai revenu de la semaine, charges fixes comprises.
   function semaine(s) {
     var heures = Math.max(1, s.heures), cot = s.revenus * s.cotisations / 100, fkm = s.km * s.coutKm;
@@ -58,5 +71,5 @@
     return { brutHeure: s.revenus / heures, net: net, netHeure: net / heures, cotisations: cot, fraisKm: fkm, fixes: s.fixes };
   }
 
-  return { evaluerOffre: evaluerOffre, semaine: semaine, DESTINATIONS: DESTINATIONS, PROFIL_DEFAUT: PROFIL_DEFAUT };
+  return { evaluerOffre: evaluerOffre, semaine: semaine, reperesAccord: reperesAccord, ACCORD: ACCORD, DESTINATIONS: DESTINATIONS, PROFIL_DEFAUT: PROFIL_DEFAUT };
 });
