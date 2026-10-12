@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vrai Compteur — avant d'accepter, sache ce qu'il te reste</title>
+<meta name="description" content="Démonstration : le copilote du chauffeur VTC qui calcule, sur le téléphone, ce que chaque offre de course rapporte vraiment à l'heure.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f1317">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+/* Vrai Compteur — direction artistique
+   Monde du sujet : le tableau de bord de nuit et le taximètre. Sombre d'abord (le chauffeur travaille souvent de nuit).
+   Type : Barlow (dessinée d'après la signalisation routière) ; Barlow Condensed pour les chiffres du compteur.
+   Couleur : asphalte, ambre de taximètre pour la marque ; vert, orange, rouge réservés au verdict, toujours doublés d'un mot. */
+:root {
+  --fond: #0f1317; --panneau: #171d23; --panneau-2: #1e262e; --trait: #2a343e;
+  --texte: #e9eef2; --doux: #95a3af; --ambre: #ffb648; --ambre-fond: #2b2214;
+  --vert: #43c486; --orange: #f2a43a; --rouge: #ef5b52; --vert-fond: #12291f; --orange-fond: #2c2112; --rouge-fond: #2e1716;
+  --sur-ambre: #1a1205; --rayon: 10px; --large: 68rem;
+  --texte-f: "Barlow", "Helvetica Neue", Arial, sans-serif; --chiffres: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --fond: #f2f4f5; --panneau: #ffffff; --panneau-2: #f5f7f8; --trait: #d7dde2;
+    --texte: #12181d; --doux: #56626d; --ambre: #9a5b00; --ambre-fond: #fbf0dd;
+    --vert: #18794a; --orange: #a65a00; --rouge: #c0332b; --vert-fond: #e3f4ea; --orange-fond: #fbeedd; --rouge-fond: #fbe4e2; --sur-ambre: #ffffff; color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --fond: #f2f4f5; --panneau: #ffffff; --panneau-2: #f5f7f8; --trait: #d7dde2;
+  --texte: #12181d; --doux: #56626d; --ambre: #9a5b00; --ambre-fond: #fbf0dd;
+  --vert: #18794a; --orange: #a65a00; --rouge: #c0332b; --vert-fond: #e3f4ea; --orange-fond: #fbeedd; --rouge-fond: #fbe4e2; --sur-ambre: #ffffff; color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--fond); color: var(--texte); font-family: var(--texte-f); font-size: 1.05rem; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0; line-height: 1.1; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ambre); outline-offset: 3px; }
+.cadre { max-width: var(--large); margin: 0 auto; padding-inline: clamp(16px, 4vw, 36px); }
+.bandeau { background: var(--ambre-fond); color: var(--texte); font-size: 0.86rem; }
+.bandeau .cadre { padding-block: 8px; display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; }
+.bandeau b { color: var(--ambre); }
+.entete .cadre { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding-block: 16px; }
+.marque { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 1.2rem; }
+.marque svg { width: 30px; height: 30px; color: var(--ambre); }
+.nav { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.95rem; }
+.nav a { color: var(--doux); text-decoration: none; }
+.nav a:hover { color: var(--texte); text-decoration: underline; text-underline-offset: 4px; }
+
+.une { padding-block: clamp(20px, 4vw, 40px) clamp(36px, 6vw, 64px); }
+.une .cadre { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+@media (max-width: 920px) { .une .cadre { grid-template-columns: 1fr; } }
+.une h1 { font-size: clamp(2.2rem, 5.2vw, 3.6rem); font-weight: 700; letter-spacing: -0.01em; max-width: 13ch; }
+.une .accroche { color: var(--doux); font-size: 1.12rem; margin-top: 16px; max-width: 40ch; }
+.droit { margin-top: 22px; border-left: 3px solid var(--ambre); padding: 4px 0 4px 14px; font-size: 0.95rem; max-width: 46ch; }
+.droit b { color: var(--ambre); font-weight: 600; }
+
+/* Le compteur : élément signature */
+.compteur { background: var(--panneau); border: 1px solid var(--trait); border-radius: 16px; overflow: hidden; min-width: 0; }
+.cadran { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: center; padding: 22px; background: var(--panneau-2); border-bottom: 1px solid var(--trait); }
+.feu { width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 0.82rem; text-align: center; line-height: 1.05;
+  border: 3px solid var(--trait); color: var(--doux); background: transparent; }
+.feu.vert { border-color: var(--vert); background: var(--vert-fond); color: var(--vert); }
+.feu.orange { border-color: var(--orange); background: var(--orange-fond); color: var(--orange); }
+.feu.rouge { border-color: var(--rouge); background: var(--rouge-fond); color: var(--rouge); }
+@media (prefers-reduced-motion: no-preference) { .feu { transition: background-color .3s, border-color .3s, color .3s; } }
+.chiffre { font-family: var(--chiffres); font-weight: 700; font-size: clamp(2.8rem, 9vw, 4.2rem); line-height: 0.95; font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+.chiffre small { font-size: 0.42em; color: var(--doux); font-weight: 600; margin-left: 4px; }
+.sous-chiffre { color: var(--doux); font-size: 0.98rem; margin-top: 6px; }
+.raisons { list-style: none; margin: 0; padding: 14px 22px 4px; display: grid; gap: 6px; font-size: 0.95rem; }
+.raisons li { padding-left: 16px; position: relative; }
+.raisons li.alerte { color: var(--ambre); font-weight: 600; }
+.raisons li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; background: var(--ambre); border-radius: 1px; }
+.onglets { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--trait); border-bottom: 1px solid var(--trait); margin-top: 14px; }
+.onglets button { all: unset; cursor: pointer; text-align: center; padding: 12px; font-weight: 600; color: var(--doux); border-bottom: 3px solid transparent; }
+.onglets button[aria-selected="true"] { color: var(--texte); border-bottom-color: var(--ambre); }
+.onglets button:focus-visible { outline: 3px solid var(--ambre); outline-offset: -3px; }
+.volet { padding: 18px 22px 22px; display: grid; gap: 14px; }
+.volet[hidden] { display: none; }
+.depot { display: grid; gap: 10px; justify-items: start; }
+.fichier { display: inline-flex; align-items: center; gap: 8px; background: var(--ambre); color: var(--sur-ambre); font-weight: 700; padding: 12px 18px; border-radius: var(--rayon); cursor: pointer; }
+.fichier input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.fichier:focus-within { outline: 3px solid var(--texte); outline-offset: 3px; }
+.vignettes { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; width: 100%; }
+@media (max-width: 520px) { .vignettes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.vignettes button { all: unset; cursor: pointer; border: 2px solid var(--trait); border-radius: 8px; overflow: hidden; aspect-ratio: 720 / 520; max-width: 100%; }
+.vignettes button[aria-pressed="true"] { border-color: var(--ambre); }
+.vignettes button:focus-visible { outline: 3px solid var(--ambre); outline-offset: 2px; }
+.vignettes img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.etat { font-size: 0.88rem; color: var(--doux); min-height: 1.4em; }
+.etat b { color: var(--texte); font-weight: 600; }
+.champs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.champ { display: grid; gap: 4px; min-width: 0; align-content: end; }
+.champ label { font-size: 0.86rem; color: var(--doux); font-weight: 500; }
+.champ input, .champ select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--trait); background: var(--fond); color: var(--texte); font: inherit; font-variant-numeric: tabular-nums; }
+.champ.lu input { border-color: var(--ambre); }
+.champ.plein { grid-column: 1 / -1; }
+
+.bloc { padding-block: clamp(40px, 6vw, 72px); border-top: 1px solid var(--trait); }
+.bloc h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 700; max-width: 24ch; }
+.chapo { color: var(--doux); max-width: 60ch; margin-top: 10px; }
+.deux { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); margin-top: 24px; align-items: start; }
+@media (max-width: 820px) { .deux { grid-template-columns: 1fr; } }
+.carte { background: var(--panneau); border: 1px solid var(--trait); border-radius: 14px; padding: 20px; display: grid; gap: 12px; min-width: 0; }
+.cascade { display: grid; gap: 7px; }
+.cascade .l { display: grid; grid-template-columns: 9rem minmax(0, 1fr) 5rem; gap: 10px; align-items: center; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+.cascade .p { height: 12px; background: var(--panneau-2); border-radius: 3px; position: relative; overflow: hidden; }
+.cascade .p i { position: absolute; top: 0; bottom: 0; background: var(--doux); }
+.cascade .l.net .p i { background: var(--ambre); }
+.cascade .l span:last-child { text-align: right; }
+.grand { font-family: var(--chiffres); font-weight: 700; font-size: 2.6rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.grand.ambre { color: var(--ambre); }
+.note { font-size: 0.86rem; color: var(--doux); }
+.trois { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 22px 36px; margin-top: 24px; }
+.trois h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.trois p { color: var(--doux); }
+.offres { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 18px; margin-top: 24px; }
+.offre { background: var(--panneau); border: 1px solid var(--trait); border-radius: 14px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+.offre.mise { border-color: var(--ambre); }
+.offre h3 { font-size: 1.15rem; }
+.offre .prix { font-family: var(--chiffres); font-size: 2.4rem; font-weight: 700; line-height: 1; }
+.offre ul { margin: 0; padding-left: 1.1em; color: var(--doux); display: grid; gap: 4px; }
+.preuve { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 20px 36px; margin-top: 22px; }
+.preuve h3 { font-size: 1rem; }
+.preuve ul { margin: 8px 0 0; padding-left: 1.1em; color: var(--doux); display: grid; gap: 5px; }
+.preuve .non h3 { color: var(--rouge); }
+.pied { border-top: 1px solid var(--trait); padding-block: 28px; font-size: 0.86rem; color: var(--doux); }
+.pied .cadre { display: grid; gap: 6px; }
+</style>
+</head>
+<body>
+<div class="bandeau" role="note"><div class="cadre"><span><b>Démonstration.</b> Captures d'offre fictives, aucune donnée envoyée, aucune plateforme connectée.</span><span>Nom de travail provisoire : Vrai Compteur</span></div></div>
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="#" aria-label="Vrai Compteur, accueil">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M8 19 V13 M12 19 V15 M16 19 V11 M20 19 V16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="24.5" cy="12" r="2" fill="currentColor"/></svg>
+      <span>Vrai Compteur</span>
+    </a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="#semaine">Ta semaine</a>
+      <a href="#droit">Ton droit</a>
+      <a href="#abonnement">Abonnement</a>
+      <a href="#preuve">Ce que la démo prouve</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="une">
+    <div class="cadre">
+      <div>
+        <h1>Avant d'accepter, sache ce qu'il te reste.</h1>
+        <p class="accroche">Une offre tombe, tu as quelques secondes. Vrai Compteur lit l'offre sur ton écran et te dit ce que la course te rapporte vraiment à l'heure&nbsp;: approche, frais, cotisations et attente après la dépose comprises. Le calcul se fait sur ton téléphone, rien ne part.</p>
+        <p class="droit" id="droit-court">La plateforme doit t'afficher la distance et le prix net avant que tu acceptes, et <b>tu peux refuser sans pénalité</b> (code des transports, article L.1326-2). Vrai Compteur t'aide à t'en servir&nbsp;; il n'accepte et ne refuse jamais à ta place.</p>
+      </div>
+
+      <div class="compteur" aria-label="Le compteur">
+        <div class="cadran" aria-live="polite">
+          <div class="feu" id="feu">en attente</div>
+          <div>
+            <div class="chiffre" id="net-heure">— <small>€/h net</small></div>
+            <p class="sous-chiffre" id="sous-chiffre">Choisis une capture d'offre ou saisis-la.</p>
+          </div>
+        </div>
+        <ul class="raisons" id="raisons"></ul>
+        <div class="onglets" role="tablist" aria-label="Comment entrer l'offre">
+          <button role="tab" id="o-capture" aria-controls="v-capture" aria-selected="true">Lire une capture</button>
+          <button role="tab" id="o-saisie" aria-controls="v-saisie" aria-selected="false" tabindex="-1">Saisir l'offre</button>
+        </div>
+        <div class="volet" id="v-capture" role="tabpanel" aria-labelledby="o-capture">
+          <div class="depot">
+            <label class="fichier">Choisir une capture d'écran<input type="file" id="capture" accept="image/*"></label>
+            <span class="note">Ou essaie une offre d'exemple (fictive)&nbsp;:</span>
+            <div class="vignettes" id="vignettes"></div>
+          </div>
+          <p class="etat" id="etat" role="status"></p>
+        </div>
+        <div class="volet" id="v-saisie" role="tabpanel" aria-labelledby="o-saisie" hidden>
+          <form class="champs" id="form-offre" novalidate>
+            <div class="champ" id="c-prixNet"><label for="prixNet">Prix net affiché (€)</label><input type="number" id="prixNet" step="0.1" min="0" inputmode="decimal"></div>
+            <div class="champ"><label for="destination">Zone de dépose</label>
+              <select id="destination"><option value="centre">Centre (attente courte)</option><option value="peripherie">Périphérie</option><option value="isole">Lieu isolé, aéroport</option></select></div>
+            <div class="champ" id="c-approcheMin"><label for="approcheMin">Approche (min)</label><input type="number" id="approcheMin" min="0" inputmode="numeric"></div>
+            <div class="champ" id="c-approcheKm"><label for="approcheKm">Approche (km)</label><input type="number" id="approcheKm" step="0.1" min="0" inputmode="decimal"></div>
+            <div class="champ" id="c-courseMin"><label for="courseMin">Course (min)</label><input type="number" id="courseMin" min="0" inputmode="numeric"></div>
+            <div class="champ" id="c-courseKm"><label for="courseKm">Course (km)</label><input type="number" id="courseKm" step="0.1" min="0" inputmode="decimal"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="profil">
+    <div class="cadre">
+      <h2>Tes chiffres, une fois pour toutes</h2>
+      <p class="chapo">Le verdict dépend de ton véhicule et de ton objectif. Valeurs d'exemple&nbsp;: mets les tiennes, elles restent sur ton téléphone.</p>
+      <form class="champs carte" id="form-profil" style="margin-top:20px;max-width:42rem" novalidate>
+        <div class="champ"><label for="coutKm">Frais au kilomètre : énergie, entretien, pneus (€)</label><input type="number" id="coutKm" step="0.01" min="0" value="0.15" inputmode="decimal"></div>
+        <div class="champ"><label for="cotisations">Cotisations sociales (% du prix)</label><input type="number" id="cotisations" step="0.5" min="0" max="60" value="21" inputmode="decimal"></div>
+        <div class="champ plein"><label for="objectifHeure">Ce que tu veux gagner net à l'heure, avant charges fixes (€)</label><input type="number" id="objectifHeure" step="1" min="1" value="18" inputmode="numeric"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="bloc" id="semaine">
+    <div class="cadre">
+      <h2>Ta semaine, à l'euro près</h2>
+      <p class="chapo">Compte toutes tes heures connectées, pas seulement celles avec un client. C'est le chiffre que les plateformes ne t'affichent pas.</p>
+      <div class="deux">
+        <form class="champs carte" id="form-semaine" novalidate>
+          <div class="champ"><label for="s-heures">Heures connecté</label><input type="number" id="s-heures" min="1" value="45" inputmode="numeric"></div>
+          <div class="champ"><label for="s-revenus">Revenus de la semaine, après commission (€)</label><input type="number" id="s-revenus" min="0" step="10" value="900" inputmode="decimal"></div>
+          <div class="champ"><label for="s-km">Kilomètres, à vide compris</label><input type="number" id="s-km" min="0" step="10" value="1000" inputmode="numeric"></div>
+          <div class="champ"><label for="s-fixes">Charges fixes de la semaine : véhicule, assurance (€)</label><input type="number" id="s-fixes" min="0" step="10" value="250" inputmode="decimal"></div>
+        </form>
+        <div class="carte" aria-live="polite">
+          <span class="note">Ton heure affichée, après commission</span>
+          <span class="grand" id="s-brut">20 €/h</span>
+          <span class="note">Ce qu'il te reste vraiment, charges fixes comprises</span>
+          <span class="grand ambre" id="s-net">7 €/h</span>
+          <div class="cascade" id="s-cascade" role="img" aria-label="Des revenus au revenu net"></div>
+          <p class="note">Repère : 10 à 34 € de l'heure brut sur tout le temps de travail pour 15 chauffeurs Uber étudiés à Paris de 2019 à 2022 (étude digipower, PersonalData.IO). Revenu horaire réel en baisse de 9 à 11 % chez Uber et Bolt entre 2021 et 2025 (rapport ARPE 2026).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="droit">
+    <div class="cadre">
+      <h2>Ton droit de dire non</h2>
+      <div class="trois">
+        <div><h3>Tu vois avant d'accepter</h3><p>La plateforme doit afficher la distance et le prix minimal garanti, après commission, quand elle te propose une course (code des transports, art. L.1326-2).</p></div>
+        <div><h3>Tu refuses sans pénalité</h3><p>Le même article interdit toute pénalité pour un refus, et toute rupture du contrat pour ce motif.</p></div>
+        <div><h3>Vrai Compteur ne décide pas</h3><p>Il calcule et affiche. Il n'accepte, ne refuse et ne touche jamais l'appli de la plateforme&nbsp;: c'est toi qui appuies.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="vie-privee">
+    <div class="cadre">
+      <h2>Tout se passe sur ton téléphone</h2>
+      <div class="trois">
+        <div><h3>Lecture sur l'appareil</h3><p>La capture est lue par un moteur de reconnaissance de texte qui tourne dans ton navigateur, sans connexion. Mesure de cette démo plus bas.</p></div>
+        <div><h3>Rien n'est stocké</h3><p>Ni la capture, ni le prénom du passager s'il apparaît. Seuls tes réglages restent, sur ton téléphone.</p></div>
+        <div><h3>Partage au choix</h3><p>Plus tard, si tu le veux&nbsp;: des moyennes anonymes par zone et par heure («&nbsp;après une dépose à l'aéroport à 23 h, on attend 25 minutes&nbsp;»), pour que tous les chauffeurs calculent mieux.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="abonnement">
+    <div class="cadre">
+      <h2>Gratuit pour compter, payant pour aller vite</h2>
+      <div class="offres">
+        <div class="offre"><h3>Compteur</h3><span class="prix">0 €</span><ul><li>Ta semaine à l'euro près</li><li>Saisie d'une offre, verdict immédiat</li><li>Lecture d'une capture d'écran</li></ul></div>
+        <div class="offre mise"><h3>Copilote</h3><span class="prix">9,90 €<small style="font-size:0.4em;color:var(--doux)"> par mois</small></span><ul><li>Lecture automatique de l'offre à l'écran, au moment où elle arrive</li><li>Attentes par zone et par heure, calibrées par les chauffeurs</li><li>Prix de bêta, à confirmer avec les testeurs</li></ul></div>
+      </div>
+      <p class="note" style="margin-top:14px">Repère de prix : 5 à 19 dollars par mois pour les applis équivalentes aux États-Unis (The Hustle, 28 juillet 2025).</p>
+    </div>
+  </section>
+
+  <section class="bloc" id="preuve">
+    <div class="cadre">
+      <h2>Ce que cette démo prouve, et ce qu'elle ne prouve pas</h2>
+      <div class="preuve">
+        <div><h3>Prouvé ici</h3><ul id="preuve-mesure"><li>Le calcul du net à l'heure et du verdict, testé sur des cas écrits à la main.</li><li>La lecture d'une capture sur l'appareil : la mesure s'affiche ici après la première lecture.</li></ul></div>
+        <div class="non"><h3>Pas encore prouvé</h3><ul><li>La lecture des vraies offres de chaque plateforme : à calibrer sur des captures de chauffeurs.</li><li>La lecture automatique au moment où l'offre arrive : appli Android à construire.</li><li>Que les chauffeurs gagnent plus et paient : bêta de 30 chauffeurs, 4 semaines.</li></ul></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pied">
+  <div class="cadre">
+    <span>Démonstration. Les captures d'offre sont fictives et génériques&nbsp;: aucune charte de plateforme n'est reproduite. Aucune plateforme n'est connectée.</span>
+    <span>Les bonnes courses à la place (Clé en Van, réseau À la place) pourront être proposées dans le compteur&nbsp;: le dossier <code>centrale/</code> de ce dépôt en contient la démonstration.</span>
+  </div>
+</footer>
+
+<script src="moteur.js"></script>
+<script src="lecteur.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

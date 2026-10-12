@@ -36,4 +36,4 @@ Des calculateurs d'itinéraires lisent GTFS-Flex (OpenTripPlanner depuis 2020 se
 - Le validateur officiel MobilityData n'a pas pu être téléchargé le 12/10/2026 (réseau) : **à lancer** sur le flux avant toute publication.
 
 ## Forker, c'est rejoindre
-Le code est sous licence AGPL. Un chauffeur ou un développeur qui forke publie ses trajets dans le même format : ils s'assemblent dans le même flux sans collision. Ce qui a de la valeur ne se copie pas avec le code : le registre commun des trajets, les règles écrites une fois pour tous, et les données réelles de prévente.
+Licence prévue : GNU AGPL v3 (choix d'Alex, 12/10/2026) ; le fichier de licence est à ajouter avant toute publication. Un chauffeur ou un développeur qui forke publie ses trajets dans le même format : ils s'assemblent dans le même flux sans collision. Ce qui a de la valeur ne se copie pas avec le code : le registre commun des trajets, les règles écrites une fois pour tous, et les données réelles de prévente.

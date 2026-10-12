@@ -1,0 +1,10 @@
+{
+  "name": "Vrai Compteur (démonstration)",
+  "short_name": "Vrai Compteur",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f1317",
+  "theme_color": "#0f1317",
+  "description": "Ce que chaque offre de course rapporte vraiment à l'heure, calculé sur ton téléphone."
+}

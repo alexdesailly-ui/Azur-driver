@@ -1,0 +1,20 @@
+{
+  "ecrit_le": "2026-10-13T00:09",
+  "regle": "Écrit AVANT de construire la preuve de Vrai Compteur, après l'autocritique demandée par Alex (13/10, 00:03).",
+  "concept": "Un copilote pour chauffeurs VTC : quand une offre de course arrive, il lit l'écran et calcule sur le téléphone ce que la course rapporte vraiment à l'heure, approche, frais, cotisations et attente après la dépose compris. Il ne fait qu'éclairer la décision : le chauffeur exerce lui-même son droit de refus (code des transports, art. L.1326-2).",
+  "hypotheses": {
+    "valeur": "Une part importante des offres acceptées rapporte moins que l'objectif horaire du chauffeur une fois l'approche, les frais et l'attente comptés ; le savoir en 2 secondes change ses choix.",
+    "technique": "Une capture d'offre se lit sur l'appareil, sans réseau, assez vite pour tenir dans la fenêtre de 15 secondes d'une offre.",
+    "demande": "Des chauffeurs français s'inscrivent et paieraient : les applis équivalentes sont payées 5 à 19 $ par mois aux États-Unis.",
+    "copie": "Ce qui a de la valeur ne se copie pas avec le code : les lecteurs d'offres maintenus pour les plateformes françaises et les données agrégées de recharge par zone et par heure."
+  },
+  "criteres_de_reussite_cette_nuit": {
+    "technique": "Lecture correcte de prix, durées et distances sur au moins 90 % des champs des captures d'exemple ; temps de lecture médian sous 3 s en navigateur ; aucun appel réseau pendant la lecture.",
+    "moteur": "Tests automatiques du calcul (net par course, net à l'heure, verdict) sur des cas écrits à la main avant le code."
+  },
+  "criteres_de_reussite_terrain": {
+    "demande": "Au moins 300 inscriptions en 21 jours après publication d'Alex dans 3 groupes de chauffeurs. Échec : moins de 50.",
+    "valeur": "Bêta de 30 chauffeurs pendant 4 semaines : au moins +10 % de revenu net à l'heure mesuré (compteur de la semaine avant / après). Échec : moins de +3 %.",
+    "paiement": "Au moins 10 % des bêta-testeurs acceptent un abonnement à 9,90 € par mois à la fin de la bêta."
+  }
+}

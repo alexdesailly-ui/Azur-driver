@@ -1,0 +1,56 @@
+{
+ "note": "Captures fictives et génériques, générées par outils/generer_exemples.py ; aucune charte réelle imitée.",
+ "offres": {
+  "offre-1": {
+   "prixNet": 12.0,
+   "approcheMin": 4,
+   "approcheKm": 1.5,
+   "courseMin": 12,
+   "courseKm": 5.0
+  },
+  "offre-2": {
+   "prixNet": 9.0,
+   "approcheMin": 14,
+   "approcheKm": 7.0,
+   "courseMin": 9,
+   "courseKm": 4.0
+  },
+  "offre-3": {
+   "prixNet": 38.0,
+   "approcheMin": 6,
+   "approcheKm": 3.0,
+   "courseMin": 32,
+   "courseKm": 30.0
+  },
+  "offre-4": {
+   "prixNet": 18.0,
+   "approcheMin": 8,
+   "approcheKm": 4.0,
+   "courseMin": 20,
+   "courseKm": 12.0
+  },
+  "offre-5": {
+   "prixNet": 64.5,
+   "approcheMin": 3,
+   "approcheKm": 0.9,
+   "courseMin": 65,
+   "courseKm": 62.3
+  },
+  "offre-6": {
+   "prixNet": 7.8,
+   "approcheMin": 11,
+   "approcheKm": 5.6,
+   "courseMin": 7,
+   "courseKm": 2.4
+  }
+ },
+ "destinations": {
+  "offre-1": "centre",
+  "offre-2": "centre",
+  "offre-3": "isole",
+  "offre-4": "peripherie",
+  "offre-5": "isole",
+  "offre-6": "peripherie"
+ },
+ "note_destinations": "Zone de dépose choisie par le chauffeur dans la démonstration ; à terme déduite de l'adresse affichée."
+}

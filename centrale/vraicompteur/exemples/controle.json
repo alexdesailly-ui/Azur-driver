@@ -1,0 +1,47 @@
+{
+ "note": "Jeu de contrôle écrit après la mise au point du lecteur, jamais utilisé pour le régler.",
+ "offres": {
+  "controle-1": {
+   "prixNet": 23.4,
+   "approcheMin": 5,
+   "approcheKm": 2.2,
+   "courseMin": 18,
+   "courseKm": 9.8
+  },
+  "controle-2": {
+   "prixNet": 15.6,
+   "approcheMin": 9,
+   "approcheKm": 4.8,
+   "courseMin": 16,
+   "courseKm": 8.1
+  },
+  "controle-3": {
+   "prixNet": 112.0,
+   "approcheMin": 2,
+   "approcheKm": 0.6,
+   "courseMin": 100,
+   "courseKm": 141.0
+  },
+  "controle-4": {
+   "prixNet": 6.9,
+   "approcheMin": 12,
+   "approcheKm": 6.3,
+   "courseMin": 6,
+   "courseKm": 2.1
+  },
+  "controle-5": {
+   "prixNet": 31.2,
+   "approcheMin": 7,
+   "approcheKm": 3.4,
+   "courseMin": 28,
+   "courseKm": 24.7
+  },
+  "controle-6": {
+   "prixNet": 10.4,
+   "approcheMin": 6,
+   "approcheKm": 2.9,
+   "courseMin": 10,
+   "courseKm": 4.6
+  }
+ }
+}

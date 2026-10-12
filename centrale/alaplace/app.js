@@ -128,6 +128,39 @@
     try { navigator.clipboard.writeText(t).then(function () { $("t-retour").textContent = "Fichier du trajet copié."; }, selectionner); } catch (e) { selectionner(); }
   });
 
+  /* ---------- Compteur de vérité : le vrai revenu horaire, calculé dans le navigateur ---------- */
+  function lireNb(id, def) { var v = parseFloat(String($(id).value).replace(",", ".")); return isFinite(v) ? v : def; }
+  function verite() {
+    var h = Math.max(1, lireNb("v-heures", 1)), rev = Math.max(0, lireNb("v-revenus", 0)), km = Math.max(0, lireNb("v-km", 0));
+    var ckm = Math.max(0, lireNb("v-ckm", 0)), fixes = Math.max(0, lireNb("v-fixes", 0)), pct = Math.min(60, Math.max(0, lireNb("v-cotis", 0)));
+    var fkm = km * ckm, cot = rev * pct / 100, net = rev - fkm - fixes - cot;
+    $("v-brut").textContent = euros.format(rev / h) + " €/h";
+    $("v-net").textContent = euros.format(net / h) + " €/h";
+    var lignes = [["Revenus", 0, rev, rev, ""], ["Frais au kilomètre", rev - fkm, fkm, -fkm, ""], ["Charges fixes", rev - fkm - fixes, fixes, -fixes, ""],
+                  ["Cotisations", rev - fkm - fixes - cot, cot, -cot, ""], ["Il te reste", 0, Math.max(0, net), net, "net"]];
+    var c = $("v-cascade"); while (c.firstChild) c.removeChild(c.firstChild);
+    var echelle = rev > 0 ? rev : 1;
+    lignes.forEach(function (l) {
+      var d = document.createElement("div"); d.className = "l " + l[4];
+      var a = document.createElement("span"); a.textContent = l[0];
+      var piste = document.createElement("span"); piste.className = "p";
+      var barre = document.createElement("i");
+      barre.style.left = Math.max(0, 100 * l[1] / echelle) + "%"; barre.style.width = Math.max(0, Math.min(100, 100 * l[2] / echelle)) + "%";
+      piste.appendChild(barre);
+      var v = document.createElement("span"); v.textContent = (l[3] < 0 ? "− " : "") + euros.format(Math.abs(l[3])) + " €";
+      d.appendChild(a); d.appendChild(piste); d.appendChild(v); c.appendChild(d);
+    });
+    return rev / h;
+  }
+  ["v-heures", "v-revenus", "v-km", "v-ckm", "v-fixes", "v-cotis"].forEach(function (id) { $(id).addEventListener("input", verite); });
+  $("form-verite").addEventListener("submit", function (e) { e.preventDefault(); });
+  $("v-utiliser").addEventListener("click", function () {
+    $("k-uber").value = String(Math.round(verite()));
+    calculer();
+    $("calcul").scrollIntoView({ block: "start" });
+  });
+
   calculer();
   fiche();
+  verite();
 })();
