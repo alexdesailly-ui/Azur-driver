@@ -73,11 +73,27 @@
     var local = { script: "vendor/tesseract.min.js", worker: "vendor/worker.min.js", core: "vendor/core", lang: "vendor/lang" };
     var cdn = { script: "https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js", worker: "https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/worker.min.js",
       core: "https://cdn.jsdelivr.net/npm/tesseract.js-core@6.0.0", lang: "https://cdn.jsdelivr.net/npm/@tesseract.js-data/fra@1.0.0/4.0.0_best_int" };
-    ocr = fetch(local.worker, { method: "HEAD" }).then(function (r) { return r.ok ? local : cdn; }, function () { return cdn; })
-      .then(function (src) {
-        return charger(src.script).then(function () {
-          return window.Tesseract.createWorker("fra", 1, { workerPath: src.worker, corePath: src.core, langPath: src.lang, gzip: true, workerBlobURL: src !== local });
-        }).then(function (w) { return { worker: w, source: src === local ? "fichiers de la page" : "CDN au premier chargement" }; });
+    function existe(u) { return fetch(u, { method: "HEAD" }).then(function (r) { return r.ok; }, function () { return false; }); }
+    var base = new URL(".", location.href).href;
+    ocr = Promise.all([existe(local.worker), existe(local.lang + "/fra.traineddata.gz"), existe(local.lang + "/fra-traineddata-gz.js")])
+      .then(function (t) {
+        if (!t[0]) return { src: cdn, workerPath: cdn.worker, blob: true };
+        if (t[1]) return { src: local, workerPath: local.worker, blob: false };
+        if (t[2]) {
+          // Hébergement qui ne sert pas les fichiers .gz : les données de langue voyagent dans un .js, et un petit
+          // travailleur les sert au moteur de lecture à la place du réseau. Tout reste sur l'appareil.
+          var code = "importScripts(" + JSON.stringify(base + "vendor/lang/fra-traineddata-gz.js") + ");" +
+            "var b=atob(self.FRA_GZ_B64),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);" +
+            "var f0=self.fetch.bind(self);self.fetch=function(x,o){return String(x).indexOf('fra.traineddata')>=0?Promise.resolve(new Response(u.slice(0).buffer,{status:200})):f0(x,o);};" +
+            "importScripts(" + JSON.stringify(base + local.worker) + ");";
+          return { src: local, workerPath: URL.createObjectURL(new Blob([code], { type: "text/javascript" })), blob: false };
+        }
+        return { src: cdn, workerPath: cdn.worker, blob: true };
+      })
+      .then(function (c) {
+        return charger(c.src.script).then(function () {
+          return window.Tesseract.createWorker("fra", 1, { workerPath: c.workerPath, corePath: new URL(c.src.core, location.href).href, langPath: new URL(c.src.lang, location.href).href, gzip: true, workerBlobURL: c.blob });
+        }).then(function (w) { return { worker: w, source: c.src === local ? "fichiers de la page" : "CDN au premier chargement" }; });
       });
     ocr.catch(function () { ocr = null; });
     return ocr;

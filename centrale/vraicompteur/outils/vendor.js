@@ -15,3 +15,8 @@ for (const [src, dst] of fichiers) {
   fs.copyFileSync(path.join(nm, src), d);
   console.log(dst, fs.statSync(d).size);
 }
+
+// Variante pour les hébergements qui ne servent pas les .gz : données de langue en base64 dans un .js.
+const gz = fs.readFileSync(path.join(v, "lang/fra.traineddata.gz"));
+fs.writeFileSync(path.join(v, "lang/fra-traineddata-gz.js"), "self.FRA_GZ_B64=" + JSON.stringify(gz.toString("base64")) + ";\n");
+console.log("lang/fra-traineddata-gz.js", fs.statSync(path.join(v, "lang/fra-traineddata-gz.js")).size);
