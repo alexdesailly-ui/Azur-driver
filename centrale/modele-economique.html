@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clé en Van — modèle économique</title>
+<meta name="description" content="Modèle économique de Clé en Van, version publique : qui paie quoi, options écartées, simulateur à valeurs d'exemple, déploiement national.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700;800&family=Overpass+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/centrale.css">
+</head>
+<body>
+<div class="demo-bandeau" role="note">
+  <div class="cadre"><span><strong>Version publique.</strong> Le simulateur part de valeurs d'exemple, pas des chiffres du projet.</span><span>Nom de travail provisoire : Clé en Van</span></div>
+</div>
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="index.html" aria-label="Clé en Van, accueil">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 26 L13 10 L18 17 L21 13 L29 26 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="23" cy="7" r="3.2" fill="none" stroke="#c2362b" stroke-width="2.4"/><path d="M23 10.2 V16 M23 13.5 H25.5" stroke="#c2362b" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Clé en Van <small>modèle économique</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="index.html">Vitrine</a>
+      <a href="#qui-paie">Qui paie quoi</a>
+      <a href="#options">Options étudiées</a>
+      <a href="#simulateur">Simulateur</a>
+      <a href="#deploiement">Déploiement</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="cadre" style="display:grid;gap:18px">
+      <h1 style="font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;max-width:22ch">Le transfert se vend là où le voyageur réserve déjà : dans sa location.</h1>
+      <p class="chapo" style="font-size:1.15rem">Clé en Van ne cherche pas de clients sur une application de plus. Les conciergeries de Vars et de Risoul glissent un lien dans leur message d'avant l'arrivée ; les voyageurs sans voiture réservent une place dans un van, depuis Aix-en-Provence TGV ou l'aéroport de Marseille. Sur ce trajet, Uber n'existe pas : le vrai concurrent, c'est la voiture, le car du week-end, ou un transfert privé payé plein tarif.</p>
+    </div>
+  </section>
+
+  <section id="qui-paie">
+    <div class="cadre">
+      <h2 class="titre-section">Qui paie quoi</h2>
+      <div class="table-defile">
+        <table class="donnees">
+          <thead><tr><th scope="col">Acteur</th><th scope="col">Ce qu'il fait</th><th scope="col">Ce qu'il paie ou reçoit</th></tr></thead>
+          <tbody>
+            <tr><td>Voyageur</td><td>Réserve sa place depuis le lien de sa conciergerie, indique son train ou son vol</td><td>Paie sa place, avec un acompte rendu si le van ne part pas</td></tr>
+            <tr><td>Conciergerie ou agence</td><td>Ajoute un lien à son message d'avant l'arrivée</td><td>Reçoit une commission sur chaque place réservée par ses voyageurs</td></tr>
+            <tr><td>Chauffeur VTC partenaire</td><td>Fait la montée et la descente de la journée avec son van</td><td>Fixe lui-même le prix de sa journée ; le van ne part que si ce prix est couvert</td></tr>
+            <tr><td>Clé en Van</td><td>Compose les vans, suit trains et vols, prévient en cas de retard</td><td>Garde une part de chaque place</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="encart" style="margin-top:20px">Le départ n'est confirmé qu'au-delà d'un seuil de places réservées, sept jours avant. Personne ne roule à perte, et personne n'a besoin d'être joignable en direct le samedi : un agent conversationnel tient le fil avec les voyageurs.</p>
+    </div>
+  </section>
+
+  <section id="options">
+    <div class="cadre">
+      <h2 class="titre-section">Options étudiées</h2>
+      <p class="chapo">Quatorze pistes, notées par une grille écrite avant toute recherche, puis relues de façon critique. Une seule réorientation a été autorisée.</p>
+      <div class="table-defile">
+        <table class="donnees">
+          <thead><tr><th scope="col">Piste</th><th scope="col">Statut</th><th scope="col">Pourquoi</th></tr></thead>
+          <tbody>
+            <tr><td>Le transfert inclus dans la location, Alpes du Sud</td><td><span class="pastille retenu">retenue</span></td><td>La demande arrive par la location, sur un trajet où Uber n'est pas présent ; vente à la place permise en VTC sur réservation préalable</td></tr>
+            <tr><td>Navette partagée vendue en direct</td><td><span class="pastille plan">plan B</span></td><td>Même service, vendu sans conciergerie, si aucune n'a signé avant la saison</td></tr>
+            <tr><td>Transfert des croisiéristes, port et aéroport</td><td><span class="pastille plan">plan C</span></td><td>La saison d'été du même réseau ; des comparateurs vendent déjà ce trajet, la différence reste à prouver</td></tr>
+            <tr><td>Standard IA du chauffeur indépendant et échange de courses</td><td><span class="pastille ecarte">écartée</span></td><td>Pour le passager, rien ne change par rapport à Uber, qui possède déjà ce type de logiciel et de réseau</td></tr>
+            <tr><td>Centrale de réservation classique</td><td><span class="pastille ecarte">écartée</span></td><td>Exactement ce que font Uber, Bolt et G7</td></tr>
+            <tr><td>Marque commune façon école de ski</td><td><span class="pastille ecarte">écartée</span></td><td>Organiser le travail des chauffeurs expose au risque de requalification qui arrive avec la directive européenne de 2024</td></tr>
+            <tr><td>Trajets médicaux</td><td><span class="pastille ecarte">écartée</span></td><td>Le transport remboursé est réservé aux ambulances, VSL et taxis conventionnés ; la niche non remboursée demande un accord écrit d'un donneur d'ordre</td></tr>
+            <tr><td>Chauffeur à temps partagé pour PME</td><td><span class="pastille ecarte">écartée</span></td><td>Demande en semaine et en journée, vente longue</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:12px">Trois idées venues d'autres domaines sont gardées comme briques du service : les retours à vide de l'aviation d'affaires (descente et montée appariées), le préachat de saison des AMAP (acompte et seuil de départ), et l'agent conversationnel en coulisses.</p>
+    </div>
+  </section>
+
+  <section id="simulateur">
+    <div class="cadre">
+      <h2 class="titre-section">Simulateur d'une journée de van</h2>
+      <p class="chapo">Valeurs d'exemple à faire varier. Une journée = une montée et une descente de 8 places chacune.</p>
+      <div class="estimateur">
+        <form class="champs" id="form-simu" novalidate>
+          <div class="champ"><label for="s-prix">Prix de la place : <output id="o-prix">50 €</output></label><input type="range" id="s-prix" min="35" max="75" step="1" value="50"></div>
+          <div class="champ"><label for="s-jour">Prix de la journée fixé par le chauffeur : <output id="o-jour">500 €</output></label><input type="range" id="s-jour" min="300" max="800" step="10" value="500"></div>
+          <div class="champ"><label for="s-com">Commission de la conciergerie : <output id="o-com">10 %</output></label><input type="range" id="s-com" min="0" max="15" step="1" value="10"></div>
+          <div class="champ"><label for="s-part">Part de Clé en Van : <output id="o-part">10 %</output></label><input type="range" id="s-part" min="0" max="20" step="1" value="10"></div>
+          <div class="champ"><label for="s-places">Places réservées sur la journée : <output id="o-places">12 sur 16</output></label><input type="range" id="s-places" min="0" max="16" step="1" value="12"></div>
+        </form>
+        <div class="sortie" aria-live="polite">
+          <div><div class="note">Ce que le van rapporte au chauffeur</div><div class="prix-grand" id="r-chauffeur">—</div><div class="note" id="r-verdict">—</div></div>
+          <table class="compare" aria-label="Répartition d'une journée">
+            <tr><th scope="row">Payé par les voyageurs</th><td id="r-recette">—</td></tr>
+            <tr><th scope="row">Commission de la conciergerie</th><td id="r-com">—</td></tr>
+            <tr><th scope="row">Frais de paiement (1,5 %, ordre de grandeur)</th><td id="r-frais">—</td></tr>
+            <tr><th scope="row">Part de Clé en Van</th><td id="r-part">—</td></tr>
+            <tr><th scope="row">Places nécessaires pour couvrir le chauffeur</th><td id="r-seuil">—</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="deploiement">
+    <div class="cadre">
+      <h2 class="titre-section">Déploiement national : copier un canal, pas une marque</h2>
+      <div class="deux">
+        <div>
+          <h3>Ce qui est copié</h3>
+          <ul class="liste-net">
+            <li>Le canal des hébergeurs de Welcome Pickups, qui rémunère les hôtes qui proposent ses transferts.</li>
+            <li>La sous-traitance par vallée de Mountain Drop-offs : un transporteur local dans chaque zone.</li>
+            <li>L'habitude de Blacklane d'ouvrir une ville quand les demandes non servies y sont mesurées.</li>
+            <li>Le transfert porte à porte vendu avec le séjour, que Travelski Express ne propose qu'en Tarentaise.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>La ville suivante</h3>
+          <p>Les stations des Alpes du Nord hors Tarentaise, au départ de Chambéry et de Lyon, avec les réseaux de conciergeries déjà présents en Alpes du Sud. Ouverture quand trois conditions sont réunies sur une saison, seuils à valider :</p>
+          <ul class="liste-net"><li>au moins 2 conciergeries actives en Alpes du Sud ;</li><li>au moins 10 demandes mesurées pour la nouvelle zone ;</li><li>au moins 3 chauffeurs locaux avec un van équipé pour l'hiver.</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cadre-legal">
+    <div class="cadre">
+      <h2 class="titre-section">Cadre légal en bref</h2>
+      <ul class="liste-net" style="max-width:62ch">
+        <li>Un VTC peut vendre à la place, sur réservation préalable (réponse ministérielle publiée au JO le 1er mai 2018).</li>
+        <li>La structure qui confie une course à un chauffeur partenaire se déclare comme centrale de réservation auprès du ministère des Transports, chaque année.</li>
+        <li>Les conciergeries qui agissent dans leur activité propre ne sont pas des centrales.</li>
+        <li>Les chauffeurs fixent leur prix, choisissent leurs journées et gardent leurs clients, en prévision de la directive européenne sur le travail via les plateformes.</li>
+      </ul>
+      <p class="note" style="margin-top:14px">Sources principales : demarche.numerique.gouv.fr (déclaration des centrales), questions.assemblee-nationale.fr (question n° 4293), montransport.com (prix observés), touchstay.com (commission Welcome Pickups), compagniedesalpes.com (Travelski Express). À faire relire par un professionnel.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pied"><div class="cadre"><p>Version publique : sans marges, sans coûts de revient, sans point mort ni chiffre d'affaires prévisionnel.</p></div></footer>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var f = function (n) { return Math.round(n).toLocaleString("fr-FR") + " €"; };
+  function maj() {
+    var prix = +$("s-prix").value, jour = +$("s-jour").value, com = +$("s-com").value / 100, part = +$("s-part").value / 100, places = +$("s-places").value;
+    var FRAIS = 0.015;
+    $("o-prix").textContent = prix + " €"; $("o-jour").textContent = jour + " €"; $("o-com").textContent = Math.round(com * 100) + " %";
+    $("o-part").textContent = Math.round(part * 100) + " %"; $("o-places").textContent = places + " sur 16";
+    var recette = prix * places, net = prix * (1 - com - FRAIS - part), chauffeur = net * places;
+    var seuil = net > 0 ? Math.ceil(jour / net) : Infinity;
+    $("r-recette").textContent = f(recette); $("r-com").textContent = "− " + f(recette * com);
+    $("r-frais").textContent = "− " + f(recette * FRAIS); $("r-part").textContent = "− " + f(recette * part);
+    $("r-chauffeur").textContent = f(chauffeur);
+    $("r-seuil").textContent = seuil > 16 ? "plus de 16 : impossible" : seuil + " sur 16";
+    $("r-verdict").textContent = chauffeur >= jour ? "Le prix du chauffeur est couvert : la journée part." : "Le prix du chauffeur n'est pas couvert : la journée ne part pas.";
+  }
+  $("form-simu").addEventListener("input", maj);
+  $("form-simu").addEventListener("submit", function (e) { e.preventDefault(); });
+  maj();
+})();
+</script>
+</body>
+</html>

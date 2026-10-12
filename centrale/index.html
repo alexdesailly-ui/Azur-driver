@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clé en Van — le transfert inclus dans votre location</title>
+<meta name="description" content="Démonstration : une place dans un van, d'Aix-en-Provence TGV ou de l'aéroport de Marseille jusqu'à la porte de votre location à Vars ou Risoul, à l'heure de la remise des clés.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700;800&family=Overpass+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/centrale.css">
+</head>
+<body>
+<div class="demo-bandeau" role="note">
+  <div class="cadre"><span><strong>Page de démonstration.</strong> Aucune réservation réelle, aucun paiement, aucune donnée envoyée.</span><span>Nom de travail provisoire : Clé en Van</span></div>
+</div>
+
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="index.html" aria-label="Clé en Van, accueil">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 26 L13 10 L18 17 L21 13 L29 26 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="23" cy="7" r="3.2" fill="none" stroke="#c2362b" stroke-width="2.4"/><path d="M23 10.2 V16 M23 13.5 H25.5" stroke="#c2362b" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Clé en Van <small>Vars et Risoul</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="#comment">Comment ça marche</a>
+      <a href="#estimer">Estimer</a>
+      <a href="#conciergeries">Conciergeries</a>
+      <a href="#chauffeurs">Chauffeurs</a>
+      <a href="modele-economique.html">Modèle économique</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="cadre" style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center" id="hero-grille">
+      <div style="min-width:0;display:grid;gap:20px">
+        <h1 style="font-size:clamp(2.3rem,5.6vw,4rem);font-weight:800">Votre location inclut votre transfert.</h1>
+        <p style="font-size:1.2rem;max-width:34ch">Un lien dans votre confirmation de séjour, et un van vous dépose à la porte de votre location à Vars ou à Risoul, depuis Aix-en-Provence TGV ou l'aéroport de Marseille, à l'heure de la remise des clés.</p>
+        <p class="chapo" style="margin:0">Au prix d'une place&nbsp;: 55&nbsp;€ par personne. Le van part dès que 6 places sur 8 sont réservées&nbsp;; sinon, votre acompte vous est rendu.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="bouton" href="#estimer">Estimer mon trajet</a>
+          <a class="bouton secondaire" href="#conciergeries">Je suis une conciergerie</a>
+        </div>
+      </div>
+
+      <div class="tableau" aria-label="Exemple de tableau des départs">
+        <div class="tableau-tete"><span>Départs du samedi 19 décembre (exemple)</span><span>places réservées sur 8</span></div>
+        <ul class="tableau-liste">
+          <li class="depart">
+            <span class="heure">11:40</span>
+            <span class="trajet"><b>Aix-en-Provence TGV &gt; Vars</b><span>après le train de 11:15</span></span>
+            <span class="etat confirme">confirmé</span>
+            <span class="places" aria-label="7 places sur 8"><i class="prise"></i><i class="prise"></i><i class="prise"></i><i class="prise"></i><i class="prise"></i><i class="prise"></i><i class="prise arrive"></i><i></i></span>
+          </li>
+          <li class="depart">
+            <span class="heure">13:55</span>
+            <span class="trajet"><b>Aéroport de Marseille &gt; Risoul</b><span>vols arrivés avant 13:25</span></span>
+            <span class="etat confirme">confirmé</span>
+            <span class="places" aria-label="6 places sur 8"><i class="prise"></i><i class="prise"></i><i class="prise"></i><i class="prise"></i><i class="prise"></i><i class="prise arrive"></i><i></i><i></i></span>
+          </li>
+          <li class="depart">
+            <span class="heure">16:20</span>
+            <span class="trajet"><b>Aix-en-Provence TGV &gt; Risoul</b><span>après le train de 15:58</span></span>
+            <span class="etat attente">4 de plus</span>
+            <span class="places" aria-label="2 places sur 8"><i class="prise"></i><i class="prise"></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          </li>
+        </ul>
+        <p class="tableau-pied">La montée vers la station et la descente vers la gare se font avec le même van, dans la même journée.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="comment">
+    <div class="cadre">
+      <h2 class="titre-section">Vous ne cherchez pas de transfert : il vous attend dans votre confirmation.</h2>
+      <ol class="etapes">
+        <li><h3>Le lien arrive avec vos clés</h3><p>Votre conciergerie l'ajoute à son message d'avant l'arrivée. Vous n'avez rien à chercher.</p></li>
+        <li><h3>Vous indiquez votre train ou votre vol</h3><p>On vous place dans le van qui part après votre arrivée, calé sur l'heure de la remise des clés.</p></li>
+        <li><h3>Le départ est confirmé à 6 places</h3><p>Vous versez un acompte. Si le van n'atteint pas 6 places sept jours avant, l'acompte vous est rendu, ou on vous propose un transfert privé.</p></li>
+        <li><h3>Dépôt à la porte</h3><p>Pas d'arrêt au centre de la station : le van vous dépose devant votre location, skis compris.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="estimer">
+    <div class="cadre">
+      <h2 class="titre-section">Estimer votre trajet</h2>
+      <p class="chapo">Démonstration : le calcul se fait dans votre navigateur, rien n'est envoyé.</p>
+      <div class="estimateur">
+        <form class="champs" id="form-estim" novalidate>
+          <div class="champ"><label for="depart">Vous arrivez à</label>
+            <select id="depart"><option value="aix">Aix-en-Provence TGV</option><option value="mrs">Aéroport de Marseille</option></select></div>
+          <div class="champ"><label for="station">Votre location est à</label>
+            <select id="station"><option value="vars">Vars</option><option value="risoul">Risoul</option></select></div>
+          <div class="champ"><label for="voyageurs">Nombre de voyageurs : <output id="voyageurs-val" for="voyageurs">2</output></label>
+            <input type="range" id="voyageurs" min="1" max="8" value="2"></div>
+          <div class="champ"><label for="samedi">Samedi d'arrivée</label>
+            <select id="samedi"><option>19 décembre 2026</option><option>26 décembre 2026</option><option>2 janvier 2027</option><option>6 février 2027</option><option>13 février 2027</option><option>20 février 2027</option><option>27 février 2027</option><option>6 mars 2027</option></select></div>
+        </form>
+        <div class="sortie" aria-live="polite">
+          <div><div class="note">Votre trajet, aller simple</div><div class="prix-grand" id="total">110 €</div><div class="note" id="detail">2 places à 55 €</div></div>
+          <table class="compare" aria-label="Comparaison avec un transfert privé">
+            <tr><th scope="row">En van partagé, porte à porte</th><td id="c-van">110 €</td></tr>
+            <tr><th scope="row">Transfert privé, prix moyen observé</th><td id="c-prive">428 €</td></tr>
+            <tr><th scope="row">Vous économisez</th><td id="c-eco"><b>318 €</b></td></tr>
+          </table>
+          <p class="note" id="source-prive">Prix moyens observés pour aéroport de Marseille &gt; Risoul : berline 428 €, van 463 € (montransport.com, octobre 2026). Depuis Aix TGV et vers Vars : ordre de grandeur, à confirmer.</p>
+          <p class="encart" id="conseil">Seul ou à deux, le van partagé coûte une fraction du privé. À partir de 5 voyageurs, un transfert privé en van peut revenir moins cher : on vous le proposera.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conciergeries">
+    <div class="cadre">
+      <h2 class="titre-section">Pour les conciergeries et agences de location</h2>
+      <p class="chapo">Le samedi, vos voyageurs arrivent à n'importe quelle heure, souvent sans voiture. Avec un seul lien dans votre message d'avant l'arrivée, ils arrivent à l'heure de la remise des clés.</p>
+      <div class="deux">
+        <div><h3>Ce que vous faites</h3>
+          <ul class="liste-net"><li>Vous ajoutez un lien à votre message d'avant l'arrivée.</li><li>Vous indiquez vos créneaux de remise des clés.</li><li>C'est tout : réservation, paiement, retards et questions sont gérés pour vous.</li></ul></div>
+        <div><h3>Ce que vous y gagnez</h3>
+          <ul class="liste-net"><li>Un transfert à proposer, sans le vendre ni le gérer.</li><li>Des arrivées regroupées, à des heures connues d'avance.</li><li>Une commission sur chaque place réservée par vos voyageurs (taux à convenir).</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chauffeurs">
+    <div class="cadre">
+      <h2 class="titre-section">Pour les chauffeurs VTC avec un van</h2>
+      <p class="chapo">Vous restez indépendant : vous fixez le prix de votre journée, vous acceptez ou non, et vous gardez vos propres clients.</p>
+      <div class="deux">
+        <ul class="liste-net"><li>Une journée complète : la montée et la descente dans le même van.</li><li>Le départ n'est maintenu que si le van est assez rempli : pas de trajet à perte.</li><li>Les trajets vous sont proposés une semaine à l'avance.</li></ul>
+        <ul class="liste-net"><li>Van de 8 places, carte VTC et assurance à jour.</li><li>Pneus hiver ou chaînes, obligatoires du 1er novembre au 31 mars dans les Hautes-Alpes.</li><li>Pas d'exclusivité.</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="cadre">
+      <h2 class="titre-section">Questions</h2>
+      <div style="margin-top:20px;max-width:48rem">
+        <details><summary>Et si mon train ou mon vol a du retard ?</summary><p>Votre heure d'arrivée est suivie. En cas de retard, vous passez dans le van suivant de la journée, ou un transfert vous est proposé.</p></details>
+        <details><summary>Et s'il neige ?</summary><p>Les vans partenaires roulent avec pneus hiver ou chaînes, comme l'exige la loi Montagne dans les Hautes-Alpes. Le temps de trajet est prévu large.</p></details>
+        <details><summary>Que se passe-t-il si le van n'est pas assez rempli ?</summary><p>Sept jours avant le départ, si moins de 6 places sur 8 sont réservées, votre acompte vous est rendu, ou on vous propose un transfert privé au prix du marché.</p></details>
+        <details><summary>Puis-je emporter mes skis ?</summary><p>Oui : une paire de skis ou un snowboard et une valise par personne.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pied">
+  <div class="cadre">
+    <p>Démonstration conçue pour Azur Driver, premier chauffeur partenaire. Transport assuré par des chauffeurs VTC inscrits au registre, sur réservation préalable.</p>
+    <p>Aucun témoignage, aucun avis et aucune donnée de ce site n'est réel : c'est une maquette.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var PRIX_PLACE = 55;
+  var PRIVE = { berline: 428, van: 463 };   // moyennes observées aéroport de Marseille > Risoul (montransport, oct. 2026)
+  var f = function (n) { return n.toLocaleString("fr-FR") + " €"; };
+  var v = document.getElementById("voyageurs"), vv = document.getElementById("voyageurs-val");
+  function maj() {
+    var n = parseInt(v.value, 10); vv.textContent = n;
+    var total = n * PRIX_PLACE, prive = n <= 4 ? PRIVE.berline : PRIVE.van;
+    document.getElementById("total").textContent = f(total);
+    document.getElementById("detail").textContent = n + (n > 1 ? " places" : " place") + " à " + PRIX_PLACE + " €";
+    document.getElementById("c-van").textContent = f(total);
+    document.getElementById("c-prive").textContent = f(prive) + (n <= 4 ? " (berline)" : " (van)");
+    var eco = prive - total;
+    document.getElementById("c-eco").innerHTML = eco > 0 ? "<b>" + f(eco) + "</b>" : "Le privé est plus intéressant";
+    document.getElementById("conseil").textContent = eco > 0
+      ? "Seul ou en petit groupe, le van partagé coûte une fraction du privé. À partir de 5 voyageurs, un transfert privé en van peut revenir moins cher : on vous le proposera."
+      : "Pour " + n + " voyageurs, un transfert privé en van revient moins cher : on vous le proposera plutôt qu'une place partagée.";
+  }
+  ["input", "change"].forEach(function (ev) { document.getElementById("form-estim").addEventListener(ev, maj); });
+  document.getElementById("form-estim").addEventListener("submit", function (e) { e.preventDefault(); });
+  maj();
+})();
+</script>
+<style>
+@media (max-width: 860px) { #hero-grille { grid-template-columns: 1fr !important; } }
+</style>
+</body>
+</html>

@@ -1,0 +1,155 @@
+/* Clé en Van — direction artistique
+   Monde du sujet : la route de montagne en hiver et le tableau des départs d'une gare.
+   Couleurs : neige froide, encre de nuit alpine, rouge des jalons à neige (rare), laiton discret en clin d'œil à Azur Driver.
+   Type : Overpass (dessinée d'après la signalisation routière) pour tout le texte ; Overpass Mono pour le seul tableau des départs. */
+:root {
+  --neige: #f2f5f6;
+  --papier: #ffffff;
+  --encre: #142030;
+  --encre-douce: #4a5869;
+  --trait: #d6dee4;
+  --jalon: #c2362b;          /* rouge des jalons à neige : départ confirmé, actions */
+  --jalon-fond: #f8e3e0;
+  --laiton: #9c7a35;          /* clin d'œil à Azur Driver, très rare */
+  --tableau: #17222f;         /* fond du tableau des départs */
+  --tableau-trait: #2a3747;
+  --volet: #f0cf73;           /* caractères du tableau */
+  --volet-doux: #b9a671;
+  --ok: #2d7a52;
+  --display: "Overpass", "Helvetica Neue", Arial, sans-serif;
+  --texte: "Overpass", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Overpass Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --large: 72rem;
+  --rayon: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --neige: #0f1720; --papier: #16212d; --encre: #e7edf2; --encre-douce: #9fb0bf; --trait: #2a3949;
+    --jalon: #e0574b; --jalon-fond: #3a1f1d; --laiton: #c9a25a; --tableau: #0b121a; --tableau-trait: #223040;
+    --volet: #f0cf73; --volet-doux: #a8976a; --ok: #5cb98a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --neige: #0f1720; --papier: #16212d; --encre: #e7edf2; --encre-douce: #9fb0bf; --trait: #2a3949;
+  --jalon: #e0574b; --jalon-fond: #3a1f1d; --laiton: #c9a25a; --tableau: #0b121a; --tableau-trait: #223040;
+  --volet: #f0cf73; --volet-doux: #a8976a; --ok: #5cb98a; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--neige); color: var(--encre); font-family: var(--texte); font-size: 1.0625rem; line-height: 1.6; }
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--jalon); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+
+.cadre { max-width: var(--large); margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+
+/* Bandeau de démonstration : toujours visible, jamais trompeur */
+.demo-bandeau { background: var(--encre); color: var(--neige); font-size: 0.875rem; }
+.demo-bandeau .cadre { padding-block: 8px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
+.demo-bandeau strong { color: var(--volet); font-weight: 700; }
+
+/* En-tête */
+.entete { border-bottom: 1px solid var(--trait); background: var(--papier); }
+.entete .cadre { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.marque { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
+.marque svg { width: 30px; height: 30px; }
+.marque small { font-weight: 500; font-size: 0.85rem; color: var(--encre-douce); letter-spacing: 0; }
+.nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.95rem; }
+.nav a { text-decoration: none; color: var(--encre-douce); }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--encre); text-decoration: underline; text-underline-offset: 4px; }
+
+/* Boutons */
+.bouton { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: var(--rayon); border: 2px solid var(--jalon);
+  background: var(--jalon); color: #fff; font-weight: 700; font-size: 1rem; text-decoration: none; cursor: pointer; font-family: var(--texte); }
+.bouton:hover { filter: brightness(1.08); }
+.bouton.secondaire { background: transparent; color: var(--encre); border-color: var(--encre); }
+
+/* Sections */
+section { padding-block: clamp(48px, 7vw, 88px); }
+section + section { border-top: 1px solid var(--trait); }
+.titre-section { font-size: clamp(1.6rem, 3.2vw, 2.25rem); font-weight: 800; max-width: 26ch; }
+.chapo { color: var(--encre-douce); max-width: 60ch; margin-top: 12px; }
+
+/* Tableau des départs (élément signature) */
+.tableau { background: var(--tableau); color: var(--volet); border-radius: 10px; padding: 18px 18px 14px; font-family: var(--mono);
+  box-shadow: 0 1px 0 var(--tableau-trait) inset; min-width: 0; }
+.tableau-tete { display: flex; justify-content: space-between; gap: 12px; color: var(--volet-doux); font-size: 0.8rem; padding-bottom: 10px;
+  border-bottom: 1px solid var(--tableau-trait); flex-wrap: wrap; }
+.tableau-liste { list-style: none; margin: 0; padding: 0; }
+.depart { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr) auto; gap: 6px 14px; align-items: center; padding: 12px 0;
+  border-bottom: 1px solid var(--tableau-trait); font-variant-numeric: tabular-nums; }
+.depart:last-child { border-bottom: 0; }
+.depart .heure { font-size: 1.25rem; font-weight: 700; }
+.depart .trajet { min-width: 0; }
+.depart .trajet b { display: block; font-weight: 700; font-size: 0.98rem; color: #fff7dc; }
+.depart .trajet span { font-size: 0.8rem; color: var(--volet-doux); }
+.places { display: flex; gap: 3px; grid-column: 2 / 4; }
+.places i { width: 14px; height: 18px; border-radius: 2px; background: var(--tableau-trait); display: block; }
+.places i.prise { background: var(--volet); }
+.etat { font-size: 0.78rem; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; justify-self: end; }
+.etat.confirme { background: var(--jalon); color: #fff; }
+.etat.attente { border: 1px solid var(--volet-doux); color: var(--volet); }
+.tableau-pied { font-size: 0.75rem; color: var(--volet-doux); padding-top: 10px; }
+@media (prefers-reduced-motion: no-preference) {
+  .places i.arrive { animation: volet 0.5s steps(3) 0.6s both; }
+  @keyframes volet { from { background: var(--tableau-trait); } to { background: var(--volet); } }
+}
+
+/* Étapes : c'est une vraie séquence, donc numérotée */
+.etapes { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 28px; counter-reset: e; }
+.etapes li { counter-increment: e; border-top: 3px solid var(--encre); padding-top: 14px; min-width: 0; }
+.etapes li::before { content: counter(e); font-family: var(--display); font-weight: 800; font-size: 2.2rem; line-height: 1; color: var(--jalon); display: block; margin-bottom: 8px; }
+.etapes h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.etapes p { color: var(--encre-douce); font-size: 0.98rem; }
+
+/* Formulaires de démonstration */
+.estimateur { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; margin-top: 32px; align-items: start; }
+@media (max-width: 760px) { .estimateur { grid-template-columns: 1fr; } }
+.champs { display: grid; gap: 16px; background: var(--papier); border: 1px solid var(--trait); border-radius: 10px; padding: 22px; }
+.champ { display: grid; gap: 6px; }
+.champ label { font-weight: 700; font-size: 0.95rem; }
+.champ select, .champ input[type="range"] { width: 100%; }
+.champ select { padding: 10px 12px; border-radius: var(--rayon); border: 1px solid var(--trait); background: var(--neige); color: var(--encre); font-size: 1rem; }
+.sortie { display: grid; gap: 14px; min-width: 0; }
+.prix-grand { font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.compare { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.98rem; }
+.compare td, .compare th { padding: 8px 0; border-bottom: 1px solid var(--trait); text-align: left; }
+.compare td:last-child, .compare th:last-child { text-align: right; }
+.note { font-size: 0.85rem; color: var(--encre-douce); }
+.encart { border-left: 4px solid var(--jalon); background: var(--jalon-fond); padding: 12px 14px; border-radius: 0 var(--rayon) var(--rayon) 0; font-size: 0.95rem; }
+
+/* Colonnes pour les publics */
+.deux { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 40px; margin-top: 28px; }
+.liste-net { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 10px; }
+.liste-net li { padding-left: 22px; position: relative; }
+.liste-net li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 10px; height: 10px; background: var(--jalon); transform: rotate(45deg); }
+
+/* Questions */
+details { border-bottom: 1px solid var(--trait); padding-block: 14px; }
+details summary { font-weight: 700; cursor: pointer; }
+details p { color: var(--encre-douce); margin-top: 8px; max-width: 64ch; }
+
+/* Pied */
+.pied { padding-block: 32px; font-size: 0.88rem; color: var(--encre-douce); }
+.pied .cadre { display: grid; gap: 8px; }
+
+/* Tableaux de données (page modèle) */
+.table-defile { overflow-x: auto; margin-top: 20px; }
+.donnees { width: 100%; border-collapse: collapse; min-width: 34rem; font-variant-numeric: tabular-nums; font-size: 0.95rem; }
+.donnees th, .donnees td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--trait); text-align: left; vertical-align: top; }
+.donnees th { font-weight: 700; }
+.pastille { display: inline-block; font-size: 0.78rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; }
+.pastille.retenu { background: var(--jalon); color: #fff; }
+.pastille.plan { border: 1px solid var(--encre); }
+.pastille.ecarte { color: var(--encre-douce); border: 1px dashed var(--encre-douce); }
+
+input[type="range"] { accent-color: var(--jalon); }
+@media (max-width: 520px) {
+  .tableau { padding: 14px 12px 10px; }
+  .depart { grid-template-columns: 3.4rem minmax(0, 1fr) auto; gap: 4px 10px; }
+  .depart .heure { font-size: 1.05rem; }
+  .depart .trajet b { font-size: 0.86rem; }
+}
