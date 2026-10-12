@@ -1,0 +1,9 @@
+id;sens;origine;station;heure;places;payee;code
+D1;descente;aix;vars;13:04;4;oui;DEMO-VARS-1912
+D2;descente;aix;vars;13:40;3;oui;DEMO-VARS-1912
+M1;montee;aix;vars;13:10;2;oui;DEMO-VARS-1912
+M2;montee;aix;vars;13:25;4;oui;DEMO-RISOUL-1912
+M3;montee;aix;vars;13:48;1;non;DEMO-VARS-1912
+M4;montee;aix;vars;15:20;4;oui;DEMO-VARS-1912
+M5;montee;aix;vars;15:40;2;oui;
+X1;montee;nice;vars;14:00;2;oui;

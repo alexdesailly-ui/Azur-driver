@@ -1,0 +1,19 @@
+{
+  "ecrit_le": "2026-10-12T21:41",
+  "regle": "Écrit AVANT de construire la preuve (garde-fou D6 : la forme de la preuve est choisie après la validation du Top 3, sans toucher au classement).",
+  "hypothese_centrale": "Des voyageurs sans voiture qui louent à Vars ou à Risoul paient à l'avance une place dans un van depuis Aix-en-Provence TGV ou l'aéroport de Marseille, quand le lien leur arrive dans le message de leur conciergerie ; et le service tourne sans qu'Alex soit joignable en temps réel.",
+  "deux_volets": {
+    "demande": "Seule une prévente réelle la prouve : rien de ce qui est construit cette nuit ne remplace des places payées par des inconnus.",
+    "operation": "Un prototype peut prouver que la composition des vans, l'appariement descente/montée, le seuil de départ et les retards se gèrent automatiquement, donc dans les 2 h/semaine."
+  },
+  "ce_qui_compte_comme_preuve": [
+    "Demande : des places payées (acompte) par des voyageurs qui n'ont jamais parlé à Alex, via le lien d'une conciergerie.",
+    "Opération : des tests automatiques qui montrent que le moteur compose les vans, respecte la capacité, applique le seuil de 6 places à J-7, apparie descente et montée, et replace un voyageur en retard sans intervention.",
+    "Agent IA : un modèle local extrait correctement le trajet d'un message libre de voyageur (gare, heure, nombre, station), mesuré sur un jeu fictif."
+  ],
+  "criteres_de_reussite": {
+    "demande_prevente": "Avant le 15/12/2026 : au moins 2 conciergeries diffusent le lien ET au moins 12 places payées pour les samedis 19 et 26/12 (soit 2 vans à 6 places sur 8). Échec : moins de 6 places payées au 15/12 -> plan B (vente en direct) ou arrêt.",
+    "operation_tests": "100 % des tests automatiques du moteur passent ; le parcours démo conciergerie -> voyageur -> tableau fonctionne de bout en bout (Playwright).",
+    "agent_ia_local": "Au moins 85 % des champs extraits justes sur le jeu fictif de 20 messages, chaque réponse en moins de 20 s sur le PC d'Alex."
+  }
+}

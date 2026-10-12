@@ -16,7 +16,7 @@ Prix par place, aller simple, affiché avant la réservation, toutes taxes compr
 - Moins de 7 jours avant le départ : [conditions à fixer].
 
 ## 5. Retards
-Votre train ou votre vol est suivi. En cas de retard, vous passez dans le van suivant de la journée ; si aucun ne convient, un transfert vous est proposé ou votre place vous est remboursée.
+Signalez un retard depuis le lien de votre réservation. En cas de retard, vous passez dans le van suivant de la journée ; si aucun ne convient, un transfert vous est proposé ou votre place vous est remboursée.
 
 ## 6. Bagages
 Une valise et une paire de skis ou un snowboard par personne.

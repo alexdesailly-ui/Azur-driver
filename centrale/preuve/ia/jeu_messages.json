@@ -1,0 +1,25 @@
+{
+  "note": "20 messages 100 % fictifs écrits pour le test, aucun vrai voyageur. 'attendu' est la vérité terrain ; null = l'information n'est pas dans le message et ne doit pas être inventée.",
+  "messages": [
+    {"id": "m01", "texte": "Bonjour, nous arrivons samedi en TGV à Aix-en-Provence à 14h10, nous sommes 4 et nous louons à Vars. Merci !", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "14:10", "places": 4}},
+    {"id": "m02", "texte": "Hello, atterrissage à Marseille Provence prévu 11h35, 2 adultes, destination Risoul.", "attendu": {"sens": "montee", "origine": "mrs", "station": "risoul", "heure": "11:35", "places": 2}},
+    {"id": "m03", "texte": "On repart le samedi 26, notre train part d'Aix TGV à 15h04. On sera 3, on est à Risoul 1850.", "attendu": {"sens": "descente", "origine": "aix", "station": "risoul", "heure": "15:04", "places": 3}},
+    {"id": "m04", "texte": "Vol retour depuis Marignane à 18h20, nous sommes une famille de 5, appartement à Vars Sainte-Marie.", "attendu": {"sens": "descente", "origine": "mrs", "station": "vars", "heure": "18:20", "places": 5}},
+    {"id": "m05", "texte": "Je viens seul, arrivée gare Aix TGV 9h52, je loge à Vars les Claux.", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "09:52", "places": 1}},
+    {"id": "m06", "texte": "Nous sommes en couple, avion qui se pose à l'aéroport de Marseille à 13h. Location à Risoul.", "attendu": {"sens": "montee", "origine": "mrs", "station": "risoul", "heure": "13:00", "places": 2}},
+    {"id": "m07", "texte": "Deux adultes et deux enfants, on arrive à Aix TGV vers 2h de l'après-midi, on va à Vars", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "14:00", "places": 4}},
+    {"id": "m08", "texte": "Départ de Risoul samedi matin pour attraper notre vol de 16h45 à Marseille, on sera 6.", "attendu": {"sens": "descente", "origine": "mrs", "station": "risoul", "heure": "16:45", "places": 6}},
+    {"id": "m09", "texte": "Bonjour ! Notre TGV arrive à 12 h 47 en gare d'Aix-en-Provence. Nous serons 3 personnes. Chalet à Vars.", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "12:47", "places": 3}},
+    {"id": "m10", "texte": "Bonjour, nous arrivons à la gare de Nice à 13h, 2 personnes, pour Isola 2000.", "attendu": {"sens": "montee", "origine": null, "station": null, "heure": "13:00", "places": 2}},
+    {"id": "m11", "texte": "On arrive par l'avion de 10h15 à Marignane, trois amis, Risoul.", "attendu": {"sens": "montee", "origine": "mrs", "station": "risoul", "heure": "10:15", "places": 3}},
+    {"id": "m12", "texte": "Nous serons 8 (deux familles), arrivée TGV Aix 15h20, résidence à Vars.", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "15:20", "places": 8}},
+    {"id": "m13", "texte": "Bonsoir, notre vol pour Paris décolle de Marseille Provence à 19h05, nous sommes 4, logement à Risoul.", "attendu": {"sens": "descente", "origine": "mrs", "station": "risoul", "heure": "19:05", "places": 4}},
+    {"id": "m14", "texte": "Arrivée 11h05 à Aix TGV, on est deux, appart à Risoul", "attendu": {"sens": "montee", "origine": "aix", "station": "risoul", "heure": "11:05", "places": 2}},
+    {"id": "m15", "texte": "Mon fils et moi arrivons en train à Aix TGV à 16h12, location à Vars.", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "16:12", "places": 2}},
+    {"id": "m16", "texte": "Samedi on quitte Vars, TGV à 17h10 depuis Aix. On est 5.", "attendu": {"sens": "descente", "origine": "aix", "station": "vars", "heure": "17:10", "places": 5}},
+    {"id": "m17", "texte": "Bonjour, on arrive samedi à Aix TGV, 3 personnes, pour Risoul. Je vous confirme l'heure plus tard.", "attendu": {"sens": "montee", "origine": "aix", "station": "risoul", "heure": null, "places": 3}},
+    {"id": "m18", "texte": "Nous sommes 4 et nous arrivons à 14h30 pour notre location à Vars.", "attendu": {"sens": "montee", "origine": null, "station": "vars", "heure": "14:30", "places": 4}},
+    {"id": "m19", "texte": "Vol arrivant à MRS à 9h40, 1 personne, Risoul", "attendu": {"sens": "montee", "origine": "mrs", "station": "risoul", "heure": "09:40", "places": 1}},
+    {"id": "m20", "texte": "On redescend de Risoul pour un train à 10h58 à Aix-en-Provence TGV, nous sommes 7.", "attendu": {"sens": "descente", "origine": "aix", "station": "risoul", "heure": "10:58", "places": 7}}
+  ]
+}

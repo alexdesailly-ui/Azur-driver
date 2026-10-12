@@ -12,7 +12,7 @@ Les conciergeries de Vars et de Risoul glissent un lien dans leur message d'avan
 | `modele-economique.html` | Modèle économique, version publique (sans chiffres internes) : qui paie quoi, options étudiées, simulateur à valeurs d'exemple, déploiement |
 | `assets/centrale.css` | Styles partagés |
 | `docs/` | Check-list légale, modèles de contrats et de CGV, kit de lancement, cibles (organisations uniquement), reste à faire |
-| `preuve/` | Preuve de concept (en cours) |
+| `preuve/` | Preuve de concept : démonstration navigable, moteur testé, lecture des messages par un modèle local, protocole de prévente (voir `preuve/README.md`) |
 
 ## Nom
 « Clé en Van » est un nom de travail provisoire, modifiable dans les deux pages HTML. Autres propositions : Dernier Virage, Haut Relais. Aucune recherche d'antériorité complète n'a été faite.

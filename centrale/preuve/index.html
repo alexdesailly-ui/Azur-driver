@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Preuve Clé en Van</title>
+<meta name="description" content="Démonstration : le moteur de Clé en Van compose un samedi de décembre fictif, applique le seuil de départ à J-7 et replace les voyageurs en retard, sans intervention humaine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700;800&family=Overpass+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="../assets/centrale.css">
+<style>
+/* Page de preuve : mêmes jetons que la vitrine ; seuls les éléments propres à la démonstration sont ici. */
+.intro { padding-block: clamp(36px, 6vw, 64px) clamp(24px, 4vw, 40px); }
+.intro h1 { font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 800; max-width: 22ch; }
+.intro .chapo { font-size: 1.1rem; max-width: 62ch; }
+.bilan { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 24px 40px; margin-top: 28px; }
+.bilan h2 { font-size: 1rem; font-weight: 800; }
+.bilan ul { margin: 8px 0 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--encre-douce); }
+.bilan .non h2 { color: var(--jalon); }
+
+/* Les trois temps : une vraie séquence, donc numérotée */
+.temps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 2px solid var(--encre); margin-top: 8px; }
+.temps button { all: unset; cursor: pointer; padding: 14px 12px 12px 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline;
+  color: var(--encre-douce); border-bottom: 4px solid transparent; margin-bottom: -2px; }
+.temps button b { font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--trait); font-family: var(--display); }
+.temps button span { font-weight: 700; font-size: 0.98rem; line-height: 1.25; }
+.temps button[aria-selected="true"] { color: var(--encre); border-bottom-color: var(--jalon); }
+.temps button[aria-selected="true"] b { color: var(--jalon); }
+.temps button:focus-visible { outline: 3px solid var(--jalon); outline-offset: 2px; }
+@media (max-width: 640px) { .temps button { grid-template-columns: 1fr; gap: 2px; } .temps button b { font-size: 1.4rem; } .temps button span { font-size: 0.85rem; } }
+
+.vue { padding-block: 28px 8px; }
+.vue-grille { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+@media (max-width: 860px) { .vue-grille { grid-template-columns: 1fr; } }
+.vue h2 { font-size: clamp(1.35rem, 2.6vw, 1.75rem); font-weight: 800; }
+.vue .chapo { margin-top: 6px; }
+
+.champ input[type="text"], .champ input[type="time"] { padding: 10px 12px; border-radius: var(--rayon); border: 1px solid var(--trait); background: var(--neige);
+  color: var(--encre); font-size: 1rem; font-family: var(--texte); width: 100%; }
+.champ.a-redemander select, .champ.a-redemander input { border: 2px solid var(--jalon); }
+.champ .indice { font-size: 0.82rem; color: var(--jalon); font-weight: 700; }
+.choix { display: flex; gap: 8px; flex-wrap: wrap; }
+.choix label { display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border: 1px solid var(--trait); border-radius: var(--rayon); font-weight: 500; cursor: pointer; background: var(--neige); }
+.choix input { accent-color: var(--jalon); }
+.case { display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; }
+.case input { accent-color: var(--jalon); margin-top: 5px; }
+
+/* Le message d'avant l'arrivée, tel que le voyageur le reçoit */
+.message { background: var(--papier); border: 1px solid var(--trait); border-radius: 14px 14px 14px 4px; padding: 18px 20px; display: grid; gap: 10px; max-width: 34rem; }
+.message .de { font-size: 0.82rem; color: var(--encre-douce); }
+.message p { white-space: pre-line; }
+.message .lien { font-family: var(--mono); font-size: 0.9rem; color: var(--jalon); word-break: break-all; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.retour { font-size: 0.88rem; color: var(--encre-douce); min-height: 1.4em; }
+
+.source { font-size: 0.92rem; border-left: 4px solid var(--encre); padding: 8px 12px; background: var(--papier); margin-bottom: 18px; }
+.lecture { margin-top: 4px; }
+.lecture summary { font-size: 0.95rem; }
+.lecture .champ { margin-top: 10px; }
+.lu { font-family: var(--mono); font-size: 0.82rem; background: var(--neige); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 10px 12px; overflow-x: auto; white-space: pre-wrap; }
+
+/* Résultat de réservation */
+.resultat { display: grid; gap: 14px; }
+.resultat .prix { font-family: var(--display); font-weight: 800; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.vide-etat { color: var(--encre-douce); border: 1px dashed var(--trait); border-radius: 10px; padding: 22px; }
+
+/* Tableau du samedi */
+.phases { display: grid; grid-template-columns: repeat(3, minmax(0, auto)); border: 2px solid var(--encre); border-radius: var(--rayon); overflow: hidden; width: fit-content; max-width: 100%; margin-top: 18px; }
+.phases button { all: unset; cursor: pointer; padding: 8px 14px; display: grid; gap: 1px; min-width: 0; }
+.phases button b { font-weight: 800; font-size: 0.98rem; }
+.phases button span { font-size: 0.8rem; font-weight: 500; }
+@media (max-width: 520px) { .phases { width: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); } .phases button { padding: 8px 10px; } }
+.phases button + button { border-left: 2px solid var(--encre); }
+.phases button[aria-pressed="true"] { background: var(--encre); color: var(--neige); }
+.phases button:focus-visible { outline: 3px solid var(--jalon); outline-offset: -3px; }
+.samedi { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(20px, 3vw, 36px); margin-top: 22px; align-items: start; }
+@media (max-width: 960px) { .samedi { grid-template-columns: 1fr; } }
+.groupe { color: var(--volet-doux); font-size: 0.78rem; padding: 14px 0 2px; }
+.etat.annule { border: 1px dashed var(--volet-doux); color: var(--volet-doux); }
+.etat.alerte { background: var(--volet); color: var(--tableau); }
+.places i.libre-non-paye { background: transparent; box-shadow: inset 0 0 0 2px var(--volet-doux); }
+.places i.vous { background: var(--jalon); }
+.depart.annule .heure, .depart.annule .trajet b { text-decoration: line-through; color: var(--volet-doux); }
+.compteur { color: var(--volet); font-weight: 700; }
+@media (prefers-reduced-motion: no-preference) {
+  .depart.bouge .heure { animation: volet-h 0.6s steps(4) both; }
+  @keyframes volet-h { 0% { opacity: 0.1; } 50% { opacity: 1; color: #fff7dc; } 100% { opacity: 1; } }
+}
+.retards { display: grid; gap: 8px; margin-top: 14px; }
+.retards button { all: unset; cursor: pointer; border: 1px solid var(--trait); background: var(--papier); border-radius: var(--rayon); padding: 10px 12px; font-size: 0.95rem; font-weight: 500; }
+.retards button[aria-pressed="true"] { border-color: var(--jalon); box-shadow: inset 4px 0 0 var(--jalon); font-weight: 700; }
+.retards button:focus-visible { outline: 3px solid var(--jalon); outline-offset: 2px; }
+.colonne { display: grid; gap: 22px; min-width: 0; }
+.colonne h3 { font-size: 1.05rem; font-weight: 800; }
+.envois { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+.envois li { background: var(--papier); border: 1px solid var(--trait); border-radius: 12px 12px 12px 4px; padding: 12px 14px; font-size: 0.93rem; }
+.envois li .a { display: block; font-size: 0.8rem; color: var(--encre-douce); margin-bottom: 4px; }
+.journal { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; font-size: 0.9rem; color: var(--encre-douce); }
+.journal li { padding-left: 14px; position: relative; }
+.journal li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; background: var(--encre-douce); border-radius: 50%; }
+.journees { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; font-size: 0.93rem; }
+.journees li { border-left: 3px solid var(--encre); padding-left: 10px; }
+.journees li span { display: block; color: var(--encre-douce); }
+
+/* Mesures */
+.mesures td:not(:first-child), .mesures th:not(:first-child) { text-align: right; }
+.mesures td:not(:first-child) { white-space: nowrap; }
+.mesures td:first-child { min-width: 14rem; }
+@media (max-width: 520px) { .depart .trajet span { font-size: 0.74rem; } }
+.preuve-suite { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 24px 40px; margin-top: 24px; }
+.preuve-suite h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; }
+.preuve-suite p { color: var(--encre-douce); }
+</style>
+</head>
+<body>
+<div class="demo-bandeau" role="note">
+  <div class="cadre"><span><strong>Démonstration.</strong> Samedi fictif, aucune réservation réelle, aucun paiement, aucun message envoyé.</span><span>Nom de travail provisoire : Clé en Van</span></div>
+</div>
+
+<header class="entete">
+  <div class="cadre">
+    <a class="marque" href="../index.html" aria-label="Clé en Van, accueil">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 26 L13 10 L18 17 L21 13 L29 26 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="23" cy="7" r="3.2" fill="none" stroke="#c2362b" stroke-width="2.4"/><path d="M23 10.2 V16 M23 13.5 H25.5" stroke="#c2362b" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Clé en Van <small>Vars et Risoul</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="../index.html">Le service</a>
+      <a href="../modele-economique.html">Modèle économique</a>
+      <a href="index.html" aria-current="page">Preuve</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="cadre intro">
+    <h1>Un samedi de décembre, sans personne au téléphone.</h1>
+    <p class="chapo" style="margin-top:14px">Cette page fait tourner le moteur de Clé en Van sur un samedi fictif&nbsp;: une conciergerie envoie le lien, un voyageur réserve, les vans se composent, le seuil tombe à J-7, les retards de train se replacent. Rien n'est envoyé, rien n'est payé.</p>
+    <div class="bilan">
+      <div>
+        <h2>Ce que cette page prouve</h2>
+        <ul>
+          <li>Le parcours conciergerie, voyageur, van fonctionne de bout en bout.</li>
+          <li>Les vans, le seuil de 6 places et les retards se règlent par des règles écrites, sans décision humaine le samedi.</li>
+          <li>Un modèle d'IA local lit les messages libres des voyageurs, et le code refuse ce qu'il n'est pas sûr de comprendre.</li>
+        </ul>
+      </div>
+      <div class="non">
+        <h2>Ce qu'elle ne prouve pas</h2>
+        <ul>
+          <li>Que des voyageurs paieront 55&nbsp;€ la place&nbsp;: seule la prévente de décembre le dira.</li>
+          <li>Que des conciergeries enverront le lien&nbsp;: c'est le premier test réel.</li>
+          <li>Les durées de trajet, sauf Marseille-Risoul, et la place réelle pour 8 voyageurs avec leurs skis restent à confirmer avec les chauffeurs.</li>
+          <li>Que l'envoi des messages le jour même se fasse sans personne&nbsp;: pendant la prévente, il reste un copier-coller.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cadre">
+    <div class="temps" role="tablist" aria-label="Les trois temps du service">
+      <button role="tab" id="onglet-1" aria-controls="vue-1" aria-selected="true"><b>1</b><span>La conciergerie envoie le lien</span></button>
+      <button role="tab" id="onglet-2" aria-controls="vue-2" aria-selected="false" tabindex="-1"><b>2</b><span>Le voyageur réserve sa place</span></button>
+      <button role="tab" id="onglet-3" aria-controls="vue-3" aria-selected="false" tabindex="-1"><b>3</b><span>Le samedi se compose seul</span></button>
+    </div>
+
+    <!-- 1. Conciergerie -->
+    <section class="vue" id="vue-1" role="tabpanel" aria-labelledby="onglet-1">
+      <div class="vue-grille">
+        <div>
+          <h2>Un lien dans le message d'avant l'arrivée</h2>
+          <p class="chapo">La conciergerie n'a rien à installer. Elle ajoute ce texte au message qu'elle envoie déjà avant chaque séjour.</p>
+          <form class="champs" id="form-conciergerie" style="margin-top:20px" novalidate>
+            <div class="champ"><label for="c-nom">Votre conciergerie</label><input type="text" id="c-nom" value="Conciergerie de démonstration" autocomplete="off"></div>
+            <div class="champ"><label for="c-station">Station</label>
+              <select id="c-station"><option value="risoul">Risoul</option><option value="vars">Vars</option></select></div>
+            <div class="champ"><label for="c-samedi">Samedi d'arrivée de vos voyageurs</label>
+              <select id="c-samedi"><option value="1912">samedi 19 décembre</option><option value="2612">samedi 26 décembre</option></select></div>
+          </form>
+        </div>
+        <div>
+          <div class="message" aria-live="polite">
+            <span class="de" id="m-de">Message de Conciergerie de démonstration</span>
+            <p id="m-texte"></p>
+            <span class="lien" id="m-lien"></span>
+          </div>
+          <div class="actions">
+            <button class="bouton" type="button" id="ouvrir-lien">Ouvrir le lien comme un voyageur</button>
+            <button class="bouton secondaire" type="button" id="copier">Copier le message</button>
+          </div>
+          <p class="retour" id="retour-copie" role="status"></p>
+          <p class="note" style="margin-top:6px">Le lien porte le code de la conciergerie&nbsp;: chaque place réservée par ce lien lui est attribuée, pour la commission prévue à l'accord. Le domaine <code>.example</code> est réservé aux exemples&nbsp;: il ne mène nulle part.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Voyageur -->
+    <section class="vue" id="vue-2" role="tabpanel" aria-labelledby="onglet-2" hidden>
+      <div class="vue-grille">
+        <div>
+          <h2>Réserver sa place</h2>
+          <p class="chapo">Cinq informations suffisent. Le van est choisi par le moteur, pas par le voyageur.</p>
+          <p class="source" id="source" style="margin-top:16px">Vous arrivez sans lien de conciergerie.</p>
+          <form class="champs" id="form-voyageur" novalidate>
+            <div class="champ"><span style="font-weight:700;font-size:0.95rem" id="l-sens">Votre trajet</span>
+              <div class="choix" role="radiogroup" aria-labelledby="l-sens">
+                <label><input type="radio" name="sens" value="montee" checked> J'arrive en vacances</label>
+                <label><input type="radio" name="sens" value="descente"> Je repars</label>
+              </div></div>
+            <div class="champ" id="ch-origine"><label for="v-origine">Gare ou aéroport</label>
+              <select id="v-origine"><option value="aix">Aix-en-Provence TGV</option><option value="mrs">Aéroport Marseille Provence</option></select></div>
+            <div class="champ" id="ch-heure"><label for="v-heure" id="l-heure">Heure d'arrivée de votre train ou de votre vol</label><input type="time" id="v-heure" value="14:20" step="60"></div>
+            <div class="champ" id="ch-places"><label for="v-places">Nombre de personnes</label>
+              <select id="v-places"></select></div>
+            <div class="champ" id="ch-station"><label for="v-station">Votre location</label>
+              <select id="v-station"><option value="risoul">Risoul</option><option value="vars">Vars</option></select></div>
+            <label class="case"><input type="checkbox" id="v-acompte" checked> <span>Verser l'acompte maintenant (simulation&nbsp;: aucun paiement n'a lieu)</span></label>
+            <button class="bouton" type="submit">Réserver ma place</button>
+          </form>
+          <details class="lecture">
+            <summary>Ou laisser le modèle local lire un message de voyageur</summary>
+            <p class="note" style="margin-top:8px">Lectures enregistrées le 12 octobre 2026 sur un ordinateur portable, sans service d'IA en ligne. Messages fictifs du jeu de test.</p>
+            <div class="champ"><label for="v-message">Message</label><select id="v-message"></select></div>
+            <pre class="lu" id="v-lu" aria-live="polite"></pre>
+          </details>
+        </div>
+        <div class="resultat" id="resultat" aria-live="polite">
+          <div class="vide-etat">Votre van apparaîtra ici, avec son heure de départ et son nombre de places réservées.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Le samedi -->
+    <section class="vue" id="vue-3" role="tabpanel" aria-labelledby="onglet-3" hidden>
+      <h2>Le samedi se compose seul</h2>
+      <p class="chapo">Avancez dans le temps. À J-7, le seuil décide quels vans partent. Le jour même, un voyageur signale son retard depuis le lien de sa réservation&nbsp;: choisissez un retard et regardez qui le moteur prévient.</p>
+      <div class="phases" role="group" aria-label="Moment de la semaine">
+        <button type="button" data-phase="j10" aria-pressed="true"><b>J-10</b><span>réservations ouvertes</span></button>
+        <button type="button" data-phase="j7" aria-pressed="false"><b>J-7</b><span>seuil appliqué</span></button>
+        <button type="button" data-phase="j" aria-pressed="false"><b>Jour J</b><span>retards signalés</span></button>
+      </div>
+      <div class="samedi">
+        <div class="tableau" aria-label="Tableau des départs du samedi" style="min-width:0">
+          <div class="tableau-tete"><span id="t-titre">Départs du samedi 19 décembre</span><span class="compteur" id="t-compteur">interventions humaines : 0</span></div>
+          <div id="t-corps"></div>
+          <p class="tableau-pied">Carré plein&nbsp;: place payée. Carré creux&nbsp;: acompte non versé. Carré rouge&nbsp;: votre réservation.</p>
+        </div>
+        <div class="colonne">
+          <div id="bloc-retards" hidden>
+            <h3>Un train ou un vol en retard</h3>
+            <div class="retards" id="retards" role="group" aria-label="Retards à simuler"></div>
+          </div>
+          <div>
+            <h3>Messages prêts à partir</h3>
+            <p class="note">Rédigés par le moteur, jamais envoyés depuis cette page.</p>
+            <ul class="envois" id="envois"></ul>
+          </div>
+          <div>
+            <h3>Journées des chauffeurs partenaires</h3>
+            <p class="note">Un même van descend le matin et remonte l'après-midi&nbsp;: deux trajets payés pour une journée.</p>
+            <ul class="journees" id="journees"></ul>
+          </div>
+          <div>
+            <h3>Ce que le moteur a décidé seul</h3>
+            <ul class="journal" id="journal"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section>
+    <div class="cadre">
+      <h2 class="titre-section">La lecture des messages, mesurée</h2>
+      <p class="chapo">Les voyageurs écrivent comme ils parlent. Un modèle d'IA de 4 milliards de paramètres, installé sur un ordinateur portable, lit leurs messages&nbsp;; le code n'accepte que des valeurs connues et redemande le reste au voyageur. Mesures sur des messages fictifs, juste ou faux décidé par du code, pas par une IA.</p>
+      <div class="table-defile">
+        <table class="donnees mesures" id="mesures"><thead><tr><th>Essai</th><th>Champs justes</th><th>Messages entièrement justes</th><th>Valeurs inventées</th><th>Erreurs acceptées par le code</th><th>Temps de réponse (médiane, max)</th></tr></thead><tbody></tbody></table>
+      </div>
+      <p class="note" id="mesures-note" style="margin-top:12px"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="cadre">
+      <h2 class="titre-section">Ce qui reste à prouver se mesure en décembre</h2>
+      <div class="preuve-suite">
+        <div><h3>La demande</h3><p>Deux conciergeries au moins diffusent le lien, et au moins 12 places sont payées pour les samedis 19 et 26 décembre, au 15 décembre. Moins de 6 places&nbsp;: on change de canal ou on arrête.</p></div>
+        <div><h3>Le temps passé</h3><p>Chaque semaine de décembre, le temps réellement passé est noté. Au-delà de 2 heures par semaine, le modèle ne tient pas.</p></div>
+        <div><h3>Les trajets</h3><p>Les durées et les points de rendez-vous sont relevés avec les chauffeurs partenaires avant d'ouvrir les ventes.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pied">
+  <div class="cadre">
+    <span>Démonstration. Le moteur et ses tests automatiques sont dans le dossier <code>preuve/</code> de ce dépôt.</span>
+    <span>Les réservations, les conciergeries et les messages de cette page sont fictifs.</span>
+  </div>
+</footer>
+
+<script src="moteur.js"></script>
+<script src="donnees-demo.js"></script>
+<script src="ia/lectures.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

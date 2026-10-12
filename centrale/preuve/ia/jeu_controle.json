@@ -1,0 +1,17 @@
+{
+  "note": "Jeu de contrôle : 12 messages 100 % fictifs, écrits à 21:50 AVANT d'avoir vu les résultats de la consigne v2, pour vérifier qu'elle n'est pas taillée sur les 20 premiers messages.",
+  "messages": [
+    {"id": "c01", "texte": "Salut, arrivée en avion à Marignane à 12h50, on est 3, location à Risoul 1850.", "attendu": {"sens": "montee", "origine": "mrs", "station": "risoul", "heure": "12:50", "places": 3}},
+    {"id": "c02", "texte": "Nous reprenons le TGV à Aix samedi à 11h42, 4 personnes, depuis Vars.", "attendu": {"sens": "descente", "origine": "aix", "station": "vars", "heure": "11:42", "places": 4}},
+    {"id": "c03", "texte": "Bonjour, arrivée gare Saint-Charles à 10h30, 2 personnes, Vars.", "attendu": {"sens": "montee", "origine": null, "station": "vars", "heure": "10:30", "places": 2}},
+    {"id": "c04", "texte": "Notre avion repart de Marseille à 17h55, nous sommes trois, on sera à Risoul.", "attendu": {"sens": "descente", "origine": "mrs", "station": "risoul", "heure": "17:55", "places": 3}},
+    {"id": "c05", "texte": "Bjr, TGV arrivée Aix 13h33, 1 pers, Vars Ste Marie", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "13:33", "places": 1}},
+    {"id": "c06", "texte": "Famille de 6, on arrive à l'aéroport de Marseille vers midi, location à Vars.", "attendu": {"sens": "montee", "origine": "mrs", "station": "vars", "heure": "12:00", "places": 6}},
+    {"id": "c07", "texte": "On rentre samedi, train à 9h12 à Aix TGV, nous sommes 2, appartement à Risoul.", "attendu": {"sens": "descente", "origine": "aix", "station": "risoul", "heure": "09:12", "places": 2}},
+    {"id": "c08", "texte": "Bonjour, nous arrivons à Aix TGV à 15h, nous sommes plusieurs, location à Vars.", "attendu": {"sens": "montee", "origine": "aix", "station": "vars", "heure": "15:00", "places": null}},
+    {"id": "c09", "texte": "Arrivée à Grenoble à 14h pour Vars, 2 personnes", "attendu": {"sens": "montee", "origine": null, "station": "vars", "heure": "14:00", "places": 2}},
+    {"id": "c10", "texte": "Mon mari, mes deux filles et moi arrivons par le vol de 16h20 à Marseille Provence, chalet à Risoul.", "attendu": {"sens": "montee", "origine": "mrs", "station": "risoul", "heure": "16:20", "places": 4}},
+    {"id": "c11", "texte": "Départ de Vars pour notre vol de 20h10 à Marignane. 2 adultes 1 enfant.", "attendu": {"sens": "descente", "origine": "mrs", "station": "vars", "heure": "20:10", "places": 3}},
+    {"id": "c12", "texte": "Nous arrivons à Risoul samedi, notre train arrive à Aix TGV à 18h05, 5 personnes.", "attendu": {"sens": "montee", "origine": "aix", "station": "risoul", "heure": "18:05", "places": 5}}
+  ]
+}

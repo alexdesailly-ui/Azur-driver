@@ -1,0 +1,625 @@
+{
+ "resume": {
+  "lot": "ctl-v1",
+  "consigne": "v1",
+  "messages": 12,
+  "champs_total": 60,
+  "champs_justes": 52,
+  "precision_champs": 0.867,
+  "messages_entierement_justes": 5,
+  "inventions": 1,
+  "faux_acceptes_par_le_code": 6,
+  "messages_a_redemander": 4,
+  "json_invalides": 0,
+  "sans_reponse": 0,
+  "latence_mediane_s": 4.55,
+  "latence_max_s": 5.4,
+  "critere": "précision >= 0,85 et chaque réponse < 20 s (hypothese.json)",
+  "critere_atteint": true
+ },
+ "justes_par_champ": {
+  "sens": 6,
+  "origine": 10,
+  "station": 12,
+  "heure": 12,
+  "places": 12
+ },
+ "detail": [
+  {
+   "id": "c01",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.4,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "mrs",
+    "station": "risoul",
+    "heure": "12:50",
+    "places": 3
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "descente",
+     "juste": false,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "12:50",
+     "obtenu": "12:50",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 3,
+     "obtenu": 3,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [],
+   "faux_acceptes": [
+    "sens"
+   ]
+  },
+  {
+   "id": "c02",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.6,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "aix",
+    "station": "vars",
+    "heure": "11:42",
+    "places": 4
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "11:42",
+     "obtenu": "11:42",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 4,
+     "obtenu": 4,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c03",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.3,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": null,
+    "station": "vars",
+    "heure": "10:30",
+    "places": 2
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "descente",
+     "juste": false,
+     "invention": false
+    },
+    "origine": {
+     "attendu": null,
+     "obtenu": null,
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "10:30",
+     "obtenu": "10:30",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 2,
+     "obtenu": 2,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [
+    "origine"
+   ],
+   "faux_acceptes": [
+    "sens"
+   ]
+  },
+  {
+   "id": "c04",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.7,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "mrs",
+    "station": "risoul",
+    "heure": "17:55",
+    "places": 3
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "17:55",
+     "obtenu": "17:55",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 3,
+     "obtenu": 3,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c05",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.5,
+   "lecture_modele": {
+    "sens": "montee",
+    "origine": "aix",
+    "station": "vars",
+    "heure": "13:33",
+    "places": 1
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "13:33",
+     "obtenu": "13:33",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 1,
+     "obtenu": 1,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c06",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.5,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "mrs",
+    "station": "vars",
+    "heure": "12:00",
+    "places": 6
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "descente",
+     "juste": false,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "12:00",
+     "obtenu": "12:00",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 6,
+     "obtenu": 6,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [],
+   "faux_acceptes": [
+    "sens"
+   ]
+  },
+  {
+   "id": "c07",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.7,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "aix",
+    "station": "risoul",
+    "heure": "09:12",
+    "places": 2
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "09:12",
+     "obtenu": "09:12",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 2,
+     "obtenu": 2,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c08",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.5,
+   "lecture_modele": {
+    "sens": "montee",
+    "origine": "aix",
+    "station": "vars",
+    "heure": "15:00",
+    "places": null
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "15:00",
+     "obtenu": "15:00",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": null,
+     "obtenu": null,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [
+    "places"
+   ],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c09",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.5,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "grenoble",
+    "station": "vars",
+    "heure": "14:00",
+    "places": 2
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "descente",
+     "juste": false,
+     "invention": false
+    },
+    "origine": {
+     "attendu": null,
+     "obtenu": "hors_liste",
+     "juste": false,
+     "invention": true
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "14:00",
+     "obtenu": "14:00",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 2,
+     "obtenu": 2,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [
+    "origine"
+   ],
+   "faux_acceptes": [
+    "sens"
+   ]
+  },
+  {
+   "id": "c10",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.8,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "mrs",
+    "station": "risoul",
+    "heure": "16:20",
+    "places": 4
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "descente",
+     "juste": false,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "16:20",
+     "obtenu": "16:20",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 4,
+     "obtenu": 4,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [],
+   "faux_acceptes": [
+    "sens"
+   ]
+  },
+  {
+   "id": "c11",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.5,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "vars",
+    "station": "vars",
+    "heure": "20:10",
+    "places": 3
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "hors_liste",
+     "juste": false,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "20:10",
+     "obtenu": "20:10",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 3,
+     "obtenu": 3,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [
+    "origine"
+   ],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c12",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.7,
+   "lecture_modele": {
+    "sens": "descente",
+    "origine": "aix",
+    "station": "risoul",
+    "heure": "18:05",
+    "places": 5
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "descente",
+     "juste": false,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "18:05",
+     "obtenu": "18:05",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 5,
+     "obtenu": 5,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [],
+   "faux_acceptes": [
+    "sens"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,626 @@
+{
+ "resume": {
+  "lot": "ctl-v2",
+  "consigne": "v2",
+  "messages": 12,
+  "champs_total": 60,
+  "champs_justes": 57,
+  "precision_champs": 0.95,
+  "messages_entierement_justes": 9,
+  "inventions": 1,
+  "faux_acceptes_par_le_code": 1,
+  "messages_a_redemander": 4,
+  "json_invalides": 0,
+  "sans_reponse": 0,
+  "latence_mediane_s": 5.5,
+  "latence_max_s": 6.9,
+  "critere": "précision >= 0,85 et chaque réponse < 20 s (hypothese.json)",
+  "critere_atteint": true
+ },
+ "justes_par_champ": {
+  "sens": 12,
+  "origine": 12,
+  "station": 11,
+  "heure": 11,
+  "places": 11
+ },
+ "detail": [
+  {
+   "id": "c01",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 6.9,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "avion",
+    "lieu": "Marignane",
+    "heure": "12:50",
+    "station": "Risoul 1850",
+    "personnes": 3
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "12:50",
+     "obtenu": "12:50",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 3,
+     "obtenu": 3,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c02",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.3,
+   "lecture_modele": {
+    "voyageur": "repart",
+    "mode": "train",
+    "lieu": "Aix",
+    "heure": "11:42",
+    "station": "Vars",
+    "personnes": 4
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "11:42",
+     "obtenu": "11:42",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 4,
+     "obtenu": 4,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c03",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.5,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "train",
+    "lieu": "gare Saint-Charles",
+    "station": "Vars",
+    "heure": "10:30",
+    "personnes": 2
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": null,
+     "obtenu": null,
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "10:30",
+     "obtenu": "10:30",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 2,
+     "obtenu": 2,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [
+    "origine"
+   ],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c04",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.5,
+   "lecture_modele": {
+    "voyageur": "repart",
+    "mode": "avion",
+    "lieu": "Marseille",
+    "station": "Risoul",
+    "heure": "17:55",
+    "personnes": 3
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "17:55",
+     "obtenu": "17:55",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 3,
+     "obtenu": 3,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c05",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.5,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "avion",
+    "lieu": "Aix",
+    "station": "Vars Ste Marie",
+    "heure": "13:33",
+    "personnes": 1
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "13:33",
+     "obtenu": "13:33",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 1,
+     "obtenu": 1,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c06",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.2,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "avion",
+    "lieu": "aéroport de Marseille",
+    "station": "Vars",
+    "heure": "midi",
+    "personnes": 6
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "12:00",
+     "obtenu": "invalide",
+     "juste": false,
+     "invention": false
+    },
+    "places": {
+     "attendu": 6,
+     "obtenu": 6,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [
+    "heure"
+   ],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c07",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.7,
+   "lecture_modele": {
+    "voyageur": "repart",
+    "mode": "train",
+    "lieu": "Aix TGV",
+    "heure": "09:12",
+    "personnes": 2,
+    "station": "Risoul"
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "09:12",
+     "obtenu": "09:12",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 2,
+     "obtenu": 2,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c08",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.4,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "train",
+    "lieu": "Aix TGV",
+    "heure": "15:00",
+    "station": "Vars",
+    "personnes": 2
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "15:00",
+     "obtenu": "15:00",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": null,
+     "obtenu": 2,
+     "juste": false,
+     "invention": true
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [],
+   "faux_acceptes": [
+    "places"
+   ]
+  },
+  {
+   "id": "c09",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.2,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "train",
+    "lieu": "Grenoble",
+    "station": "Vars",
+    "heure": "14:00",
+    "personnes": 2
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": null,
+     "obtenu": null,
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "14:00",
+     "obtenu": "14:00",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 2,
+     "obtenu": 2,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [
+    "origine"
+   ],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c10",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.7,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "avion",
+    "lieu": "Marseille Provence",
+    "station": "Risoul",
+    "heure": "16:20",
+    "personnes": 4
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": "risoul",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "16:20",
+     "obtenu": "16:20",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 4,
+     "obtenu": 4,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c11",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 5.5,
+   "lecture_modele": {
+    "voyageur": "repart",
+    "mode": "avion",
+    "lieu": "Marignane",
+    "station": "Vars",
+    "heure": "20:10",
+    "personnes": 3
+   },
+   "champs": {
+    "sens": {
+     "attendu": "descente",
+     "obtenu": "descente",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "mrs",
+     "obtenu": "mrs",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "vars",
+     "obtenu": "vars",
+     "juste": true,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "20:10",
+     "obtenu": "20:10",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 3,
+     "obtenu": 3,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": true,
+   "a_redemander": [],
+   "faux_acceptes": []
+  },
+  {
+   "id": "c12",
+   "statut": "ok",
+   "moteur": "openvino-gpu:Qwen3-4B-int4-ov",
+   "secondes": 4.9,
+   "lecture_modele": {
+    "voyageur": "arrive",
+    "mode": "train",
+    "lieu": "Aix TGV",
+    "heure": "18:05",
+    "personnes": 5
+   },
+   "champs": {
+    "sens": {
+     "attendu": "montee",
+     "obtenu": "montee",
+     "juste": true,
+     "invention": false
+    },
+    "origine": {
+     "attendu": "aix",
+     "obtenu": "aix",
+     "juste": true,
+     "invention": false
+    },
+    "station": {
+     "attendu": "risoul",
+     "obtenu": null,
+     "juste": false,
+     "invention": false
+    },
+    "heure": {
+     "attendu": "18:05",
+     "obtenu": "18:05",
+     "juste": true,
+     "invention": false
+    },
+    "places": {
+     "attendu": 5,
+     "obtenu": 5,
+     "juste": true,
+     "invention": false
+    }
+   },
+   "message_entier_juste": false,
+   "a_redemander": [
+    "station"
+   ],
+   "faux_acceptes": []
+  }
+ ]
+}
