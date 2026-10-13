@@ -9,7 +9,8 @@ from playwright.async_api import async_playwright
 URL, CAPT = sys.argv[1], sys.argv[2]
 SORTIE = sys.argv[sys.argv.index("--resultats") + 1] if "--resultats" in sys.argv else None
 VERITE = json.loads((Path(__file__).resolve().parent.parent / "exemples" / "verite.json").read_text(encoding="utf-8"))
-VERDICTS = {"offre-1": "vert", "offre-2": "rouge", "offre-3": "vert", "offre-4": "orange", "offre-5": "vert", "offre-6": "rouge"}
+# Verdicts avec la barre par défaut (une offre toutes les 7,5 min, écart moyen, profil d'exemple : barre ≈ 23 €/h).
+VERDICTS = {"offre-1": "vert", "offre-2": "rouge", "offre-3": "orange", "offre-4": "rouge", "offre-5": "vert", "offre-6": "rouge"}
 ok, ko, mesures = [], [], {}
 def v(c, q): (ok if c else ko).append(q)
 
@@ -51,6 +52,26 @@ async def parcours(b, w, h, theme, nom, lire_tout):
     await page.select_option("#destination", "centre")
     v("vert" in (await page.get_attribute("#feu", "class")), f"{nom} la saisie recalcule le verdict (cas A : vert)")
     v((await page.inner_text("#s-net")).startswith("7"), f"{nom} semaine : 7 €/h net sur l'exemple")
+    # La barre : affichée, elle baisse quand les offres se font rares, et le verdict suit
+    def euros(t): return float(t.replace("\u202f", "").replace("€/h", "").replace(",", ".").strip())
+    b75 = euros(await page.inner_text("#barre-val"))
+    v(20 <= b75 <= 27, f"{nom} barre par défaut {b75} €/h (attendu 20 à 27)")
+    for k, val in {"prixNet": "18", "approcheMin": "8", "approcheKm": "4", "courseMin": "20", "courseKm": "12"}.items():
+        await page.fill(f"#{k}", val)
+    await page.select_option("#destination", "peripherie")
+    v("rouge" in (await page.get_attribute("#feu", "class")), f"{nom} offre-4 à 7,5 min entre deux offres : sous la barre")
+    await page.eval_on_selector("#intervalle", "e => { e.value = 20; e.dispatchEvent(new Event('input', { bubbles: true })); }")
+    await page.wait_for_timeout(400)
+    b20 = euros(await page.inner_text("#barre-val"))
+    v(b20 < b75, f"{nom} la barre baisse quand les offres sont rares ({b75} → {b20} €/h)")
+    v("vert" in (await page.get_attribute("#feu", "class")), f"{nom} la même offre devient bonne à une offre toutes les 20 min")
+    v((await page.input_value("#intervalle-2")) == "20", f"{nom} les deux réglages de fréquence restent synchronisés")
+    lignes = await page.locator("#politiques .politique").count()
+    vals = [euros(t.split("\n")[0]) for t in await page.locator("#politiques .val").all_inner_texts()]
+    v(lignes == 5 and vals[-1] >= max(vals) - 0.05, f"{nom} simulation : 5 façons de choisir, la barre en tête ({vals})")
+    await page.eval_on_selector("#intervalle", "e => { e.value = 7.5; e.dispatchEvent(new Event('input', { bubbles: true })); }")
+    await page.wait_for_timeout(400)
+    await page.locator("#exigeant").screenshot(path=f"{CAPT}/{nom}-exigeant.png")
     await page.screenshot(path=f"{CAPT}/{nom}-page.png", full_page=True)
     largeur = await page.evaluate("document.documentElement.scrollWidth")
     v(largeur <= w, f"{nom} pas de défilement horizontal ({largeur}px)")

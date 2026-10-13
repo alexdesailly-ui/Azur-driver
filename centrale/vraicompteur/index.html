@@ -133,6 +133,36 @@ a { color: inherit; }
 .preuve h3 { font-size: 1rem; }
 .preuve ul { margin: 8px 0 0; padding-left: 1.1em; color: var(--doux); display: grid; gap: 5px; }
 .preuve .non h3 { color: var(--rouge); }
+.flux { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: center; padding: 14px 22px; border-bottom: 1px solid var(--trait); font-size: 0.92rem; }
+.flux label { color: var(--doux); }
+.flux output { color: var(--texte); font-weight: 600; font-variant-numeric: tabular-nums; }
+.flux input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--ambre); }
+.flux .barre-val { text-align: right; white-space: nowrap; }
+.flux .barre-val b { font-family: var(--chiffres); font-size: 1.35rem; color: var(--ambre); font-variant-numeric: tabular-nums; }
+.regle { margin-top: 18px; font-size: 1.15rem; max-width: 52ch; border-left: 3px solid var(--ambre); padding: 4px 0 4px 14px; }
+.reglages { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 28px; align-items: end; }
+@media (max-width: 640px) { .reglages { grid-template-columns: 1fr; } }
+.reglages input[type="range"] { width: 100%; accent-color: var(--ambre); }
+.segments { display: flex; flex-wrap: wrap; gap: 6px; border: 0; padding: 0; margin: 0; }
+.segments legend { font-size: 0.86rem; color: var(--doux); font-weight: 500; margin-bottom: 6px; padding: 0; }
+.segments label { position: relative; }
+.segments input { position: absolute; opacity: 0; }
+.segments span { display: inline-block; padding: 7px 12px; border: 1px solid var(--trait); border-radius: 8px; cursor: pointer; font-size: 0.92rem; }
+.segments input:checked + span { border-color: var(--ambre); color: var(--ambre); background: var(--ambre-fond); }
+.segments input:focus-visible + span { outline: 3px solid var(--ambre); outline-offset: 2px; }
+.politiques { display: grid; gap: 12px; }
+.politique { display: grid; grid-template-columns: minmax(0, 1fr) 6.5rem; gap: 6px 14px; align-items: end; font-variant-numeric: tabular-nums; }
+.politique .p { grid-column: 1 / -1; grid-row: 2; }
+.politique .nom { font-size: 0.95rem; }
+.politique .nom small { display: block; color: var(--doux); font-size: 0.82rem; }
+.politique .p { height: 14px; background: var(--panneau-2); border-radius: 3px; position: relative; overflow: hidden; }
+.politique .p i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--doux); }
+.politique.nous .p i { background: var(--ambre); }
+.politique.nous .nom { font-weight: 700; }
+.politique.nous .nom small { font-weight: 400; }
+.politique .val { text-align: right; font-family: var(--chiffres); font-size: 1.25rem; font-weight: 700; line-height: 1.1; }
+.politique .val small { display: block; font-family: var(--texte-f); font-size: 0.78rem; font-weight: 500; color: var(--doux); }
+.limites { margin: 8px 0 0; padding-left: 1.1em; color: var(--doux); display: grid; gap: 6px; font-size: 0.95rem; }
 .pied { border-top: 1px solid var(--trait); padding-block: 28px; font-size: 0.86rem; color: var(--doux); }
 .pied .cadre { display: grid; gap: 6px; }
 </style>
@@ -146,6 +176,7 @@ a { color: inherit; }
       <span>Vrai Compteur</span>
     </a>
     <nav class="nav" aria-label="Navigation">
+      <a href="#exigeant">Faut-il être exigeant&nbsp;?</a>
       <a href="#semaine">Ta semaine</a>
       <a href="#droit">Ton droit</a>
       <a href="#abonnement">Abonnement</a>
@@ -159,7 +190,7 @@ a { color: inherit; }
     <div class="cadre">
       <div>
         <h1>Avant d'accepter, sache ce qu'il te reste.</h1>
-        <p class="accroche">Une offre tombe, tu as quelques secondes. Vrai Compteur lit l'offre sur ton écran et te dit ce que la course te rapporte vraiment à l'heure&nbsp;: approche, frais, cotisations et attente après la dépose comprises. Le calcul se fait sur ton téléphone, rien ne part.</p>
+        <p class="accroche">Une offre tombe, tu as quelques secondes. Vrai Compteur lit l'offre sur ton écran et te dit ce que la course te rapporte vraiment, approche, frais, cotisations et retour en zone active compris, et si elle vaut mieux que de la refuser pour attendre la suivante. Le calcul se fait sur ton téléphone, rien ne part.</p>
         <p class="droit" id="droit-court">La plateforme doit t'afficher la distance et le prix net avant que tu acceptes, et <b>tu peux refuser sans pénalité</b> (code des transports, article L.1326-2). Vrai Compteur t'aide à t'en servir&nbsp;; il n'accepte et ne refuse jamais à ta place.</p>
       </div>
 
@@ -170,6 +201,12 @@ a { color: inherit; }
             <div class="chiffre" id="net-heure">— <small>€/h net</small></div>
             <p class="sous-chiffre" id="sous-chiffre">Choisis une capture d'offre ou saisis-la.</p>
           </div>
+        </div>
+        <div class="flux">
+          <label for="intervalle">Offres en ce moment&nbsp;: une toutes les <output id="intervalle-val" for="intervalle">7,5</output>&nbsp;min</label>
+          <span class="barre-val">Ta barre&nbsp;: <b id="barre-val">—</b></span>
+          <input type="range" id="intervalle" min="2" max="20" step="0.5" value="7.5" aria-describedby="barre-aide">
+          <span class="note" id="barre-aide" style="grid-column:1/-1">La barre, c'est ce que tu gagnes en moyenne par heure connectée si tu ne prends que les courses au-dessus d'elle. <a href="#exigeant">Comment elle se calcule</a></span>
         </div>
         <ul class="raisons" id="raisons"></ul>
         <details class="accord-d"><summary>Repères des accords de la profession</summary><ul class="accord" id="accord" aria-live="polite"></ul>
@@ -204,12 +241,47 @@ a { color: inherit; }
   <section class="bloc" id="profil">
     <div class="cadre">
       <h2>Tes chiffres, une fois pour toutes</h2>
-      <p class="chapo">Le verdict dépend de ton véhicule et de ton objectif. Valeurs d'exemple&nbsp;: mets les tiennes, elles restent sur ton téléphone.</p>
+      <p class="chapo">Le verdict dépend de ton véhicule et de tes cotisations. Valeurs d'exemple&nbsp;: mets les tiennes, elles restent sur ton téléphone.</p>
       <form class="champs carte" id="form-profil" style="margin-top:20px;max-width:42rem" novalidate>
         <div class="champ"><label for="coutKm">Frais au kilomètre : énergie, entretien, pneus (€)</label><input type="number" id="coutKm" step="0.01" min="0" value="0.15" inputmode="decimal"></div>
         <div class="champ"><label for="cotisations">Cotisations sociales (% du prix)</label><input type="number" id="cotisations" step="0.5" min="0" max="60" value="21" inputmode="decimal"></div>
-        <div class="champ plein"><label for="objectifHeure">Ce que tu veux gagner net à l'heure, avant charges fixes (€)</label><input type="number" id="objectifHeure" step="1" min="1" value="18" inputmode="numeric"></div>
+        <div class="champ plein"><label for="plancherHeure">Ton plancher, facultatif&nbsp;: en dessous, tu préfères rentrer (€/h net)</label><input type="number" id="plancherHeure" step="1" min="0" value="0" inputmode="numeric">
+          <span class="note">Un plancher au-dessus de ta barre te fait gagner moins si tu restes connecté. Il a du sens si ton temps libre vaut plus que ça.</span></div>
       </form>
+    </div>
+  </section>
+
+  <section class="bloc" id="exigeant">
+    <div class="cadre">
+      <h2>Faut-il être exigeant&nbsp;? Ça dépend du nombre d'offres.</h2>
+      <p class="regle">Prends une course si elle rapporte, pendant qu'elle t'occupe, plus que ta moyenne par heure connectée. Cette moyenne, ta barre, se calcule&nbsp;: elle monte quand les offres pleuvent, elle baisse quand elles se font rares.</p>
+      <p class="chapo">Refuser n'est pas gratuit&nbsp;: tu attends la suivante. La barre en tient compte. Ci-dessous, des milliers d'heures de travail simulées sur ton téléphone, avec tes réglages, pour comparer les façons de choisir sur le même flux d'offres.</p>
+      <div class="deux">
+        <div class="carte">
+          <div class="reglages">
+            <div class="champ"><label for="intervalle-2">Une offre toutes les <output id="intervalle-2-val" for="intervalle-2">7,5</output> min</label><input type="range" id="intervalle-2" min="2" max="20" step="0.5" value="7.5"></div>
+            <fieldset class="segments" id="dispersion"><legend>Écart de prix entre les offres</legend>
+              <label><input type="radio" name="dispersion" value="0.15"><span>faible</span></label>
+              <label><input type="radio" name="dispersion" value="0.3" checked><span>moyen</span></label>
+              <label><input type="radio" name="dispersion" value="0.45"><span>fort</span></label>
+            </fieldset>
+          </div>
+          <div class="politiques" id="politiques" aria-live="polite"></div>
+          <p class="note" id="sim-note"></p>
+        </div>
+        <div class="carte">
+          <h3 style="font-size:1.05rem">D'où viennent les chiffres</h3>
+          <p class="note">Moyennes publiées&nbsp;: Uber 2025, 17,3&nbsp;€ par course, 21,8&nbsp;min par prestation, une proposition de course toutes les 7,5&nbsp;min (4&nbsp;min en 2021, 10&nbsp;min en 2024)&nbsp;; Bolt 2025, une toutes les 5,8&nbsp;min (rapport ARPE 2026, cité par TPE Actu le 26 avril 2026).</p>
+          <p class="note">Hypothèses, à remplacer par de vraies offres&nbsp;: approche de 2 à 12&nbsp;min, prix au tarif plus ou moins un écart (faible 15&nbsp;%, moyen 30&nbsp;%, fort 45&nbsp;%), dépose 60&nbsp;% en centre, 30&nbsp;% en périphérie, 10&nbsp;% en lieu isolé, 9&nbsp;€ minimum par course.</p>
+          <h3 style="font-size:1.05rem">Ce que la simulation ne dit pas</h3>
+          <ul class="limites">
+            <li>Personne n'accepte tout&nbsp;: les chauffeurs refusent déjà au jugé. Le vrai gain se mesure contre ta pratique, c'est l'objet de la bêta.</li>
+            <li>Si refuser faisait venir les offres moins souvent, le gain fondrait&nbsp;: il disparaît si elles arrivent environ 30&nbsp;% moins souvent. La loi interdit de pénaliser un refus&nbsp;; l'effet réel reste à mesurer.</li>
+            <li>L'écart de prix entre les offres n'est pas publié. C'est lui qui fait l'essentiel du gain.</li>
+          </ul>
+          <p class="note">La barre dépend du flux d'offres par zone et par heure. Chaque chauffeur la mesure pour lui&nbsp;; ensemble, ils la mesurent pour tous. Le code se copie, ces mesures non.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -263,7 +335,7 @@ a { color: inherit; }
       <h2>Gratuit pour compter, payant pour aller vite</h2>
       <div class="offres">
         <div class="offre"><h3>Compteur</h3><span class="prix">0 €</span><ul><li>Ta semaine à l'euro près</li><li>Saisie d'une offre, verdict immédiat</li><li>Lecture d'une capture d'écran</li></ul></div>
-        <div class="offre mise"><h3>Copilote</h3><span class="prix">9,90 €<small style="font-size:0.4em;color:var(--doux)"> par mois</small></span><ul><li>Lecture automatique de l'offre à l'écran, au moment où elle arrive</li><li>Attentes par zone et par heure, calibrées par les chauffeurs</li><li>Prix de bêta, à confirmer avec les testeurs</li></ul></div>
+        <div class="offre mise"><h3>Copilote</h3><span class="prix">9,90 €<small style="font-size:0.4em;color:var(--doux)"> par mois</small></span><ul><li>Lecture automatique de l'offre à l'écran, au moment où elle arrive</li><li>Ta barre mesurée sur tes propres offres, par zone et par heure, et sur celles des chauffeurs qui partagent</li><li>Prix de bêta, à confirmer avec les testeurs</li></ul></div>
       </div>
       <p class="note" style="margin-top:14px">Repère de prix : 5 à 19 dollars par mois pour les applis équivalentes aux États-Unis (The Hustle, 28 juillet 2025).</p>
     </div>
@@ -273,8 +345,8 @@ a { color: inherit; }
     <div class="cadre">
       <h2>Ce que cette démo prouve, et ce qu'elle ne prouve pas</h2>
       <div class="preuve">
-        <div><h3>Prouvé ici</h3><ul id="preuve-mesure"><li>Le calcul du net à l'heure et du verdict, testé sur des cas écrits à la main.</li><li>La lecture d'une capture sur l'appareil : la mesure s'affiche ici après la première lecture.</li></ul></div>
-        <div class="non"><h3>Pas encore prouvé</h3><ul><li>La lecture des vraies offres de chaque plateforme : à calibrer sur des captures de chauffeurs.</li><li>La lecture automatique au moment où l'offre arrive : appli Android à construire.</li><li>Que les chauffeurs gagnent plus et paient : bêta de 30 chauffeurs, 4 semaines.</li></ul></div>
+        <div><h3>Prouvé ici</h3><ul id="preuve-mesure"><li>Le calcul du net, de la barre et du verdict, testé sur des cas écrits à la main.</li><li>La lecture d'une capture sur l'appareil : la mesure s'affiche ici après la première lecture.</li><li>Par simulation, avec les moyennes publiées et des hypothèses affichées&nbsp;: à une offre toutes les 7,5&nbsp;min, choisir avec la barre rapporte 11 à 20&nbsp;% de plus par heure connectée que tout accepter&nbsp;; le filtre au kilomètre des plateformes, 0 à 6&nbsp;%.</li></ul></div>
+        <div class="non"><h3>Pas encore prouvé</h3><ul><li>La lecture des vraies offres de chaque plateforme : à calibrer sur des captures de chauffeurs.</li><li>La lecture automatique au moment où l'offre arrive : appli Android à construire.</li><li>Que refuser ne fasse pas venir les offres moins souvent.</li><li>Que les chauffeurs gagnent plus et paient : bêta de 30 chauffeurs, 4 semaines.</li></ul></div>
       </div>
     </div>
   </section>
@@ -288,6 +360,7 @@ a { color: inherit; }
 </footer>
 
 <script src="moteur.js"></script>
+<script src="strategie.js"></script>
 <script src="lecteur.js"></script>
 <script src="app.js"></script>
 </body>

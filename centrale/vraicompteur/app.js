@@ -1,7 +1,7 @@
 /* Vrai Compteur — démonstration. Tout est calculé dans le navigateur ; la lecture des captures se fait sur l'appareil. */
 (function () {
   "use strict";
-  var M = window.VraiCompteur, L = window.LecteurOffre;
+  var M = window.VraiCompteur, L = window.LecteurOffre, S = window.Strategie;
   function $(id) { return document.getElementById(id); }
   var fmt = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
   var fmt2 = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -16,23 +16,36 @@
   /* ---------- Profil (reste sur l'appareil) ---------- */
   try {
     var p = JSON.parse(localStorage.getItem(CLE) || "null");
-    if (p) ["coutKm", "cotisations", "objectifHeure"].forEach(function (k) { if (p[k] !== undefined) $(k).value = p[k]; });
+    if (p) ["coutKm", "cotisations", "plancherHeure"].forEach(function (k) { if (p[k] !== undefined) $(k).value = p[k]; });
   } catch (e) { /* stockage indisponible : valeurs d'exemple */ }
   function profil() {
-    var r = { coutKm: +$("coutKm").value || 0, cotisations: +$("cotisations").value || 0, objectifHeure: +$("objectifHeure").value || 1 };
+    var r = { coutKm: +$("coutKm").value || 0, cotisations: +$("cotisations").value || 0, plancherHeure: +$("plancherHeure").value || 0 };
     try { localStorage.setItem(CLE, JSON.stringify(r)); } catch (e) { /* rien */ }
     return r;
   }
 
+  /* ---------- La barre : revenu moyen par minute si l'on ne prend que les offres au-dessus d'elle ---------- */
+  // Démo : flux d'offres du modèle par défaut (moyennes publiées + hypothèses, strategie.js). Produit : les offres réelles du chauffeur.
+  var etat = { intervalle: 7.5, dispersion: 0.3 }, modeles = {};
+  function offresModele(d) {
+    return modeles[d] || (modeles[d] = S.genererOffres(6000, Object.assign({}, S.MODELE_DEFAUT, { dispersion: d }), 7));
+  }
+  function barreHeure(p) {
+    return S.barre(offresModele(etat.dispersion), function (o) { return M.valeurTemps(o, p); }, etat.intervalle) * 60;
+  }
+  var virgule1 = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
+
   /* ---------- Verdict ---------- */
-  var MOTS = { vert: "rentable", orange: "limite", rouge: "sous ton objectif", incomplet: "incomplet" };
+  var MOTS = { vert: "au-dessus de ta barre", orange: "limite", rouge: "sous ta barre", incomplet: "incomplet" };
   function lireOffre() {
     var o = { destination: $("destination").value };
     CHAMPS.forEach(function (k) { var v = $(k).value; o[k] = v === "" ? undefined : parseFloat(String(v).replace(",", ".")); });
     return o;
   }
   function afficher() {
-    var r = M.evaluerOffre(lireOffre(), profil());
+    var p = profil(), b = barreHeure(p);
+    $("barre-val").textContent = fmt.format(b) + " €/h";
+    var r = M.evaluerOffre(lireOffre(), Object.assign({}, p, { barreHeure: b }));
     var feu = $("feu");
     feu.className = "feu " + (r.verdict === "incomplet" ? "" : r.verdict);
     feu.textContent = r.verdict === "rouge" && r.netCourse <= 0 ? "tu perds" : MOTS[r.verdict];
@@ -42,7 +55,8 @@
       $("sous-chiffre").textContent = "Il manque des informations pour juger cette offre.";
     } else {
       $("net-heure").innerHTML = fmt.format(r.netHeure) + " <small>€/h net</small>";
-      $("sous-chiffre").textContent = "Il te reste " + fmt2.format(r.netCourse) + " € pour " + r.minutesTotales + " min (approche, course et attente après la dépose). Ton objectif : " + fmt.format(r.objectifHeure) + " €/h.";
+      $("sous-chiffre").textContent = "Il te reste " + fmt2.format(r.netCourse) + " € pour " + r.minutesTotales + " min (approche, course, retour en zone active). " +
+        (r.netCourse > 0 ? "La prendre plutôt qu'attendre la suivante : " + (r.gainVsRefus >= 0 ? "+" : "−") + fmt2.format(Math.abs(r.gainVsRefus)) + " € en moyenne." : "");
     }
     r.raisons.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
     var acc = $("accord"); while (acc.firstChild) acc.removeChild(acc.firstChild);
@@ -56,7 +70,7 @@
     return r;
   }
   CHAMPS.concat(["destination"]).forEach(function (k) { $(k).addEventListener("input", function () { $("c-" + k) && $("c-" + k).classList.remove("lu"); afficher(); }); });
-  ["coutKm", "cotisations", "objectifHeure"].forEach(function (k) { $(k).addEventListener("input", afficher); });
+  ["coutKm", "cotisations", "plancherHeure"].forEach(function (k) { $(k).addEventListener("input", function () { afficher(); simulerBientot(); }); });
   ["form-offre", "form-profil", "form-semaine"].forEach(function (id) { $(id).addEventListener("submit", function (e) { e.preventDefault(); }); });
 
   /* ---------- Onglets ---------- */
@@ -156,6 +170,61 @@
     lireImage(url).then(function () { URL.revokeObjectURL(url); });
   });
 
+  /* ---------- Faut-il être exigeant ? Simulation sur l'appareil ---------- */
+  var kmRegle = {};
+  function filtreKmRegle(p) {
+    // Le filtre au kilomètre le mieux réglé APRÈS COUP pour 7,5 min entre deux offres (avantage donné au filtre).
+    var cle = etat.dispersion + "|" + p.coutKm + "|" + p.cotisations;
+    if (kmRegle[cle]) return kmRegle[cle];
+    var pol = {}; for (var y = 10; y <= 30; y += 1) pol["k" + y] = { type: "km", parKm: y / 10 };
+    var r = S.comparer({ offres: offresModele(etat.dispersion), profil: p, valeur: M.valeurTemps, intervalleMin: 7.5, minutes: 200000, graine: 3, politiques: pol });
+    var best = 1; Object.keys(pol).forEach(function (k) { if (r[k].parHeure > r["k" + Math.round(best * 10)].parHeure) best = pol[k].parKm; });
+    return (kmRegle[cle] = best);
+  }
+  function simulerPage() {
+    var p = profil(), t0 = performance.now(), parKm = filtreKmRegle(p);
+    var pols = {
+      tout: { type: "tout" },
+      km: { type: "km", parKm: parKm },
+      obj30: { type: "objectif", heure: 30 },
+      obj18: { type: "objectif", heure: 18 },
+      barre: { type: "barre" }
+    };
+    var r = S.comparer({ offres: offresModele(etat.dispersion), profil: p, valeur: M.valeurTemps, intervalleMin: etat.intervalle, minutes: 400000, graine: 2026, politiques: pols });
+    var noms = {
+      tout: ["Tout accepter", ""],
+      km: ["Filtre au kilomètre", "Minimum " + virgule1.format(parKm) + " €/km de course, le mieux réglé pour 7,5 min"],
+      obj30: ["Objectif fixe ambitieux", "30 €/h, quelle que soit l'heure"],
+      obj18: ["Objectif fixe modeste", "18 €/h, quelle que soit l'heure"],
+      barre: ["Ta barre, recalculée", "Barre de " + fmt.format(r.barreHeure) + " €/h à ce rythme d'offres"]
+    };
+    var max = 0; Object.keys(pols).forEach(function (k) { max = Math.max(max, r[k].parHeure); });
+    var box = $("politiques"); while (box.firstChild) box.removeChild(box.firstChild);
+    Object.keys(pols).forEach(function (k) {
+      var x = r[k], gain = (x.parHeure / r.tout.parHeure - 1) * 100;
+      var d = document.createElement("div"); d.className = "politique" + (k === "barre" ? " nous" : "");
+      var n = document.createElement("span"); n.className = "nom"; n.textContent = noms[k][0];
+      var sm = document.createElement("small"); sm.textContent = k === "tout" ? "Prend toutes les offres" : noms[k][1] + " ; refuse " + fmt.format(x.tauxRefus * 100) + " % des offres"; n.appendChild(sm);
+      var b = document.createElement("span"); b.className = "p"; var i = document.createElement("i"); i.style.width = (100 * Math.max(0, x.parHeure) / (max * 1.02)) + "%"; b.appendChild(i);
+      var v = document.createElement("span"); v.className = "val"; v.textContent = virgule1.format(x.parHeure) + " €/h";
+      var g = document.createElement("small"); g.textContent = k === "tout" ? "référence" : (gain >= 0 ? "+" : "−") + virgule1.format(Math.abs(gain)) + " %"; v.appendChild(g);
+      d.appendChild(n); d.appendChild(b); d.appendChild(v); box.appendChild(d);
+    });
+    $("sim-note").textContent = "Revenu net par heure connectée, après cotisations et frais au kilomètre, avant charges fixes. " +
+      fmt.format(r.tout.offresVues) + " offres simulées par façon de choisir, en " + fmt.format(performance.now() - t0) + " ms sur ton appareil.";
+  }
+  var minuterie = null;
+  function simulerBientot() { clearTimeout(minuterie); minuterie = setTimeout(simulerPage, 120); }
+  function regler(v) {
+    etat.intervalle = v;
+    ["intervalle", "intervalle-2"].forEach(function (id) { $(id).value = v; $(id + "-val").textContent = virgule1.format(v); });
+    afficher(); simulerBientot();
+  }
+  ["intervalle", "intervalle-2"].forEach(function (id) { $(id).addEventListener("input", function () { regler(+this.value); }); });
+  Array.prototype.forEach.call(document.querySelectorAll("input[name=dispersion]"), function (x) {
+    x.addEventListener("change", function () { etat.dispersion = +this.value; afficher(); simulerBientot(); });
+  });
+
   /* ---------- La semaine ---------- */
   function semaine() {
     var s = M.semaine({ heures: +$("s-heures").value || 1, revenus: +$("s-revenus").value || 0, km: +$("s-km").value || 0,
@@ -183,4 +252,5 @@
 
   afficher();
   semaine();
+  simulerPage();
 })();

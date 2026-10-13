@@ -1,0 +1,916 @@
+{
+ "genere_le": "2026-10-13T01:10:24.579Z",
+ "commande": "node outils/simuler_politiques.js",
+ "profil": {
+  "coutKm": 0.15,
+  "cotisations": 21
+ },
+ "minutes_simulees_par_cas": 1500000,
+ "graine": 2026,
+ "offres_par_modele": 20000,
+ "sources": [
+  "Rapport ARPE 2026 sur l'activité des plateformes VTC, cité par TPE Actu le 26/04/2026 : Uber 2025, 17,3 € par course, 21,8 min par prestation, 7,5 min entre deux propositions de course (4 min en 2021, 10 min en 2024) ; Bolt 2025, 15,9 € par course, 5,8 min entre deux propositions."
+ ],
+ "hypotheses": [
+  "21,8 min comprennent l'approche",
+  "approche uniforme 2 à 12 min",
+  "vitesse 18 à 36 km/h",
+  "tarif 1 € + 0,90 €/km + 0,35 €/min mis à l'échelle de 17,3 € en moyenne",
+  "écart de prix autour du tarif : 15, 30 ou 45 % (inconnu : c'est ce que la bêta doit mesurer)",
+  "zones de dépose 60/30/10 %, surcoût 0, 10 et 25 min",
+  "refuser ne change pas la fréquence des offres (à vérifier sur le terrain)"
+ ],
+ "lecture": "parHeure = revenu net par heure connectée (après cotisations et frais au kilomètre, avant charges fixes). gainVsTout en %. tauxRefus = part des offres refusées.",
+ "resultats": [
+  {
+   "dispersion": 0.15,
+   "intervalleMin": 4,
+   "intervalle": "une offre toutes les 4 min (Uber 2021)",
+   "barreHeure": 27.22,
+   "parKmRegle75": 1.4,
+   "tout": {
+    "parHeure": 22.86,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 26.41,
+    "gainVsTout": 15.5,
+    "tauxRefus": 32.7
+   },
+   "objectif12": {
+    "parHeure": 24.07,
+    "gainVsTout": 5.3,
+    "tauxRefus": 6.4
+   },
+   "objectif18": {
+    "parHeure": 25.67,
+    "gainVsTout": 12.3,
+    "tauxRefus": 20.8
+   },
+   "objectif25": {
+    "parHeure": 27.08,
+    "gainVsTout": 18.4,
+    "tauxRefus": 44
+   },
+   "objectif30": {
+    "parHeure": 26.95,
+    "gainVsTout": 17.9,
+    "tauxRefus": 61.4
+   },
+   "kmRegle75": {
+    "parHeure": 22.86,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "kmMeilleur": {
+    "parHeure": 22.87,
+    "gainVsTout": 0,
+    "tauxRefus": 2.1,
+    "parKm": 1.8
+   },
+   "barreSuppose75": {
+    "parHeure": 26.75,
+    "gainVsTout": 17,
+    "tauxRefus": 36
+   },
+   "barre": {
+    "parHeure": 27.2,
+    "gainVsTout": 19,
+    "tauxRefus": 51.8
+   }
+  },
+  {
+   "dispersion": 0.15,
+   "intervalleMin": 5.8,
+   "intervalle": "toutes les 5,8 min (Bolt 2025)",
+   "barreHeure": 24.63,
+   "parKmRegle75": 1.4,
+   "tout": {
+    "parHeure": 21.63,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 24.4,
+    "gainVsTout": 12.8,
+    "tauxRefus": 32.8
+   },
+   "objectif12": {
+    "parHeure": 22.67,
+    "gainVsTout": 4.8,
+    "tauxRefus": 6.4
+   },
+   "objectif18": {
+    "parHeure": 23.91,
+    "gainVsTout": 10.5,
+    "tauxRefus": 20.7
+   },
+   "objectif25": {
+    "parHeure": 24.62,
+    "gainVsTout": 13.8,
+    "tauxRefus": 44
+   },
+   "objectif30": {
+    "parHeure": 23.79,
+    "gainVsTout": 10,
+    "tauxRefus": 61.3
+   },
+   "kmRegle75": {
+    "parHeure": 21.63,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "kmMeilleur": {
+    "parHeure": 21.63,
+    "gainVsTout": 0,
+    "tauxRefus": 0.1,
+    "parKm": 1.5
+   },
+   "barreSuppose75": {
+    "parHeure": 24.56,
+    "gainVsTout": 13.5,
+    "tauxRefus": 36
+   },
+   "barre": {
+    "parHeure": 24.63,
+    "gainVsTout": 13.9,
+    "tauxRefus": 42.6
+   }
+  },
+  {
+   "dispersion": 0.15,
+   "intervalleMin": 7.5,
+   "intervalle": "toutes les 7,5 min (Uber 2025)",
+   "barreHeure": 22.79,
+   "parKmRegle75": 1.4,
+   "tout": {
+    "parHeure": 20.57,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 22.74,
+    "gainVsTout": 10.6,
+    "tauxRefus": 32.9
+   },
+   "objectif12": {
+    "parHeure": 21.48,
+    "gainVsTout": 4.4,
+    "tauxRefus": 6.4
+   },
+   "objectif18": {
+    "parHeure": 22.45,
+    "gainVsTout": 9.1,
+    "tauxRefus": 20.7
+   },
+   "objectif25": {
+    "parHeure": 22.68,
+    "gainVsTout": 10.3,
+    "tauxRefus": 43.9
+   },
+   "objectif30": {
+    "parHeure": 21.39,
+    "gainVsTout": 4,
+    "tauxRefus": 61.4
+   },
+   "kmRegle75": {
+    "parHeure": 20.57,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "kmMeilleur": {
+    "parHeure": 20.57,
+    "gainVsTout": 0,
+    "tauxRefus": 0,
+    "parKm": 1.4
+   },
+   "barreSuppose75": {
+    "parHeure": 22.81,
+    "gainVsTout": 10.9,
+    "tauxRefus": 36
+   },
+   "barre": {
+    "parHeure": 22.81,
+    "gainVsTout": 10.9,
+    "tauxRefus": 36
+   }
+  },
+  {
+   "dispersion": 0.15,
+   "intervalleMin": 10,
+   "intervalle": "toutes les 10 min (Uber 2024)",
+   "barreHeure": 20.68,
+   "parKmRegle75": 1.4,
+   "tout": {
+    "parHeure": 19.18,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 20.66,
+    "gainVsTout": 7.7,
+    "tauxRefus": 32.9
+   },
+   "objectif12": {
+    "parHeure": 19.94,
+    "gainVsTout": 4,
+    "tauxRefus": 6.5
+   },
+   "objectif18": {
+    "parHeure": 20.62,
+    "gainVsTout": 7.5,
+    "tauxRefus": 20.6
+   },
+   "objectif25": {
+    "parHeure": 20.34,
+    "gainVsTout": 6.1,
+    "tauxRefus": 43.9
+   },
+   "objectif30": {
+    "parHeure": 18.65,
+    "gainVsTout": -2.7,
+    "tauxRefus": 61.4
+   },
+   "kmRegle75": {
+    "parHeure": 19.18,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "kmMeilleur": {
+    "parHeure": 19.18,
+    "gainVsTout": 0,
+    "tauxRefus": 0.1,
+    "parKm": 1.5
+   },
+   "barreSuppose75": {
+    "parHeure": 20.63,
+    "gainVsTout": 7.6,
+    "tauxRefus": 36
+   },
+   "barre": {
+    "parHeure": 20.71,
+    "gainVsTout": 8,
+    "tauxRefus": 28.9
+   }
+  },
+  {
+   "dispersion": 0.15,
+   "intervalleMin": 15,
+   "intervalle": "toutes les 15 min (heure creuse, hypothèse)",
+   "barreHeure": 17.67,
+   "parKmRegle75": 1.4,
+   "tout": {
+    "parHeure": 16.9,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 17.5,
+    "gainVsTout": 3.6,
+    "tauxRefus": 32.7
+   },
+   "objectif12": {
+    "parHeure": 17.4,
+    "gainVsTout": 3,
+    "tauxRefus": 6.5
+   },
+   "objectif18": {
+    "parHeure": 17.71,
+    "gainVsTout": 4.8,
+    "tauxRefus": 20.6
+   },
+   "objectif25": {
+    "parHeure": 16.85,
+    "gainVsTout": -0.3,
+    "tauxRefus": 43.9
+   },
+   "objectif30": {
+    "parHeure": 14.89,
+    "gainVsTout": -11.9,
+    "tauxRefus": 61.3
+   },
+   "kmRegle75": {
+    "parHeure": 16.9,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "kmMeilleur": {
+    "parHeure": 16.9,
+    "gainVsTout": 0,
+    "tauxRefus": 0,
+    "parKm": 1.3
+   },
+   "barreSuppose75": {
+    "parHeure": 17.33,
+    "gainVsTout": 2.6,
+    "tauxRefus": 35.9
+   },
+   "barre": {
+    "parHeure": 17.71,
+    "gainVsTout": 4.8,
+    "tauxRefus": 19.5
+   }
+  },
+  {
+   "dispersion": 0.3,
+   "intervalleMin": 4,
+   "intervalle": "une offre toutes les 4 min (Uber 2021)",
+   "barreHeure": 28.67,
+   "parKmRegle75": 1.7,
+   "tout": {
+    "parHeure": 22.86,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 27.5,
+    "gainVsTout": 20.3,
+    "tauxRefus": 38.2
+   },
+   "objectif12": {
+    "parHeure": 24.45,
+    "gainVsTout": 7,
+    "tauxRefus": 8.3
+   },
+   "objectif18": {
+    "parHeure": 26.51,
+    "gainVsTout": 16,
+    "tauxRefus": 25.1
+   },
+   "objectif25": {
+    "parHeure": 28.31,
+    "gainVsTout": 23.8,
+    "tauxRefus": 47.9
+   },
+   "objectif30": {
+    "parHeure": 28.61,
+    "gainVsTout": 25.1,
+    "tauxRefus": 63.6
+   },
+   "kmRegle75": {
+    "parHeure": 23.37,
+    "gainVsTout": 2.2,
+    "tauxRefus": 8.4
+   },
+   "kmMeilleur": {
+    "parHeure": 23.71,
+    "gainVsTout": 3.7,
+    "tauxRefus": 23.2,
+    "parKm": 2.1
+   },
+   "barreSuppose75": {
+    "parHeure": 28.03,
+    "gainVsTout": 22.6,
+    "tauxRefus": 43
+   },
+   "barre": {
+    "parHeure": 28.69,
+    "gainVsTout": 25.5,
+    "tauxRefus": 59.7
+   }
+  },
+  {
+   "dispersion": 0.3,
+   "intervalleMin": 5.8,
+   "intervalle": "toutes les 5,8 min (Bolt 2025)",
+   "barreHeure": 25.61,
+   "parKmRegle75": 1.7,
+   "tout": {
+    "parHeure": 21.63,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 25.23,
+    "gainVsTout": 16.6,
+    "tauxRefus": 38.2
+   },
+   "objectif12": {
+    "parHeure": 22.99,
+    "gainVsTout": 6.3,
+    "tauxRefus": 8.3
+   },
+   "objectif18": {
+    "parHeure": 24.6,
+    "gainVsTout": 13.7,
+    "tauxRefus": 25.1
+   },
+   "objectif25": {
+    "parHeure": 25.58,
+    "gainVsTout": 18.3,
+    "tauxRefus": 47.9
+   },
+   "objectif30": {
+    "parHeure": 25.11,
+    "gainVsTout": 16.1,
+    "tauxRefus": 63.6
+   },
+   "kmRegle75": {
+    "parHeure": 22,
+    "gainVsTout": 1.7,
+    "tauxRefus": 8.4
+   },
+   "kmMeilleur": {
+    "parHeure": 22.06,
+    "gainVsTout": 2,
+    "tauxRefus": 23.2,
+    "parKm": 2.1
+   },
+   "barreSuppose75": {
+    "parHeure": 25.51,
+    "gainVsTout": 18,
+    "tauxRefus": 43
+   },
+   "barre": {
+    "parHeure": 25.59,
+    "gainVsTout": 18.3,
+    "tauxRefus": 50
+   }
+  },
+  {
+   "dispersion": 0.3,
+   "intervalleMin": 7.5,
+   "intervalle": "toutes les 7,5 min (Uber 2025)",
+   "barreHeure": 23.5,
+   "parKmRegle75": 1.7,
+   "tout": {
+    "parHeure": 20.56,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 23.43,
+    "gainVsTout": 13.9,
+    "tauxRefus": 38.2
+   },
+   "objectif12": {
+    "parHeure": 21.77,
+    "gainVsTout": 5.9,
+    "tauxRefus": 8.3
+   },
+   "objectif18": {
+    "parHeure": 23.02,
+    "gainVsTout": 11.9,
+    "tauxRefus": 25
+   },
+   "objectif25": {
+    "parHeure": 23.46,
+    "gainVsTout": 14.1,
+    "tauxRefus": 47.9
+   },
+   "objectif30": {
+    "parHeure": 22.5,
+    "gainVsTout": 9.4,
+    "tauxRefus": 63.6
+   },
+   "kmRegle75": {
+    "parHeure": 20.83,
+    "gainVsTout": 1.3,
+    "tauxRefus": 8.4
+   },
+   "kmMeilleur": {
+    "parHeure": 20.83,
+    "gainVsTout": 1.3,
+    "tauxRefus": 8.4,
+    "parKm": 1.7
+   },
+   "barreSuppose75": {
+    "parHeure": 23.52,
+    "gainVsTout": 14.4,
+    "tauxRefus": 43
+   },
+   "barre": {
+    "parHeure": 23.52,
+    "gainVsTout": 14.4,
+    "tauxRefus": 43
+   }
+  },
+  {
+   "dispersion": 0.3,
+   "intervalleMin": 10,
+   "intervalle": "toutes les 10 min (Uber 2024)",
+   "barreHeure": 21.16,
+   "parKmRegle75": 1.7,
+   "tout": {
+    "parHeure": 19.17,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 21.16,
+    "gainVsTout": 10.4,
+    "tauxRefus": 38.2
+   },
+   "objectif12": {
+    "parHeure": 20.17,
+    "gainVsTout": 5.2,
+    "tauxRefus": 8.3
+   },
+   "objectif18": {
+    "parHeure": 21.05,
+    "gainVsTout": 9.8,
+    "tauxRefus": 25
+   },
+   "objectif25": {
+    "parHeure": 20.94,
+    "gainVsTout": 9.2,
+    "tauxRefus": 47.9
+   },
+   "objectif30": {
+    "parHeure": 19.5,
+    "gainVsTout": 1.7,
+    "tauxRefus": 63.6
+   },
+   "kmRegle75": {
+    "parHeure": 19.32,
+    "gainVsTout": 0.8,
+    "tauxRefus": 8.4
+   },
+   "kmMeilleur": {
+    "parHeure": 19.32,
+    "gainVsTout": 0.8,
+    "tauxRefus": 8.4,
+    "parKm": 1.7
+   },
+   "barreSuppose75": {
+    "parHeure": 21.11,
+    "gainVsTout": 10.1,
+    "tauxRefus": 43
+   },
+   "barre": {
+    "parHeure": 21.2,
+    "gainVsTout": 10.6,
+    "tauxRefus": 35.3
+   }
+  },
+  {
+   "dispersion": 0.3,
+   "intervalleMin": 15,
+   "intervalle": "toutes les 15 min (heure creuse, hypothèse)",
+   "barreHeure": 17.91,
+   "parKmRegle75": 1.7,
+   "tout": {
+    "parHeure": 16.89,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 17.76,
+    "gainVsTout": 5.1,
+    "tauxRefus": 38.2
+   },
+   "objectif12": {
+    "parHeure": 17.57,
+    "gainVsTout": 4,
+    "tauxRefus": 8.3
+   },
+   "objectif18": {
+    "parHeure": 17.97,
+    "gainVsTout": 6.4,
+    "tauxRefus": 24.9
+   },
+   "objectif25": {
+    "parHeure": 17.18,
+    "gainVsTout": 1.7,
+    "tauxRefus": 47.9
+   },
+   "objectif30": {
+    "parHeure": 15.48,
+    "gainVsTout": -8.4,
+    "tauxRefus": 63.6
+   },
+   "kmRegle75": {
+    "parHeure": 16.86,
+    "gainVsTout": -0.2,
+    "tauxRefus": 8.3
+   },
+   "kmMeilleur": {
+    "parHeure": 16.93,
+    "gainVsTout": 0.2,
+    "tauxRefus": 2.2,
+    "parKm": 1.4
+   },
+   "barreSuppose75": {
+    "parHeure": 17.49,
+    "gainVsTout": 3.6,
+    "tauxRefus": 43
+   },
+   "barre": {
+    "parHeure": 17.97,
+    "gainVsTout": 6.4,
+    "tauxRefus": 24.7
+   }
+  },
+  {
+   "dispersion": 0.45,
+   "intervalleMin": 4,
+   "intervalle": "une offre toutes les 4 min (Uber 2021)",
+   "barreHeure": 30.88,
+   "parKmRegle75": 2.1,
+   "tout": {
+    "parHeure": 22.86,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 29.06,
+    "gainVsTout": 27.1,
+    "tauxRefus": 43.6
+   },
+   "objectif12": {
+    "parHeure": 25.17,
+    "gainVsTout": 10.1,
+    "tauxRefus": 11.4
+   },
+   "objectif18": {
+    "parHeure": 27.82,
+    "gainVsTout": 21.7,
+    "tauxRefus": 30.6
+   },
+   "objectif25": {
+    "parHeure": 30.16,
+    "gainVsTout": 31.9,
+    "tauxRefus": 52.3
+   },
+   "objectif30": {
+    "parHeure": 30.87,
+    "gainVsTout": 35,
+    "tauxRefus": 65.3
+   },
+   "kmRegle75": {
+    "parHeure": 25.18,
+    "gainVsTout": 10.2,
+    "tauxRefus": 30.5
+   },
+   "kmMeilleur": {
+    "parHeure": 25.58,
+    "gainVsTout": 11.9,
+    "tauxRefus": 51.9,
+    "parKm": 2.7
+   },
+   "barreSuppose75": {
+    "parHeure": 30.04,
+    "gainVsTout": 31.4,
+    "tauxRefus": 51
+   },
+   "barre": {
+    "parHeure": 30.89,
+    "gainVsTout": 35.1,
+    "tauxRefus": 66.9
+   }
+  },
+  {
+   "dispersion": 0.45,
+   "intervalleMin": 5.8,
+   "intervalle": "toutes les 5,8 min (Bolt 2025)",
+   "barreHeure": 27.13,
+   "parKmRegle75": 2.1,
+   "tout": {
+    "parHeure": 21.62,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 26.48,
+    "gainVsTout": 22.4,
+    "tauxRefus": 43.7
+   },
+   "objectif12": {
+    "parHeure": 23.6,
+    "gainVsTout": 9.1,
+    "tauxRefus": 11.3
+   },
+   "objectif18": {
+    "parHeure": 25.69,
+    "gainVsTout": 18.8,
+    "tauxRefus": 30.6
+   },
+   "objectif25": {
+    "parHeure": 27.02,
+    "gainVsTout": 24.9,
+    "tauxRefus": 52.3
+   },
+   "objectif30": {
+    "parHeure": 26.98,
+    "gainVsTout": 24.8,
+    "tauxRefus": 65.3
+   },
+   "kmRegle75": {
+    "parHeure": 23.28,
+    "gainVsTout": 7.7,
+    "tauxRefus": 30.4
+   },
+   "kmMeilleur": {
+    "parHeure": 23.31,
+    "gainVsTout": 7.8,
+    "tauxRefus": 34,
+    "parKm": 2.2
+   },
+   "barreSuppose75": {
+    "parHeure": 26.98,
+    "gainVsTout": 24.8,
+    "tauxRefus": 51
+   },
+   "barre": {
+    "parHeure": 27.13,
+    "gainVsTout": 25.4,
+    "tauxRefus": 58.3
+   }
+  },
+  {
+   "dispersion": 0.45,
+   "intervalleMin": 7.5,
+   "intervalle": "toutes les 7,5 min (Uber 2025)",
+   "barreHeure": 24.62,
+   "parKmRegle75": 2.1,
+   "tout": {
+    "parHeure": 20.56,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 24.42,
+    "gainVsTout": 18.8,
+    "tauxRefus": 43.7
+   },
+   "objectif12": {
+    "parHeure": 22.28,
+    "gainVsTout": 8.4,
+    "tauxRefus": 11.3
+   },
+   "objectif18": {
+    "parHeure": 23.93,
+    "gainVsTout": 16.4,
+    "tauxRefus": 30.6
+   },
+   "objectif25": {
+    "parHeure": 24.6,
+    "gainVsTout": 19.7,
+    "tauxRefus": 52.3
+   },
+   "objectif30": {
+    "parHeure": 24.08,
+    "gainVsTout": 17.1,
+    "tauxRefus": 65.3
+   },
+   "kmRegle75": {
+    "parHeure": 21.72,
+    "gainVsTout": 5.7,
+    "tauxRefus": 30.4
+   },
+   "kmMeilleur": {
+    "parHeure": 21.72,
+    "gainVsTout": 5.7,
+    "tauxRefus": 30.4,
+    "parKm": 2.1
+   },
+   "barreSuppose75": {
+    "parHeure": 24.6,
+    "gainVsTout": 19.7,
+    "tauxRefus": 51.1
+   },
+   "barre": {
+    "parHeure": 24.6,
+    "gainVsTout": 19.7,
+    "tauxRefus": 51.1
+   }
+  },
+  {
+   "dispersion": 0.45,
+   "intervalleMin": 10,
+   "intervalle": "toutes les 10 min (Uber 2024)",
+   "barreHeure": 21.93,
+   "parKmRegle75": 2.1,
+   "tout": {
+    "parHeure": 19.15,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 21.95,
+    "gainVsTout": 14.6,
+    "tauxRefus": 43.7
+   },
+   "objectif12": {
+    "parHeure": 20.59,
+    "gainVsTout": 7.5,
+    "tauxRefus": 11.3
+   },
+   "objectif18": {
+    "parHeure": 21.71,
+    "gainVsTout": 13.4,
+    "tauxRefus": 30.6
+   },
+   "objectif25": {
+    "parHeure": 21.8,
+    "gainVsTout": 13.8,
+    "tauxRefus": 52.3
+   },
+   "objectif30": {
+    "parHeure": 20.79,
+    "gainVsTout": 8.5,
+    "tauxRefus": 65.3
+   },
+   "kmRegle75": {
+    "parHeure": 19.78,
+    "gainVsTout": 3.3,
+    "tauxRefus": 30.3
+   },
+   "kmMeilleur": {
+    "parHeure": 19.87,
+    "gainVsTout": 3.8,
+    "tauxRefus": 18.9,
+    "parKm": 1.8
+   },
+   "barreSuppose75": {
+    "parHeure": 21.84,
+    "gainVsTout": 14,
+    "tauxRefus": 51.1
+   },
+   "barre": {
+    "parHeure": 21.99,
+    "gainVsTout": 14.8,
+    "tauxRefus": 42.9
+   }
+  },
+  {
+   "dispersion": 0.45,
+   "intervalleMin": 15,
+   "intervalle": "toutes les 15 min (heure creuse, hypothèse)",
+   "barreHeure": 18.33,
+   "parKmRegle75": 2.1,
+   "tout": {
+    "parHeure": 16.88,
+    "gainVsTout": 0,
+    "tauxRefus": 0
+   },
+   "v1": {
+    "parHeure": 18.21,
+    "gainVsTout": 7.9,
+    "tauxRefus": 43.6
+   },
+   "objectif12": {
+    "parHeure": 17.85,
+    "gainVsTout": 5.8,
+    "tauxRefus": 11.3
+   },
+   "objectif18": {
+    "parHeure": 18.37,
+    "gainVsTout": 8.9,
+    "tauxRefus": 30.5
+   },
+   "objectif25": {
+    "parHeure": 17.71,
+    "gainVsTout": 4.9,
+    "tauxRefus": 52.3
+   },
+   "objectif30": {
+    "parHeure": 16.41,
+    "gainVsTout": -2.7,
+    "tauxRefus": 65.3
+   },
+   "kmRegle75": {
+    "parHeure": 16.78,
+    "gainVsTout": -0.6,
+    "tauxRefus": 30.3
+   },
+   "kmMeilleur": {
+    "parHeure": 17.15,
+    "gainVsTout": 1.6,
+    "tauxRefus": 9.8,
+    "parKm": 1.5
+   },
+   "barreSuppose75": {
+    "parHeure": 17.79,
+    "gainVsTout": 5.4,
+    "tauxRefus": 51.1
+   },
+   "barre": {
+    "parHeure": 18.37,
+    "gainVsTout": 8.9,
+    "tauxRefus": 31.5
+   }
+  }
+ ],
+ "points_morts": [
+  {
+   "dispersion": 0.15,
+   "toutAccepter75Heure": 20.51,
+   "intervallePointMortMin": 10.2,
+   "baisseFrequenceToleree": 26.6
+  },
+  {
+   "dispersion": 0.3,
+   "toutAccepter75Heure": 20.51,
+   "intervallePointMortMin": 10.8,
+   "baisseFrequenceToleree": 30.8
+  },
+  {
+   "dispersion": 0.45,
+   "toutAccepter75Heure": 20.51,
+   "intervallePointMortMin": 11.7,
+   "baisseFrequenceToleree": 35.8
+  }
+ ]
+}

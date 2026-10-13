@@ -1,0 +1,14 @@
+# Exemple de tableau de vérité, sur les captures fictives du dossier exemples/. Copie-le en calibration/verite.local.csv pour tes vraies captures.
+fichier;plateforme;prixNet;approcheMin;approcheKm;courseMin;courseKm;note
+offre-1.png;fictive;12,0;4;1,5;12;5,0;mise au point
+offre-2.png;fictive;9,0;14;7,0;9;4,0;mise au point
+offre-3.png;fictive;38,0;6;3,0;32;30,0;mise au point
+offre-4.png;fictive;18,0;8;4,0;20;12,0;mise au point
+offre-5.png;fictive;64,5;3;0,9;65;62,3;mise au point
+offre-6.png;fictive;7,8;11;5,6;7;2,4;mise au point
+controle-1.png;fictive;23,4;5;2,2;18;9,8;contrôle
+controle-2.png;fictive;15,6;9;4,8;16;8,1;contrôle
+controle-3.png;fictive;112,0;2;0,6;100;141,0;contrôle
+controle-4.png;fictive;6,9;12;6,3;6;2,1;contrôle
+controle-5.png;fictive;31,2;7;3,4;28;24,7;contrôle
+controle-6.png;fictive;10,4;6;2,9;10;4,6;contrôle
