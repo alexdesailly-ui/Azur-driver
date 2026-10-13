@@ -26,5 +26,7 @@ cd .. && python3 -m http.server 8765
 # http://localhost:8765/vraicompteur/index.html
 python3 vraicompteur/tests/parcours.py http://localhost:8765/vraicompteur/index.html /tmp/captures
 python3 vraicompteur/tests/controle.py http://localhost:8765/vraicompteur/index.html
+python3 vraicompteur/tests/accessibilite.py http://localhost:8765/vraicompteur/index.html   # axe-core, WCAG 2.1 AA
+python3 vraicompteur/tests/lent.py http://localhost:8765/vraicompteur/index.html           # téléphone lent approché
 ```
 Sans `npm run vendor`, la page charge le moteur de lecture depuis jsDelivr au premier usage.

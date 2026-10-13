@@ -83,6 +83,7 @@ Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le 
 ## 9. Technique
 - Démonstration (ce dossier) : moteur et lecteur en JavaScript, lecture des captures par Tesseract compilé en WebAssembly, dans le navigateur, sans appel réseau pendant la lecture.
 - La barre : calcul exact par dichotomie, vérifié par simulation (tests sur des cas calculables à la main) ; dans la page, des milliers d'heures simulées sur le téléphone en quelques dixièmes de seconde.
+- Accessibilité : audit automatique axe-core (WCAG 2.1 A et AA, bonnes pratiques), 0 violation sur ordinateur sombre et téléphone clair ; couleurs du verdict au moins 5,7:1 en thème clair, pour la lecture au soleil.
 - Contre-vérification : une réécriture indépendante en Python (`tests/verifier_simulation.py`), avec les formules exactes au lieu du tirage au hasard, retrouve la barre et les revenus de `docs/simulation.json` sur les 15 scénarios (60 contrôles sur 60).
 - Kit de calibration (`calibration/`) : mesure la précision du lecteur sur les vraies captures d'un chauffeur, sur son ordinateur, sans réseau, et la fréquence de ses offres.
 - Appli Android : spécification dans `docs/android.md`.

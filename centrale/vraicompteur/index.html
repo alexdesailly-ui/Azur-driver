@@ -3,8 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vrai Compteur — avant d'accepter, sache ce qu'il te reste</title>
-<meta name="description" content="Démonstration : le copilote du chauffeur VTC qui calcule, sur le téléphone, ce que chaque offre de course rapporte vraiment à l'heure.">
+<title>Vrai Compteur — calcule ce que rapporte vraiment une course VTC</title>
+<meta name="description" content="Rentabilité d'une course VTC : net après cotisations, frais et approche, comparé à ce que rapporte un refus. Calcul sur le téléphone, rien n'est envoyé. Démonstration.">
+<meta property="og:title" content="Vrai Compteur — avant d'accepter, sache ce qu'il te reste">
+<meta property="og:description" content="Le copilote du chauffeur VTC : il lit l'offre, calcule le net et te dit si elle vaut mieux que d'attendre la suivante.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0f1317">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -164,12 +168,18 @@ a { color: inherit; }
 .politique .val small { display: block; font-family: var(--texte-f); font-size: 0.78rem; font-weight: 500; color: var(--doux); }
 .semaine-ecart { font-weight: 600; border-top: 1px solid var(--trait); padding-top: 12px; }
 .limites { margin: 8px 0 0; padding-left: 1.1em; color: var(--doux); display: grid; gap: 6px; font-size: 0.95rem; }
+.faq { display: grid; gap: 10px; margin-top: 22px; max-width: 46rem; }
+.faq details { background: var(--panneau); border: 1px solid var(--trait); border-radius: 10px; padding: 14px 18px; }
+.faq summary { cursor: pointer; font-weight: 600; }
+.faq details[open] summary { margin-bottom: 8px; }
+.faq p { color: var(--doux); }
+.faq p + p { margin-top: 8px; }
 .pied { border-top: 1px solid var(--trait); padding-block: 28px; font-size: 0.86rem; color: var(--doux); }
 .pied .cadre { display: grid; gap: 6px; }
 </style>
 </head>
 <body>
-<div class="bandeau" role="note"><div class="cadre"><span><b>Démonstration.</b> Captures d'offre fictives, aucune donnée envoyée, aucune plateforme connectée.</span><span>Nom de travail provisoire : Vrai Compteur</span></div></div>
+<aside class="bandeau" aria-label="Avertissement"><div class="cadre"><span><b>Démonstration.</b> Captures d'offre fictives, aucune donnée envoyée, aucune plateforme connectée.</span><span>Nom de travail provisoire : Vrai Compteur</span></div></aside>
 <header class="entete">
   <div class="cadre">
     <a class="marque" href="#" aria-label="Vrai Compteur, accueil">
@@ -319,6 +329,27 @@ a { color: inherit; }
         <div><h3>Vrai Compteur ne décide pas</h3><p>Il calcule et affiche. Il n'accepte, ne refuse et ne touche jamais l'appli de la plateforme&nbsp;: c'est toi qui appuies.</p></div>
       </div>
       <p class="regle">Refuser n'est pas annuler. Chez Uber, le statut Uber Pro compte le taux d'annulation après acceptation (5&nbsp;% au plus pour monter), pas les offres refusées (page «&nbsp;Uber Pro&nbsp;: statuts&nbsp;», consultée le 13 octobre 2026). Décide avant d'accepter, jamais après.</p>
+    </div>
+  </section>
+
+  <section class="bloc" id="questions">
+    <div class="cadre">
+      <h2>Questions de chauffeurs</h2>
+      <div class="faq">
+        <details><summary>Comment calculer la rentabilité d'une course VTC&nbsp;?</summary>
+          <p>Pars du prix net affiché, après commission. Retire tes cotisations (21,2&nbsp;% du chiffre d'affaires en 2026 pour une micro-entreprise de prestations de services commerciales&nbsp;; abby.fr, mis à jour le 20 août 2026) et tes frais au kilomètre sur toute la distance&nbsp;: approche, course et retour vers une zone active. Divise par le temps que la course t'immobilise, approche et retour compris. Tu obtiens ce qu'elle te rapporte à l'heure pendant qu'elle t'occupe.</p>
+          <p>Compare ce chiffre à ta barre, ce que tu gagnes en moyenne par heure connectée en ne prenant que les courses au-dessus d'elle. C'est ce que fait le compteur en haut de la page.</p></details>
+        <details><summary>Combien gagne vraiment un chauffeur VTC de l'heure&nbsp;?</summary>
+          <p>Pour 15 chauffeurs Uber suivis à Paris de 2019 à 2022&nbsp;: 10 à 34&nbsp;€ de l'heure brut sur tout le temps de travail (étude digipower, PersonalData.IO). Entre 2021 et 2025, le revenu horaire réel a baissé de 9,3&nbsp;% chez Uber et de 11,3&nbsp;% chez Bolt, une fois l'inflation déduite (rapport ARPE 2026, cité par TPE Actu le 26 avril 2026).</p>
+          <p>Ton chiffre à toi&nbsp;: remplis «&nbsp;Ta semaine&nbsp;», avec toutes tes heures connectées et tes charges fixes.</p></details>
+        <details><summary>Ai-je le droit de refuser une course Uber, Bolt ou Heetch&nbsp;?</summary>
+          <p>Oui. La plateforme doit t'afficher la distance et le prix minimal net avant que tu acceptes, et aucun refus ne peut être pénalisé ni motiver une rupture (code des transports, article L.1326-2).</p>
+          <p>Refuser n'est pas annuler&nbsp;: chez Uber, le statut Uber Pro tient compte du taux d'annulation après acceptation. Décide avant d'accepter.</p></details>
+        <details><summary>Le minimum de 9&nbsp;€ par course, c'est quoi&nbsp;?</summary>
+          <p>Les accords homologués par l'ARPE prévoient 9&nbsp;€ net minimum par course, 1&nbsp;€ minimum par kilomètre et 30&nbsp;€ net par heure d'activité (Legisocial, 2 avril 2024&nbsp;; Uber, mai 2024). Le compteur affiche ces repères pour chaque offre&nbsp;; leurs définitions exactes restent à vérifier.</p></details>
+        <details><summary>Faut-il accepter une longue course vers l'aéroport&nbsp;?</summary>
+          <p>Ça dépend du retour. Une course de 38&nbsp;€ vers un lieu isolé, avec 25 minutes et 10&nbsp;km comptés pour revenir dans une zone active, rapporte environ 22&nbsp;€ de l'heure pendant qu'elle t'occupe. Quand les offres pleuvent, c'est sous la barre&nbsp;; quand elles sont rares, c'est au-dessus. Essaie-la dans le compteur et bouge le réglage de fréquence.</p></details>
+      </div>
     </div>
   </section>
 
