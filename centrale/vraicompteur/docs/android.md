@@ -18,7 +18,7 @@ Choix : construire B d'abord (il dépend moins de chaque plateforme), garder A e
 ## La bulle
 - Fenêtre par-dessus les autres applis (autorisation « Afficher par-dessus d'autres applis »).
 - Petite, en haut d'écran, **jamais au-dessus des boutons de l'offre**, et traversée par les touchers : depuis Android 12, les touchers qui traversent une fenêtre d'une autre appli sont bloqués si elle est trop opaque ; la bulle ne doit gêner aucun geste.
-- Un coup d'œil suffit : la couleur, un mot (« au-dessus de ta barre »), un chiffre (« +3,70 € par rapport à attendre »). Aucune manipulation en conduisant. Option voix à étudier.
+- Un coup d'œil suffit : la couleur, un mot (« rentable », « limite », « sous ta barre »), un chiffre (« +3,70 € par rapport à attendre »). Aucune manipulation en conduisant. Option voix à étudier.
 
 ## Le calcul
 - Même moteur que la démonstration : `moteur.js` (net, temps immobilisé, verdict), `strategie.js` (barre), `lecteur.js` (lecture du texte).

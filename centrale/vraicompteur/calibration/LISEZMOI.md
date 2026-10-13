@@ -2,8 +2,8 @@
 
 Les captures de la démonstration sont fictives. Avant toute bêta, il faut savoir si le lecteur lit les vraies offres des plateformes françaises. Ce kit le mesure sur ton ordinateur, sans réseau.
 
-## Ce qu'il faut (environ 1 h, en conduisant normalement)
-1. Pendant une ou deux séances, fais une capture d'écran de **chaque** offre reçue, acceptée ou non, sur chaque plateforme que tu utilises. Vise 20 captures par plateforme.
+## Ce qu'il faut (environ 1 h, pendant tes séances habituelles)
+1. Pendant une ou deux séances, fais une capture d'écran de **chaque** offre reçue **à l'arrêt** (pendant que tu attends), acceptée ou non, sur chaque plateforme que tu utilises. Jamais en roulant. Vise 20 captures par plateforme.
 2. Copie les captures dans `calibration/captures/` (ce dossier n'est jamais envoyé sur GitHub).
 3. Copie `exemple-verite.csv` en `verite.local.csv` et remplis une ligne par capture, avec les valeurs **affichées à l'écran** : prix net, approche (min et km), course (min et km). Laisse vide un champ que l'offre n'affiche pas. Colonne facultative `heure` (HH:MM) : l'heure d'arrivée de l'offre.
 4. Une fois : `npm install`. Puis : `node outils/calibrer.js calibration/captures calibration/verite.local.csv`
