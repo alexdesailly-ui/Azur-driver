@@ -1,5 +1,5 @@
 // Cas écrits à la main AVANT le code du moteur. node --test tests/
-// v2 (13/10, 03:20, après la relecture critique) : le verdict compare l'offre à la « barre », le revenu moyen par minute
+// v2 (13/10, 03:07, après la relecture critique) : le verdict compare l'offre à la « barre », le revenu moyen par minute
 // que le chauffeur peut espérer s'il refuse et attend la suivante (strategie.js), et non plus à un objectif fixe.
 // Temps compté pour une offre : approche + course + surcoût de la zone de dépose (le temps et les kilomètres en plus pour
 // revenir dans une zone active). L'attente ordinaire entre deux offres n'est pas dans l'offre : elle est déjà dans la barre.

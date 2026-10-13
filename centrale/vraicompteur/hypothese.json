@@ -17,7 +17,7 @@
     "valeur": "Bêta de 30 chauffeurs pendant 4 semaines : au moins +10 % de revenu net à l'heure mesuré (compteur de la semaine avant / après). Échec : moins de +3 %.",
     "paiement": "Au moins 10 % des bêta-testeurs acceptent un abonnement à 9,90 € par mois à la fin de la bêta."
   },
-  "addendum_2026-10-13T03:20": {
+  "addendum_2026-10-13T03:15": {
     "pourquoi": "Relecture critique séparée (sans sous-agent) : le verdict comparait l'offre à un objectif fixe et ignorait le coût d'un refus.",
     "changement": "Le verdict compare l'offre à la barre g (arrêt optimal), calculée à partir de la fréquence et de la valeur des offres ; les tests du moteur ont été réécrits à la main avant le code.",
     "nouvelle_hypothese_valeur": "Avec les moyennes publiées par l'ARPE et des hypothèses affichées, choisir avec la barre rapporte plus que tout accepter et que le filtre au kilomètre ; à vérifier sur le terrain contre la pratique réelle des chauffeurs.",

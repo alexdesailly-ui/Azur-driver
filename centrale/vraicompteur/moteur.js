@@ -2,7 +2,7 @@
    Décision marginale : pour choisir une course, seuls comptent ce qu'elle rapporte net (après cotisations et frais au kilomètre)
    et le temps qu'elle immobilise (approche + course + surcoût de la zone de dépose). Les charges fixes de la semaine
    ne changent pas d'une course à l'autre : elles sont dans le compteur de la semaine, pas dans le verdict d'une offre.
-   v2 (13/10, 03:20) : l'offre est comparée à la « barre », le revenu net moyen par minute que le chauffeur peut espérer
+   v2 (13/10, 03:07) : l'offre est comparée à la « barre », le revenu net moyen par minute que le chauffeur peut espérer
    en refusant et en attendant la suivante (calculée par strategie.js à partir du flux d'offres). Refuser n'est pas gratuit. */
 (function (racine, fabrique) {
   if (typeof module === "object" && module.exports) module.exports = fabrique();
