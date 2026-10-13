@@ -27,6 +27,7 @@ Simulation (`outils/simuler_politiques.js`, résultats dans `docs/simulation.jso
 - Selon l'écart de prix entre les offres (faible, moyen, fort) : +10,9 %, +14,4 %, +19,7 % pour la barre ; 0 %, +1,3 %, +5,7 % pour le meilleur filtre au kilomètre.
 - Aux heures creuses (une offre toutes les 15 min), l'objectif fixe de 30 €/h fait **perdre** 8,4 % ; la barre gagne encore 6,4 %.
 - Un objectif fixe bien choisi fait presque aussi bien que la barre ; tout l'enjeu est de le choisir, et de le changer avec l'heure. La barre le fait seule.
+- En euros : sur une semaine de 45 h connectées, l'écart entre la barre et « tout accepter » vaut environ 130 € net dans ce scénario (45 × (23,52 − 20,56)), à comparer aux 9,90 € par mois du copilote.
 - Paramètres publiés : rapport ARPE 2026 cité par TPE Actu le 26/04/2026 (Uber 2025 : 17,3 € par course, 21,8 min par prestation, une proposition toutes les 7,5 min ; 4 min en 2021, 10 min en 2024 ; Bolt 2025 : une toutes les 5,8 min). Le reste est une hypothèse affichée dans le fichier de résultats.
 - Limites : les chauffeurs refusent déjà au jugé, le gain réel se mesure contre leur pratique (bêta) ; si refuser faisait venir les offres moins souvent, le gain disparaîtrait à partir d'environ 27 à 36 % d'offres en moins selon l'écart de prix ; l'écart de prix réel n'est pas publié.
 
@@ -84,6 +85,7 @@ Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le 
 - La barre : calcul exact par dichotomie, vérifié par simulation (tests sur des cas calculables à la main) ; dans la page, des milliers d'heures simulées sur le téléphone en moins de 0,1 s.
 - Kit de calibration (`calibration/`) : mesure la précision du lecteur sur les vraies captures d'un chauffeur, sur son ordinateur, sans réseau, et la fréquence de ses offres.
 - Appli Android : spécification dans `docs/android.md`.
+- Téléphone lent, approché par un processeur ralenti 4 et 6 fois dans Chrome (`tests/lent.py`, `docs/mesures-appareil-lent.json`) : simulation de la page 0,9 et 1,4 s au chargement, 0,2 et 0,3 s après un réglage ; verdict recalculé en 0,1 et 0,25 s. Le ralentissement ne s'applique pas au travailleur qui lit les captures : la vitesse de lecture sur un vrai téléphone reste à mesurer.
 - Mesures de la démonstration (12/10/2026, conteneur de test, navigateur Chromium) : 30 champs justes sur 30 sur 6 captures de mise au point, 30 sur 30 sur 6 captures de contrôle jamais utilisées pour régler le lecteur ; environ 0,2 s par lecture. Captures fictives et génériques : à refaire sur de vraies captures et sur un téléphone.
 - Appli Android (après la preuve) : bulle flottante, lecture de l'écran à l'arrivée d'une offre (API d'accessibilité déclarée, ou capture autorisée), reconnaissance de texte sur l'appareil, même moteur.
 - iPhone : la lecture de l'écran d'une autre appli n'est pas possible ; le compteur et la lecture de captures restent disponibles.

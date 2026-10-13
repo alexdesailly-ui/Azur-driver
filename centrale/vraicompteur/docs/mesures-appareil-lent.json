@@ -1,0 +1,53 @@
+{
+ "note": "Approximation d'un téléphone d'entrée de gamme : processeur ralenti 4 et 6 fois (Chrome DevTools), écran de téléphone.\nMesure la lecture des 6 captures d'exemple, la simulation de la page et la réaction au réglage de fréquence.\nCe n'est PAS une mesure sur un vrai téléphone : à refaire sur un appareil réel.\nAttention : le ralentissement de Chrome s'applique à la page, pas au travailleur qui fait la lecture des captures ;\nles temps de lecture sous ralenti ne sont donc PAS valables (ils sont gardés pour le montrer). Valables : simulation et réglage.",
+ "mesures": [
+  {
+   "resimulation_apres_reglage_ms": 50,
+   "ralenti": 1,
+   "lecture_ms": [
+    264,
+    318,
+    125,
+    249,
+    150,
+    222
+   ],
+   "lecture_mediane_ms": 235.5,
+   "premiere_lecture_ms": 264,
+   "simulation_page_ms": 226,
+   "reaction_reglage_ms": 14
+  },
+  {
+   "resimulation_apres_reglage_ms": 226,
+   "ralenti": 4,
+   "lecture_ms": [
+    372,
+    536,
+    149,
+    250,
+    190,
+    236
+   ],
+   "lecture_mediane_ms": 243.0,
+   "premiere_lecture_ms": 372,
+   "simulation_page_ms": 861,
+   "reaction_reglage_ms": 77
+  },
+  {
+   "resimulation_apres_reglage_ms": 309,
+   "ralenti": 6,
+   "lecture_ms": [
+    402,
+    271,
+    207,
+    309,
+    173,
+    277
+   ],
+   "lecture_mediane_ms": 274.0,
+   "premiere_lecture_ms": 402,
+   "simulation_page_ms": 1387,
+   "reaction_reglage_ms": 251
+  }
+ ]
+}

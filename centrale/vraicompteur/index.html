@@ -26,13 +26,13 @@
   :root:not([data-theme="dark"]) {
     --fond: #f2f4f5; --panneau: #ffffff; --panneau-2: #f5f7f8; --trait: #d7dde2;
     --texte: #12181d; --doux: #56626d; --ambre: #9a5b00; --ambre-fond: #fbf0dd;
-    --vert: #18794a; --orange: #a65a00; --rouge: #c0332b; --vert-fond: #e3f4ea; --orange-fond: #fbeedd; --rouge-fond: #fbe4e2; --sur-ambre: #ffffff; color-scheme: light;
+    --vert: #13663e; --orange: #8a4b00; --rouge: #a8291f; --vert-fond: #e3f4ea; --orange-fond: #fbeedd; --rouge-fond: #fbe4e2; --sur-ambre: #ffffff; color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --fond: #f2f4f5; --panneau: #ffffff; --panneau-2: #f5f7f8; --trait: #d7dde2;
   --texte: #12181d; --doux: #56626d; --ambre: #9a5b00; --ambre-fond: #fbf0dd;
-  --vert: #18794a; --orange: #a65a00; --rouge: #c0332b; --vert-fond: #e3f4ea; --orange-fond: #fbeedd; --rouge-fond: #fbe4e2; --sur-ambre: #ffffff; color-scheme: light;
+  --vert: #13663e; --orange: #8a4b00; --rouge: #a8291f; --vert-fond: #e3f4ea; --orange-fond: #fbeedd; --rouge-fond: #fbe4e2; --sur-ambre: #ffffff; color-scheme: light;
 }
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; background: var(--fond); color: var(--texte); font-family: var(--texte-f); font-size: 1.05rem; line-height: 1.55; -webkit-font-smoothing: antialiased; }
@@ -162,6 +162,7 @@ a { color: inherit; }
 .politique.nous .nom small { font-weight: 400; }
 .politique .val { text-align: right; font-family: var(--chiffres); font-size: 1.25rem; font-weight: 700; line-height: 1.1; }
 .politique .val small { display: block; font-family: var(--texte-f); font-size: 0.78rem; font-weight: 500; color: var(--doux); }
+.semaine-ecart { font-weight: 600; border-top: 1px solid var(--trait); padding-top: 12px; }
 .limites { margin: 8px 0 0; padding-left: 1.1em; color: var(--doux); display: grid; gap: 6px; font-size: 0.95rem; }
 .pied { border-top: 1px solid var(--trait); padding-block: 28px; font-size: 0.86rem; color: var(--doux); }
 .pied .cadre { display: grid; gap: 6px; }
@@ -267,6 +268,7 @@ a { color: inherit; }
             </fieldset>
           </div>
           <div class="politiques" id="politiques" aria-live="polite"></div>
+          <p class="semaine-ecart" id="sim-semaine" aria-live="polite"></p>
           <p class="note" id="sim-note"></p>
         </div>
         <div class="carte">
