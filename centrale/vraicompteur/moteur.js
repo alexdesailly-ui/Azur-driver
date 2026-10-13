@@ -40,7 +40,8 @@
   function evaluerOffre(offre, profil) {
     var p = Object.assign({}, PROFIL_DEFAUT, profil || {});
     var manque = CHAMPS.filter(function (k) { return !nombre(offre[k]); });
-    if (manque.length) return { verdict: "incomplet", manque: manque, raisons: ["Il manque : " + manque.join(", ") + "."] };
+    var NOMS = { prixNet: "le prix", approcheMin: "la durée d'approche", approcheKm: "la distance d'approche", courseMin: "la durée de course", courseKm: "la distance de course" };
+    if (manque.length) return { verdict: "incomplet", manque: manque, raisons: ["Il manque " + manque.map(function (k) { return NOMS[k]; }).join(", ") + "."] };
     var vt = valeurTemps(offre, p);
     var netCourse = vt.v, minutes = vt.tau;
     var netHeure = minutes > 0 ? netCourse / minutes * 60 : 0;

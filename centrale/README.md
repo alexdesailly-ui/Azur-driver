@@ -11,6 +11,7 @@ Les conciergeries de Vars et de Risoul glissent un lien dans leur message d'avan
 | `index.html` | Vitrine de démonstration : tableau des départs, étapes, estimateur, conciergeries, chauffeurs, questions |
 | `modele-economique.html` | Modèle économique, version publique (sans chiffres internes) : qui paie quoi, options étudiées, simulateur à valeurs d'exemple, déploiement |
 | `assets/centrale.css` | Styles partagés |
+| `vraicompteur/` | **Vrai Compteur** (nom de travail), n°1 depuis le 13/10 : le copilote du chauffeur qui calcule le net d'une offre et la compare à la barre ; règle de poche, simulation, kit de calibration (voir `vraicompteur/README.md`) |
 | `alaplace/` | Réseau « À la place » (nom de travail) : le format ouvert des trajets vendus à la place, dont Clé en Van est le trajet n°1 |
 | `docs/` | Check-list légale, modèles de contrats et de CGV, kit de lancement, cibles (organisations uniquement), reste à faire |
 | `preuve/` | Preuve de concept : démonstration navigable, moteur testé, lecture des messages par un modèle local, protocole de prévente (voir `preuve/README.md`) |

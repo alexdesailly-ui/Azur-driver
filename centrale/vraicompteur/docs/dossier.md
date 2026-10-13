@@ -60,11 +60,14 @@ Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le 
 | Canal | Pourquoi | Premier geste |
 |---|---|---|
 | Groupes Facebook et WhatsApp de chauffeurs | Alex est chauffeur : il parle de l'intérieur | Publication du compteur de la semaine gratuit, avec son propre chiffre |
-| Organisations représentatives (AVF, CFTC, UNSA, FO, Union-Indépendants, Union des VTC Sud…) | Elles ont signé les accords : l'outil montre s'ils sont respectés | Démonstration, puis diffusion à leurs adhérents |
+| Organisations représentatives (AVF, Union-Indépendants, ACIL, FO, FNAE, CFTC, UNSA : liste ARPE de 2022, `docs/cibles.csv`) | Elles négocient les accords : l'outil montre s'ils sont respectés | Démonstration, puis diffusion à leurs adhérents |
 | Loueurs de véhicules VTC | Un chauffeur qui gagne plus paie son loyer : le copilote offert réduit les impayés | Offre « copilote inclus » pour leurs chauffeurs |
 | Centres de formation VTC | Les nouveaux chauffeurs n'ont aucun repère de rentabilité | Module de 30 minutes avec l'outil |
 | Créateurs de vidéos VTC | Contenu tout trouvé : « j'ai calculé ma vraie heure » | Accès bêta |
 | Presse régionale puis nationale | Les chiffres de l'ARPE et le droit de refus | Dossier de presse avec des mesures de la bêta, pas avant |
+
+## 5 bis. Stratégie nationale
+Copiée de GigU au Brésil (verdict en couleur, gratuit puis abonnement, croissance par les chauffeurs et le conflit avec Uber) : `docs/strategie-nationale.md`. Ordre des villes : Aix et Marseille, Lyon, Île-de-France.
 
 ## 6. Calendrier
 | Quand | Quoi | Temps d'Alex |

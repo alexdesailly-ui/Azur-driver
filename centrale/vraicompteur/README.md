@@ -14,7 +14,7 @@ Le copilote du chauffeur VTC : quand une offre arrive, il lit l'écran et calcul
 | `outils/` | Génération des captures, copie des fichiers de lecture hors ligne, simulation des politiques (`simuler_politiques.js`), calibration (`calibrer.js`) |
 | `calibration/` | Kit pour mesurer le lecteur sur de vraies captures, sur l'ordinateur du chauffeur (`LISEZMOI.md`) |
 | `tests/` | Tests du moteur, de la barre et du lecteur (node), parcours complet, jeu de contrôle et approximation d'un téléphone lent (Playwright) |
-| `docs/` | Dossier commercial, juridique et technique ; résultats de simulation ; spécification de l'appli Android |
+| `docs/` | Dossier commercial, juridique et technique ; résultats de simulation ; spécification de l'appli Android ; stratégie nationale (copiée de GigU) ; cibles (organisations uniquement) ; reste à faire par Alex |
 
 ## Lancer
 ```

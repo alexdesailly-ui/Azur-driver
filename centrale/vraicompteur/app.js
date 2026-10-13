@@ -47,13 +47,14 @@
     var p = profil(), b = barreHeure(p);
     $("barre-val").textContent = decimale1.format(b) + " €/h";
     var r = M.evaluerOffre(lireOffre(), Object.assign({}, p, { barreHeure: b }));
-    var feu = $("feu");
+    var feu = $("feu"), vide = r.verdict === "incomplet" && r.manque.length === CHAMPS.length;
     feu.className = "feu " + (r.verdict === "incomplet" ? "" : r.verdict);
-    feu.textContent = r.verdict === "rouge" && r.netCourse <= 0 ? "tu perds" : MOTS[r.verdict];
+    feu.textContent = vide ? "en attente" : r.verdict === "rouge" && r.netCourse <= 0 ? "tu perds" : MOTS[r.verdict];
+    if (vide) r.raisons = [];
     var ul = $("raisons"); while (ul.firstChild) ul.removeChild(ul.firstChild);
     if (r.verdict === "incomplet") {
       $("net-heure").innerHTML = "— <small>€/h net</small>";
-      $("sous-chiffre").textContent = "Il manque des informations pour juger cette offre.";
+      $("sous-chiffre").textContent = vide ? "Choisis une capture d'offre ou saisis-la." : "Il manque des informations pour juger cette offre.";
     } else {
       $("net-heure").innerHTML = fmt.format(r.netHeure) + " <small>€/h net</small>";
       $("sous-chiffre").textContent = "Il te reste " + fmt2.format(r.netCourse) + " € pour " + r.minutesTotales + " min (approche, course, retour en zone active). " +
