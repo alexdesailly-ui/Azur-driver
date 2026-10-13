@@ -98,4 +98,5 @@ Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le 
 | Les chauffeurs ne paient pas | Gratuit utile seul ; loueurs et organisations comme payeurs |
 | Le gain mesuré est faible | Critère d'arrêt à +3 % : on arrête avant d'investir dans l'appli Android |
 | Refuser fait venir moins d'offres | Mesurer les écarts entre offres pendant la bêta ; la loi interdit de pénaliser un refus ; point mort calculé (environ 30 % d'offres en moins) |
-| Un taux de refus élevé (près de 4 offres sur 10) choque le chauffeur | Afficher l'écart en euros (« +3,70 € par rapport à attendre ») ; le chauffeur reste seul juge |
+| Un taux de refus élevé (près de 4 offres sur 10) choque le chauffeur | Afficher l'écart en euros (« +3,70 € par rapport à attendre ») ; le chauffeur reste seul juge. En simulation, refuser 43 % des offres ne fait faire que 8 % de courses en moins (1,58 contre 1,72 par heure) : une mauvaise course acceptée bloque le chauffeur |
+| Statut de fidélité de la plateforme | Uber Pro (France) compte le taux d'annulation après acceptation (5 % au plus pour monter, au-delà de 8 % retour au statut de base) et 1 point par course, pas les offres refusées (page « Uber Pro : statuts », consultée le 13/10/2026). Règle : décider avant d'accepter, ne jamais annuler ; moins de courses = un peu moins de points |

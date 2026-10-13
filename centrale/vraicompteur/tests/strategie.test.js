@@ -81,3 +81,10 @@ test("comparaison : le seuil calculé gagne au moins autant que tout accepter et
   assert.ok(r.barre.parHeure >= r.tout.parHeure - 0.05);
   assert.ok(r.barre.parHeure >= r.km.parHeure - 0.05);
 });
+
+test("refuser beaucoup d'offres fait perdre peu de courses : une mauvaise course acceptée bloque le chauffeur", () => {
+  const r = S.comparer({ offres, profil: M.PROFIL_DEFAUT, valeur: M.valeurTemps, intervalleMin: 7.5, minutes: 600000, graine: 5,
+    politiques: { tout: { type: "tout" }, barre: { type: "barre" } } });
+  assert.ok(r.barre.tauxRefus > 0.3);
+  assert.ok(r.barre.coursesParHeure > 0.85 * r.tout.coursesParHeure);
+});

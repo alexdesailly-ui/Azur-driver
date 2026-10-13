@@ -44,7 +44,7 @@
       var o = p.tirer(rng); vues++;
       if (p.accepter(o)) { t += o.tau; gain += o.v; prises++; }
     }
-    return { parMinute: gain / t, parHeure: gain / t * 60, offresVues: vues, offresPrises: prises, tauxRefus: 1 - prises / vues };
+    return { parMinute: gain / t, parHeure: gain / t * 60, offresVues: vues, offresPrises: prises, tauxRefus: 1 - prises / vues, coursesParHeure: prises / t * 60 };
   }
 
   // ---------- Modèle d'offres par défaut (en attendant les offres réelles du chauffeur) ----------
@@ -118,7 +118,7 @@
       else throw new Error("politique inconnue : " + q.type);
       var r = simuler({ tirer: function (rng) { return pool[Math.floor(rng() * pool.length)]; }, lambda: lambda,
         minutes: p.minutes || 600000, accepter: accepter, graine: p.graine || 1 });
-      res[nom] = { parHeure: r.parHeure, tauxRefus: r.tauxRefus, offresVues: r.offresVues, offresPrises: r.offresPrises };
+      res[nom] = { parHeure: r.parHeure, tauxRefus: r.tauxRefus, offresVues: r.offresVues, offresPrises: r.offresPrises, coursesParHeure: r.coursesParHeure };
     });
     return res;
   }

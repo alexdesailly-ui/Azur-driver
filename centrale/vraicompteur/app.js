@@ -34,6 +34,7 @@
     return S.barre(offresModele(etat.dispersion), function (o) { return M.valeurTemps(o, p); }, etat.intervalle) * 60;
   }
   var virgule1 = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
+  var decimale1 = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   /* ---------- Verdict ---------- */
   var MOTS = { vert: "rentable", orange: "limite", rouge: "sous ta barre", incomplet: "incomplet" };
@@ -44,7 +45,7 @@
   }
   function afficher() {
     var p = profil(), b = barreHeure(p);
-    $("barre-val").textContent = virgule1.format(b) + " €/h";
+    $("barre-val").textContent = decimale1.format(b) + " €/h";
     var r = M.evaluerOffre(lireOffre(), Object.assign({}, p, { barreHeure: b }));
     var feu = $("feu");
     feu.className = "feu " + (r.verdict === "incomplet" ? "" : r.verdict);
@@ -197,7 +198,7 @@
       km: ["Filtre au kilomètre", "Minimum " + virgule1.format(parKm) + " €/km de course, le mieux réglé pour 7,5 min"],
       obj30: ["Objectif fixe ambitieux", "30 €/h, quelle que soit l'heure"],
       obj18: ["Objectif fixe modeste", "18 €/h, quelle que soit l'heure"],
-      barre: ["Ta barre, recalculée", "Barre de " + virgule1.format(r.barreHeure) + " €/h à ce rythme d'offres"]
+      barre: ["Ta barre, recalculée", "Barre de " + decimale1.format(r.barreHeure) + " €/h à ce rythme d'offres"]
     };
     var max = 0; Object.keys(pols).forEach(function (k) { max = Math.max(max, r[k].parHeure); });
     var box = $("politiques"); while (box.firstChild) box.removeChild(box.firstChild);
@@ -205,9 +206,10 @@
       var x = r[k], gain = (x.parHeure / r.tout.parHeure - 1) * 100;
       var d = document.createElement("div"); d.className = "politique" + (k === "barre" ? " nous" : "");
       var n = document.createElement("span"); n.className = "nom"; n.textContent = noms[k][0];
-      var sm = document.createElement("small"); sm.textContent = k === "tout" ? "Prend toutes les offres" : noms[k][1] + " ; refuse " + fmt.format(x.tauxRefus * 100) + " % des offres"; n.appendChild(sm);
+      var sm = document.createElement("small"); var cph = virgule1.format(x.coursesParHeure) + " course" + (x.coursesParHeure >= 2 ? "s" : "") + " par heure";
+      sm.textContent = k === "tout" ? "Prend toutes les offres ; " + cph : noms[k][1] + " ; refuse " + fmt.format(x.tauxRefus * 100) + " % des offres ; " + cph; n.appendChild(sm);
       var b = document.createElement("span"); b.className = "p"; var i = document.createElement("i"); i.style.width = (100 * Math.max(0, x.parHeure) / (max * 1.02)) + "%"; b.appendChild(i);
-      var v = document.createElement("span"); v.className = "val"; v.textContent = virgule1.format(x.parHeure) + " €/h";
+      var v = document.createElement("span"); v.className = "val"; v.textContent = decimale1.format(x.parHeure) + " €/h";
       var g = document.createElement("small"); g.textContent = k === "tout" ? "référence" : (gain >= 0 ? "+" : "−") + virgule1.format(Math.abs(gain)) + " %"; v.appendChild(g);
       d.appendChild(n); d.appendChild(b); d.appendChild(v); box.appendChild(d);
     });

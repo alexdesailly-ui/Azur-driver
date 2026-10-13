@@ -51,7 +51,7 @@ DISPERSIONS.forEach((dispersion) => {
     const g = (x) => Math.round(x * 100) / 100, pc = (x) => Math.round((x / r.tout.parHeure - 1) * 1000) / 10;
     const ligne = { dispersion, intervalleMin: iv.min, intervalle: iv.nom, barreHeure: g(r.barreHeure), parKmRegle75: kmRegle75 };
     ["tout", "v1", "objectif12", "objectif18", "objectif25", "objectif30", "kmRegle75", "kmMeilleur", "barreSuppose75", "barre"].forEach((k) => {
-      ligne[k] = { parHeure: g(r[k].parHeure), gainVsTout: pc(r[k].parHeure), tauxRefus: Math.round(r[k].tauxRefus * 1000) / 10 };
+      ligne[k] = { parHeure: g(r[k].parHeure), gainVsTout: pc(r[k].parHeure), tauxRefus: Math.round(r[k].tauxRefus * 1000) / 10, coursesParHeure: g(r[k].coursesParHeure) };
       if (k === "kmMeilleur") ligne[k].parKm = r.kmMeilleur.parKm;
     });
     resultats.push(ligne);
@@ -78,7 +78,7 @@ const sortie = {
   profil: PROFIL, minutes_simulees_par_cas: MINUTES, graine: GRAINE, offres_par_modele: 20000,
   sources: ["Rapport ARPE 2026 sur l'activité des plateformes VTC, cité par TPE Actu le 26/04/2026 : Uber 2025, 17,3 € par course, 21,8 min par prestation, 7,5 min entre deux propositions de course (4 min en 2021, 10 min en 2024) ; Bolt 2025, 15,9 € par course, 5,8 min entre deux propositions."],
   hypotheses: ["21,8 min comprennent l'approche", "approche uniforme 2 à 12 min", "vitesse 18 à 36 km/h", "tarif 1 € + 0,90 €/km + 0,35 €/min mis à l'échelle de 17,3 € en moyenne", "écart de prix autour du tarif : 15, 30 ou 45 % (inconnu : c'est ce que la bêta doit mesurer)", "zones de dépose 60/30/10 %, surcoût 0, 10 et 25 min", "refuser ne change pas la fréquence des offres (à vérifier sur le terrain)"],
-  lecture: "parHeure = revenu net par heure connectée (après cotisations et frais au kilomètre, avant charges fixes). gainVsTout en %. tauxRefus = part des offres refusées.",
+  lecture: "parHeure = revenu net par heure connectée (après cotisations et frais au kilomètre, avant charges fixes). gainVsTout en %. tauxRefus = part des offres refusées. coursesParHeure = courses faites par heure connectée.",
   resultats,
   points_morts: pointsMorts
 };
