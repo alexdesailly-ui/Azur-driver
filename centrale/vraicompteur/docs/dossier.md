@@ -82,7 +82,8 @@ Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le 
 
 ## 9. Technique
 - Démonstration (ce dossier) : moteur et lecteur en JavaScript, lecture des captures par Tesseract compilé en WebAssembly, dans le navigateur, sans appel réseau pendant la lecture.
-- La barre : calcul exact par dichotomie, vérifié par simulation (tests sur des cas calculables à la main) ; dans la page, des milliers d'heures simulées sur le téléphone en moins de 0,1 s.
+- La barre : calcul exact par dichotomie, vérifié par simulation (tests sur des cas calculables à la main) ; dans la page, des milliers d'heures simulées sur le téléphone en quelques dixièmes de seconde.
+- Contre-vérification : une réécriture indépendante en Python (`tests/verifier_simulation.py`), avec les formules exactes au lieu du tirage au hasard, retrouve la barre et les revenus de `docs/simulation.json` sur les 15 scénarios (60 contrôles sur 60).
 - Kit de calibration (`calibration/`) : mesure la précision du lecteur sur les vraies captures d'un chauffeur, sur son ordinateur, sans réseau, et la fréquence de ses offres.
 - Appli Android : spécification dans `docs/android.md`.
 - Téléphone lent, approché par un processeur ralenti 4 et 6 fois dans Chrome (`tests/lent.py`, `docs/mesures-appareil-lent.json`) : simulation de la page 0,9 et 1,4 s au chargement, 0,2 et 0,3 s après un réglage ; verdict recalculé en 0,1 et 0,25 s. Le ralentissement ne s'applique pas au travailleur qui lit les captures : la vitesse de lecture sur un vrai téléphone reste à mesurer.

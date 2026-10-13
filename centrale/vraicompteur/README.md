@@ -21,6 +21,7 @@ Le copilote du chauffeur VTC : quand une offre arrive, il lit l'écran et calcul
 npm install && npm run vendor     # lecture hors ligne (Tesseract, WebAssembly, français)
 npm test                          # 30 tests : moteur, barre et simulation, lecteur
 node outils/simuler_politiques.js # docs/simulation.json
+python3 tests/verifier_simulation.py  # contre-vérification indépendante en Python (formules exactes)
 cd .. && python3 -m http.server 8765
 # http://localhost:8765/vraicompteur/index.html
 python3 vraicompteur/tests/parcours.py http://localhost:8765/vraicompteur/index.html /tmp/captures
