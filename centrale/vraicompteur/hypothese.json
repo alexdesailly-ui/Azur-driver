@@ -23,5 +23,11 @@
     "nouvelle_hypothese_valeur": "Avec les moyennes publiées par l'ARPE et des hypothèses affichées, choisir avec la barre rapporte plus que tout accepter et que le filtre au kilomètre ; à vérifier sur le terrain contre la pratique réelle des chauffeurs.",
     "nouveau_risque_a_mesurer": "Que refuser fasse venir les offres moins souvent (gain détruit vers 30 % d'offres en moins).",
     "criteres_terrain": "inchangés"
+  },
+  "addendum_2026-10-13T03:36": {
+    "pourquoi": "Second passage du stratège (direct, sans sous-agent) : la bêta prévue supposait que le chauffeur saisisse ou capture l'offre en temps réel, impossible en 15 secondes et dangereux en roulant ; sans appli Android, elle ne mesurait rien.",
+    "changement": "La barre se traduit en règle de poche (prix minimum par minute et par kilomètre, approche, course et retour compris), testée en simulation : la règle arrondie 0,50 €/min + 0,20 €/km gagne +14,3 % à 7,5 min et reste positive à tous les rythmes simulés.",
+    "bêta": "2 semaines de référence (compteur de la semaine), puis 2 semaines avec la règle personnalisée ; mêmes critères (+10 % net par heure connectée ; échec sous +3 %). Écarts entre offres notés à l'arrêt pour mesurer l'effet des refus.",
+    "criteres_terrain": "inchangés"
   }
 }

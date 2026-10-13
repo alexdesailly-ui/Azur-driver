@@ -168,6 +168,16 @@ a { color: inherit; }
 .politique .val small { display: block; font-family: var(--texte-f); font-size: 0.78rem; font-weight: 500; color: var(--doux); }
 .semaine-ecart { font-weight: 600; border-top: 1px solid var(--trait); padding-top: 12px; }
 .limites { margin: 8px 0 0; padding-left: 1.1em; color: var(--doux); display: grid; gap: 6px; font-size: 0.95rem; }
+.poche { display: grid; gap: 16px; margin-top: 24px; max-width: 46rem; }
+.formule { font-family: var(--chiffres); font-weight: 700; font-size: clamp(1.9rem, 6vw, 2.8rem); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.formule span { color: var(--doux); font-size: 0.55em; font-weight: 600; }
+.table-defile { overflow-x: auto; }
+.bareme { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 0.95rem; }
+.bareme th, .bareme td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--trait); }
+.bareme th { color: var(--doux); font-weight: 500; }
+.bareme td:not(:first-child), .bareme th:not(:first-child) { text-align: right; }
+.bareme tr.actuel td { color: var(--ambre); font-weight: 600; }
+.securite { border-left: 3px solid var(--rouge); padding: 4px 0 4px 14px; max-width: 52ch; }
 .faq { display: grid; gap: 10px; margin-top: 22px; max-width: 46rem; }
 .faq details { background: var(--panneau); border: 1px solid var(--trait); border-radius: 10px; padding: 14px 18px; }
 .faq summary { cursor: pointer; font-weight: 600; }
@@ -188,6 +198,7 @@ a { color: inherit; }
     </a>
     <nav class="nav" aria-label="Navigation">
       <a href="#exigeant">Faut-il être exigeant&nbsp;?</a>
+      <a href="#regle">Ta règle de poche</a>
       <a href="#semaine">Ta semaine</a>
       <a href="#droit">Ton droit</a>
       <a href="#abonnement">Abonnement</a>
@@ -293,6 +304,23 @@ a { color: inherit; }
           </ul>
           <p class="note">La barre dépend du flux d'offres par zone et par heure. Chaque chauffeur la mesure pour lui&nbsp;; ensemble, ils la mesurent pour tous. Le code se copie, ces mesures non.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="regle">
+    <div class="cadre">
+      <h2>Ta règle de poche</h2>
+      <p class="chapo">Une offre tombe, tu as 15 secondes et tu ne touches pas ton téléphone en roulant. La barre se traduit en une règle à apprendre&nbsp;: le prix minimum d'une course, approche et retour compris.</p>
+      <div class="poche">
+        <p class="formule" id="formule">— <span>la minute</span></p>
+        <p class="note" id="formule-aide">Prix minimum = minutes × prix de la minute + kilomètres × prix du kilomètre. Compte l'approche, la course et le retour&nbsp;: 10 minutes et 3&nbsp;km de plus si la dépose est en périphérie, 25 minutes et 10&nbsp;km si elle est isolée.</p>
+        <div class="table-defile"><table class="bareme" aria-describedby="formule-aide">
+          <thead><tr><th scope="col">Une offre toutes les</th><th scope="col">La minute</th><th scope="col">Le kilomètre</th><th scope="col">Exemple</th></tr></thead>
+          <tbody id="bareme"></tbody>
+        </table></div>
+        <p class="note">Exemple&nbsp;: approche 6 min et 3&nbsp;km, course 20 min et 12&nbsp;km, dépose en centre. La règle arrondie «&nbsp;50 centimes la minute, 20 centimes le kilomètre&nbsp;» fait presque aussi bien que la barre recalculée à une offre toutes les 7,5 min (+14,3&nbsp;% contre +14,4&nbsp;%), et reste gagnante à tous les rythmes simulés (docs/simulation.json).</p>
+        <p class="securite">En conduisant, ne touche pas ton téléphone. La règle s'apprend en quelques jours, puis c'est elle qui décide en 15 secondes. Le compteur sert avant et après ta séance, à l'arrêt.</p>
       </div>
     </div>
   </section>

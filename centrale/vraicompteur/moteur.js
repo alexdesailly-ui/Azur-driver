@@ -67,6 +67,19 @@
     };
   }
 
+  // Règle de poche : ce qu'une offre doit payer au minimum pour rapporter la barre, à apprendre pour décider sans toucher au téléphone.
+  // prix minimum = (barre par minute × minutes + frais par km × km) / (1 − cotisations), minutes et km d'approche, de course et de retour.
+  function reglePoche(profil, barreHeure) {
+    var p = Object.assign({}, PROFIL_DEFAUT, profil || {}), net = 1 - p.cotisations / 100;
+    return { parMinute: barreHeure / 60 / net, parKm: p.coutKm / net, barreHeure: barreHeure };
+  }
+  function prixMinimum(offre, profil, barreHeure) {
+    var r = reglePoche(profil, barreHeure), d = DESTINATIONS[offre.destination] || DESTINATIONS.centre;
+    var minutes = offre.approcheMin + offre.courseMin + (nombre(offre.surcoutMin) ? offre.surcoutMin : d.surcoutMin);
+    var km = offre.approcheKm + offre.courseKm + (nombre(offre.retourKm) ? offre.retourKm : d.retourKm);
+    return r.parMinute * minutes + r.parKm * km;
+  }
+
   // Repères des accords homologués par l'ARPE (chauffeurs indépendants passant par une plateforme) :
   // 9 € net minimum par course (depuis 2024), 1 € minimum par kilomètre, 30 € net minimum par heure d'activité (approche comprise).
   // La garantie horaire s'apprécie sur une période, pas course par course : ici, c'est un repère, pas un contrôle.
@@ -87,5 +100,5 @@
     return { brutHeure: s.revenus / heures, net: net, netHeure: net / heures, cotisations: cot, fraisKm: fkm, fixes: s.fixes };
   }
 
-  return { evaluerOffre: evaluerOffre, valeurTemps: valeurTemps, semaine: semaine, reperesAccord: reperesAccord, ACCORD: ACCORD, DESTINATIONS: DESTINATIONS, PROFIL_DEFAUT: PROFIL_DEFAUT };
+  return { evaluerOffre: evaluerOffre, valeurTemps: valeurTemps, reglePoche: reglePoche, prixMinimum: prixMinimum, semaine: semaine, reperesAccord: reperesAccord, ACCORD: ACCORD, DESTINATIONS: DESTINATIONS, PROFIL_DEFAUT: PROFIL_DEFAUT };
 });

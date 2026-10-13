@@ -219,8 +219,35 @@
     $("sim-note").textContent = "Revenu net par heure connectée, après cotisations et frais au kilomètre, avant charges fixes. " +
       fmt.format(r.tout.offresVues) + " offres simulées par façon de choisir, en " + fmt.format(performance.now() - t0) + " ms sur ton appareil.";
   }
+  /* ---------- Règle de poche ---------- */
+  var EXEMPLE = { approcheMin: 6, approcheKm: 3, courseMin: 20, courseKm: 12, destination: "centre" };
+  var centimes = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function poche() {
+    var p = profil(), r = M.reglePoche(p, barreHeure(p));
+    $("formule").innerHTML = "";
+    $("formule").appendChild(document.createTextNode(centimes.format(r.parMinute) + " € "));
+    var s1 = document.createElement("span"); s1.textContent = "la minute"; $("formule").appendChild(s1);
+    $("formule").appendChild(document.createTextNode(" + " + centimes.format(r.parKm) + " € "));
+    var s2 = document.createElement("span"); s2.textContent = "le km"; $("formule").appendChild(s2);
+    var lignes = [[4, "4 min (pointe)"], [7.5, "7,5 min"], [15, "15 min (creux)"]];
+    if ([4, 7.5, 15].indexOf(etat.intervalle) < 0) lignes.push([etat.intervalle, virgule1.format(etat.intervalle) + " min (ton réglage)"]);
+    lignes.sort(function (a, b) { return a[0] - b[0]; });
+    var tb = $("bareme"); while (tb.firstChild) tb.removeChild(tb.firstChild);
+    var sauve = etat.intervalle;
+    lignes.forEach(function (l) {
+      etat.intervalle = l[0];
+      var b = barreHeure(p), q = M.reglePoche(p, b), tr = document.createElement("tr");
+      if (l[0] === sauve) tr.className = "actuel";
+      [l[1], centimes.format(q.parMinute) + " €", centimes.format(q.parKm) + " €", fmt2.format(M.prixMinimum(EXEMPLE, p, b)) + " €"].forEach(function (t, i) {
+        var c = document.createElement(i ? "td" : "th"); if (!i) c.scope = "row"; c.textContent = t; tr.appendChild(c);
+      });
+      tb.appendChild(tr);
+    });
+    etat.intervalle = sauve;
+  }
+
   var minuterie = null;
-  function simulerBientot() { clearTimeout(minuterie); minuterie = setTimeout(simulerPage, 120); }
+  function simulerBientot() { clearTimeout(minuterie); minuterie = setTimeout(function () { simulerPage(); poche(); }, 120); }
   function regler(v) {
     etat.intervalle = v;
     ["intervalle", "intervalle-2"].forEach(function (id) { $(id).value = v; $(id + "-val").textContent = virgule1.format(v); });
@@ -260,5 +287,5 @@
   afficher();
   semaine();
   // La simulation attend que la page soit affichée : sur un téléphone lent, elle prend jusqu'à 2 s au premier calcul.
-  setTimeout(simulerPage, 250);
+  setTimeout(function () { simulerPage(); poche(); }, 250);
 })();

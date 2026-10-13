@@ -69,7 +69,10 @@ async def parcours(b, w, h, theme, nom, lire_tout):
     lignes = await page.locator("#politiques .politique").count()
     vals = [euros(t.split("\n")[0]) for t in await page.locator("#politiques .val").all_inner_texts()]
     v(lignes == 5 and vals[-1] >= max(vals) - 0.05, f"{nom} simulation : 5 façons de choisir, la barre en tête ({vals})")
+    v("(ton réglage)" in await page.inner_text("#bareme"), f"{nom} la règle de poche suit le réglage de fréquence")
     await page.eval_on_selector("#intervalle", "e => { e.value = 7.5; e.dispatchEvent(new Event('input', { bubbles: true })); }")
+    await page.wait_for_timeout(400)
+    v((await page.inner_text("#formule")).startswith("0,50"), f"{nom} règle de poche à 7,5 min : 0,50 € la minute")
     await page.wait_for_timeout(400)
     await page.locator("#exigeant").screenshot(path=f"{CAPT}/{nom}-exigeant.png")
     await page.screenshot(path=f"{CAPT}/{nom}-page.png", full_page=True)

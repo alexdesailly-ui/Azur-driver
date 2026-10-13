@@ -31,6 +31,10 @@ Simulation (`outils/simuler_politiques.js`, résultats dans `docs/simulation.jso
 - Paramètres publiés : rapport ARPE 2026 cité par TPE Actu le 26/04/2026 (Uber 2025 : 17,3 € par course, 21,8 min par prestation, une proposition toutes les 7,5 min ; 4 min en 2021, 10 min en 2024 ; Bolt 2025 : une toutes les 5,8 min). Le reste est une hypothèse affichée dans le fichier de résultats.
 - Limites : les chauffeurs refusent déjà au jugé, le gain réel se mesure contre leur pratique (bêta) ; si refuser faisait venir les offres moins souvent, le gain disparaîtrait à partir d'environ 27 à 36 % d'offres en moins selon l'écart de prix ; l'écart de prix réel n'est pas publié.
 
+## 2 ter. La règle de poche
+Une offre tombe, le chauffeur a 15 secondes et ne doit pas manipuler son téléphone en roulant. La barre se traduit en une règle à apprendre : **prix minimum = 0,50 € par minute + 0,19 € par kilomètre**, approche, course et retour compris (barre de 23,5 €/h, une offre toutes les 7,5 min, 21 % de cotisations, 0,15 €/km de frais). Arrondie à « 50 centimes la minute, 20 centimes le kilomètre », elle fait presque aussi bien que la barre recalculée (+14,3 % contre +14,4 % à 7,5 min) et reste gagnante à tous les rythmes simulés (+1,3 % à +30,6 %, `docs/simulation.json`). Elle monte aux heures de pointe (0,60 € la minute à une offre toutes les 4 min) et descend aux heures creuses (0,38 € à 15 min).
+Conséquence : la valeur se teste **sans appli Android**. Échelle du produit : la règle (gratuite, se partage), le barème personnalisé par heure et par zone (gratuit, sur la page), le copilote qui calcule à l'arrivée de l'offre (payant).
+
 ## 3. Ce que fait Vrai Compteur
 | Fonction | Gratuit | Copilote (9,90 €/mois, prix de bêta) |
 |---|---|---|
@@ -38,6 +42,7 @@ Simulation (`outils/simuler_politiques.js`, résultats dans `docs/simulation.jso
 | Verdict sur une offre saisie ou sur une capture d'écran (lue sur le téléphone), comparé à la barre | oui | oui |
 | Repères des accords de la profession (9 €, 1 €/km, 30 €/h d'activité) | oui | oui |
 | Lecture de l'offre à l'écran au moment où elle arrive (Android) | — | oui |
+| Règle de poche personnalisée et barème par rythme d'offres | oui | oui |
 | Barre apprise sur ses propres offres, par zone et par heure, et sur celles des chauffeurs qui partagent | — | oui |
 Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le chauffeur qui appuie.
 
@@ -46,10 +51,10 @@ Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le 
 |---|---|
 | Pourquoi un client vient vers moi | Le client est le chauffeur : savoir en 2 secondes ce qu'une offre lui laisse vraiment |
 | Ce qu'il tape dans Google | « rentabilité course VTC », « revenu réel chauffeur Uber », « calcul taux horaire VTC » : aujourd'hui des pages de comptables, pas d'outil |
-| Sujet télé | Revenu horaire réel en baisse (ARPE), droit de refus méconnu, bras de fer avec les plateformes : aux États-Unis, Uber et Lyft menacent de désactiver les utilisateurs d'applis équivalentes ; au Brésil, Uber a perdu contre l'une d'elles (The Hustle, 28/07/2025) |
+| Sujet télé | « La règle des 50 centimes » : refuser 4 offres sur 10 pour gagner plus ; revenu horaire réel en baisse (ARPE), droit de refus méconnu, bras de fer avec les plateformes : aux États-Unis, Uber et Lyft menacent de désactiver les utilisateurs d'applis équivalentes ; au Brésil, Uber a perdu contre l'une d'elles (The Hustle, 28/07/2025) |
 | Les devs forkent | Lecture et calcul sur l'appareil, code ouvert ; ce qui ne se copie pas : les lecteurs d'offres tenus à jour pour chaque plateforme française et la fréquence des offres par zone et par heure, mesurée par les chauffeurs, qui fixe la barre de chacun |
 | Les chauffeurs coupent les mauvaises courses | Refuser ce qui rapporte moins qu'attendre la suivante est un droit ; simulation : +11 à +20 % de net par heure connectée par rapport à tout accepter (à mesurer en France pendant la bêta) |
-| Légende | Touche les 71 000 chauffeurs, pas une poignée ; « il m'a appris à dire non » |
+| Légende | Touche les 71 000 chauffeurs, pas une poignée ; une règle qui se transmet de chauffeur à chauffeur : « il m'a appris à dire non » |
 
 ## 5. Conquête : 0 € de publicité
 | Canal | Pourquoi | Premier geste |
@@ -65,7 +70,7 @@ Le copilote **n'accepte et ne refuse jamais** : il calcule et affiche. C'est le 
 | Quand | Quoi | Temps d'Alex |
 |---|---|---|
 | Semaines 1-2 | Captures réelles de ses propres offres pour calibrer le lecteur ; publication du compteur gratuit dans 3 groupes ; liste d'attente | 2 h/sem |
-| Semaines 3-6 | Bêta de 30 chauffeurs : compteur de la semaine avant / après, saisie ou capture des offres | 2 h/sem |
+| Semaines 3-6 | Bêta de 30 chauffeurs : compteur de la semaine 2 semaines avant, puis 2 semaines avec la règle de poche personnalisée (aucune manipulation en roulant) ; écarts entre offres notés à l'arrêt pour mesurer l'effet des refus | 2 h/sem |
 | Fin de semaine 6 | Décision : critères ci-dessous ; si oui, « tapis » (choix d'Alex) sur l'appli Android | — |
 
 ## 7. Critères d'arrêt (écrits avant, voir hypothese.json)

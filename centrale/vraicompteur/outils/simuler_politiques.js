@@ -34,6 +34,7 @@ function scenario(dispersion, intervalle, offres, kmRegle75) {
     objectif30: { type: "objectif", heure: 30 },
     kmRegle75: { type: "km", parKm: kmRegle75 || meilleurKm.parKm },
     barreSuppose75: { type: "barre", intervalleSuppose: 7.5 },
+    regle50: { type: "regle", parMinute: 0.5, parKm: 0.2 },
     barre: { type: "barre" }
   } });
   r.kmMeilleur = meilleurKm;
@@ -50,7 +51,7 @@ DISPERSIONS.forEach((dispersion) => {
     const r = iv.min === 7.5 ? scenario(dispersion, 7.5, offres, kmRegle75) : scenario(dispersion, iv.min, offres, kmRegle75);
     const g = (x) => Math.round(x * 100) / 100, pc = (x) => Math.round((x / r.tout.parHeure - 1) * 1000) / 10;
     const ligne = { dispersion, intervalleMin: iv.min, intervalle: iv.nom, barreHeure: g(r.barreHeure), parKmRegle75: kmRegle75 };
-    ["tout", "v1", "objectif12", "objectif18", "objectif25", "objectif30", "kmRegle75", "kmMeilleur", "barreSuppose75", "barre"].forEach((k) => {
+    ["tout", "v1", "objectif12", "objectif18", "objectif25", "objectif30", "kmRegle75", "kmMeilleur", "barreSuppose75", "regle50", "barre"].forEach((k) => {
       ligne[k] = { parHeure: g(r[k].parHeure), gainVsTout: pc(r[k].parHeure), tauxRefus: Math.round(r[k].tauxRefus * 1000) / 10, coursesParHeure: g(r[k].coursesParHeure) };
       if (k === "kmMeilleur") ligne[k].parKm = r.kmMeilleur.parKm;
     });
@@ -77,6 +78,7 @@ const sortie = {
   commande: "node outils/simuler_politiques.js",
   profil: PROFIL, minutes_simulees_par_cas: MINUTES, graine: GRAINE, offres_par_modele: 20000,
   sources: ["Rapport ARPE 2026 sur l'activité des plateformes VTC, cité par TPE Actu le 26/04/2026 : Uber 2025, 17,3 € par course, 21,8 min par prestation, 7,5 min entre deux propositions de course (4 min en 2021, 10 min en 2024) ; Bolt 2025, 15,9 € par course, 5,8 min entre deux propositions."],
+  regle50: "règle de poche arrondie : prix minimum = 0,50 € × minutes + 0,20 € × km (approche, course et retour compris)",
   hypotheses: ["21,8 min comprennent l'approche", "approche uniforme 2 à 12 min", "vitesse 18 à 36 km/h", "tarif 1 € + 0,90 €/km + 0,35 €/min mis à l'échelle de 17,3 € en moyenne", "écart de prix autour du tarif : 15, 30 ou 45 % (inconnu : c'est ce que la bêta doit mesurer)", "zones de dépose 60/30/10 %, surcoût 0, 10 et 25 min", "refuser ne change pas la fréquence des offres (à vérifier sur le terrain)"],
   lecture: "parHeure = revenu net par heure connectée (après cotisations et frais au kilomètre, avant charges fixes). gainVsTout en %. tauxRefus = part des offres refusées. coursesParHeure = courses faites par heure connectée.",
   resultats,
@@ -85,8 +87,8 @@ const sortie = {
 const fichier = process.argv[2] || path.join(__dirname, "..", "docs", "simulation.json");
 fs.writeFileSync(fichier, JSON.stringify(sortie, null, 1));
 const c = (x) => `${x.parHeure.toFixed(1)} (${x.gainVsTout > 0 ? "+" : ""}${x.gainVsTout}%)`.padEnd(14);
-console.log("disp  interv | tout  " + ["v1-18att", "obj12", "obj18", "obj25", "obj30", "km@7,5", "kmMeilleur", "barre@7,5", "barre"].map((x) => x.padEnd(14)).join("") + "refus");
+console.log("disp  interv | tout  " + ["v1-18att", "obj12", "obj18", "obj25", "obj30", "km@7,5", "kmMeilleur", "barre@7,5", "regle50/20", "barre"].map((x) => x.padEnd(14)).join("") + "refus");
 resultats.forEach((l) => console.log(`${l.dispersion.toFixed(2)}  ${String(l.intervalleMin).padEnd(6)} | ${l.tout.parHeure.toFixed(1)}  ` +
-  [l.v1, l.objectif12, l.objectif18, l.objectif25, l.objectif30, l.kmRegle75, l.kmMeilleur, l.barreSuppose75, l.barre].map(c).join("") + l.barre.tauxRefus + "%"));
+  [l.v1, l.objectif12, l.objectif18, l.objectif25, l.objectif30, l.kmRegle75, l.kmMeilleur, l.barreSuppose75, l.regle50, l.barre].map(c).join("") + l.barre.tauxRefus + "%"));
 console.log("points morts", JSON.stringify(pointsMorts));
 console.log("→ " + fichier);

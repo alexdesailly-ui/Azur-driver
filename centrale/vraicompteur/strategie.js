@@ -101,10 +101,11 @@
   // Compare des politiques d'acceptation sur le même flux d'offres et le même tirage (nombres aléatoires communs).
   // Types : tout ; barre (calculée, éventuellement en croyant à un autre intervalle : intervalleSuppose) ;
   // objectif (€/h fixe sur le temps immobilisé) ; km (prix au kilomètre de course, le filtre que proposent les plateformes) ;
-  // v1 (la première version de cette démo : objectif fixe, attente moyenne après dépose comprise).
+  // v1 (la première version de cette démo : objectif fixe, attente moyenne après dépose comprise) ;
+  // regle (règle de poche fixe : prix minimum = parMinute × minutes + parKm × km, retour compris).
   var ATTENTE_V1 = { centre: 5, peripherie: 15, isole: 30 };
   function comparer(p) {
-    var pool = p.offres.map(function (o) { var vt = p.valeur(o, p.profil); return { v: vt.v, tau: vt.tau, o: o }; });
+    var pool = p.offres.map(function (o) { var vt = p.valeur(o, p.profil); return { v: vt.v, tau: vt.tau, km: vt.kmTotal, o: o }; });
     var lambda = 1 / p.intervalleMin, g = seuilOptimal(pool, lambda), res = { barreHeure: g * 60 };
     Object.keys(p.politiques).forEach(function (nom) {
       var q = p.politiques[nom], accepter;
@@ -114,6 +115,7 @@
         accepter = function (x) { return x.v > 0 && x.v / x.tau >= gq; };
       } else if (q.type === "objectif") accepter = function (x) { return x.v / x.tau * 60 >= q.heure; };
       else if (q.type === "km") accepter = function (x) { return x.o.prixNet / Math.max(0.1, x.o.courseKm) >= q.parKm; };
+      else if (q.type === "regle") accepter = function (x) { return x.o.prixNet >= q.parMinute * x.tau + q.parKm * x.km; };
       else if (q.type === "v1") accepter = function (x) { return x.v / (x.o.approcheMin + x.o.courseMin + ATTENTE_V1[x.o.destination]) * 60 >= q.heure; };
       else throw new Error("politique inconnue : " + q.type);
       var r = simuler({ tirer: function (rng) { return pool[Math.floor(rng() * pool.length)]; }, lambda: lambda,

@@ -99,3 +99,20 @@ test("repères de l'accord : une course à 12 € pour 6,5 km et 16 min les resp
   const r = M.reperesAccord({ prixNet: 12, approcheMin: 4, approcheKm: 1.5, courseMin: 12, courseKm: 5 });
   assert.deepStrictEqual(r.map((x) => x.respecte), [true, true, true]);
 });
+
+// Règle de poche (13/10, 03:33) : le prix minimum d'une offre, pour qu'elle rapporte au moins la barre.
+// prix minimum = (barre par minute × minutes + frais au km × km) / (1 − cotisations), minutes et km d'approche, de course et de retour.
+test("règle de poche : à 18 €/h de barre, 0,38 € par minute et 0,19 € par kilomètre", () => {
+  const r = M.reglePoche({ coutKm: 0.15, cotisations: 21 }, 18);
+  assert.strictEqual(Math.round(r.parMinute * 100) / 100, 0.38);   // 0,30 / 0,79
+  assert.strictEqual(Math.round(r.parKm * 100) / 100, 0.19);       // 0,15 / 0,79
+});
+
+test("règle de poche : une offre payée exactement au prix minimum rapporte exactement la barre", () => {
+  const o = { approcheMin: 8, approcheKm: 4, courseMin: 20, courseKm: 12, destination: "peripherie" };
+  const pm = M.prixMinimum(o, PROFIL, 18);
+  assert.strictEqual(arrondi(pm), 18.0);                            // (0,30 × 38 + 0,15 × 19) / 0,79 = 18,04
+  const r = M.evaluerOffre({ ...o, prixNet: pm }, PROFIL);
+  assert.ok(Math.abs(r.netHeure - 18) < 1e-9);
+  assert.strictEqual(r.verdict, "vert");
+});

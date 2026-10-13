@@ -1,5 +1,5 @@
 {
- "genere_le": "2026-10-13T01:27:10.525Z",
+ "genere_le": "2026-10-13T01:35:13.122Z",
  "commande": "node outils/simuler_politiques.js",
  "profil": {
   "coutKm": 0.15,
@@ -11,6 +11,7 @@
  "sources": [
   "Rapport ARPE 2026 sur l'activité des plateformes VTC, cité par TPE Actu le 26/04/2026 : Uber 2025, 17,3 € par course, 21,8 min par prestation, 7,5 min entre deux propositions de course (4 min en 2021, 10 min en 2024) ; Bolt 2025, 15,9 € par course, 5,8 min entre deux propositions."
  ],
+ "regle50": "règle de poche arrondie : prix minimum = 0,50 € × minutes + 0,20 € × km (approche, course et retour compris)",
  "hypotheses": [
   "21,8 min comprennent l'approche",
   "approche uniforme 2 à 12 min",
@@ -83,6 +84,12 @@
     "tauxRefus": 36,
     "coursesParHeure": 1.91
    },
+   "regle50": {
+    "parHeure": 26.93,
+    "gainVsTout": 17.8,
+    "tauxRefus": 40.1,
+    "coursesParHeure": 1.89
+   },
    "barre": {
     "parHeure": 27.2,
     "gainVsTout": 19,
@@ -150,6 +157,12 @@
     "gainVsTout": 13.5,
     "tauxRefus": 36,
     "coursesParHeure": 1.75
+   },
+   "regle50": {
+    "parHeure": 24.61,
+    "gainVsTout": 13.8,
+    "tauxRefus": 40.1,
+    "coursesParHeure": 1.73
    },
    "barre": {
     "parHeure": 24.63,
@@ -219,6 +232,12 @@
     "tauxRefus": 36,
     "coursesParHeure": 1.63
    },
+   "regle50": {
+    "parHeure": 22.78,
+    "gainVsTout": 10.7,
+    "tauxRefus": 40,
+    "coursesParHeure": 1.6
+   },
    "barre": {
     "parHeure": 22.81,
     "gainVsTout": 10.9,
@@ -286,6 +305,12 @@
     "gainVsTout": 7.6,
     "tauxRefus": 36,
     "coursesParHeure": 1.47
+   },
+   "regle50": {
+    "parHeure": 20.51,
+    "gainVsTout": 7,
+    "tauxRefus": 40,
+    "coursesParHeure": 1.44
    },
    "barre": {
     "parHeure": 20.71,
@@ -355,6 +380,12 @@
     "tauxRefus": 35.9,
     "coursesParHeure": 1.24
    },
+   "regle50": {
+    "parHeure": 17.12,
+    "gainVsTout": 1.3,
+    "tauxRefus": 40,
+    "coursesParHeure": 1.2
+   },
    "barre": {
     "parHeure": 17.71,
     "gainVsTout": 4.8,
@@ -422,6 +453,12 @@
     "gainVsTout": 22.6,
     "tauxRefus": 43,
     "coursesParHeure": 1.89
+   },
+   "regle50": {
+    "parHeure": 28.11,
+    "gainVsTout": 23,
+    "tauxRefus": 44.3,
+    "coursesParHeure": 1.88
    },
    "barre": {
     "parHeure": 28.69,
@@ -491,6 +528,12 @@
     "tauxRefus": 43,
     "coursesParHeure": 1.72
    },
+   "regle50": {
+    "parHeure": 25.53,
+    "gainVsTout": 18,
+    "tauxRefus": 44.3,
+    "coursesParHeure": 1.71
+   },
    "barre": {
     "parHeure": 25.59,
     "gainVsTout": 18.3,
@@ -558,6 +601,12 @@
     "gainVsTout": 14.4,
     "tauxRefus": 43,
     "coursesParHeure": 1.58
+   },
+   "regle50": {
+    "parHeure": 23.5,
+    "gainVsTout": 14.3,
+    "tauxRefus": 44.3,
+    "coursesParHeure": 1.57
    },
    "barre": {
     "parHeure": 23.52,
@@ -627,6 +676,12 @@
     "tauxRefus": 43,
     "coursesParHeure": 1.42
    },
+   "regle50": {
+    "parHeure": 21.07,
+    "gainVsTout": 9.9,
+    "tauxRefus": 44.3,
+    "coursesParHeure": 1.41
+   },
    "barre": {
     "parHeure": 21.2,
     "gainVsTout": 10.6,
@@ -694,6 +749,12 @@
     "gainVsTout": 3.6,
     "tauxRefus": 43,
     "coursesParHeure": 1.18
+   },
+   "regle50": {
+    "parHeure": 17.42,
+    "gainVsTout": 3.1,
+    "tauxRefus": 44.2,
+    "coursesParHeure": 1.16
    },
    "barre": {
     "parHeure": 17.97,
@@ -763,6 +824,12 @@
     "tauxRefus": 51,
     "coursesParHeure": 1.85
    },
+   "regle50": {
+    "parHeure": 29.86,
+    "gainVsTout": 30.6,
+    "tauxRefus": 49,
+    "coursesParHeure": 1.87
+   },
    "barre": {
     "parHeure": 30.89,
     "gainVsTout": 35.1,
@@ -830,6 +897,12 @@
     "gainVsTout": 24.8,
     "tauxRefus": 51,
     "coursesParHeure": 1.66
+   },
+   "regle50": {
+    "parHeure": 26.89,
+    "gainVsTout": 24.4,
+    "tauxRefus": 49,
+    "coursesParHeure": 1.68
    },
    "barre": {
     "parHeure": 27.13,
@@ -899,6 +972,12 @@
     "tauxRefus": 51.1,
     "coursesParHeure": 1.52
    },
+   "regle50": {
+    "parHeure": 24.62,
+    "gainVsTout": 19.8,
+    "tauxRefus": 49.1,
+    "coursesParHeure": 1.54
+   },
    "barre": {
     "parHeure": 24.6,
     "gainVsTout": 19.7,
@@ -967,6 +1046,12 @@
     "tauxRefus": 51.1,
     "coursesParHeure": 1.34
    },
+   "regle50": {
+    "parHeure": 21.91,
+    "gainVsTout": 14.4,
+    "tauxRefus": 49,
+    "coursesParHeure": 1.37
+   },
    "barre": {
     "parHeure": 21.99,
     "gainVsTout": 14.8,
@@ -1034,6 +1119,12 @@
     "gainVsTout": 5.4,
     "tauxRefus": 51.1,
     "coursesParHeure": 1.09
+   },
+   "regle50": {
+    "parHeure": 17.9,
+    "gainVsTout": 6.1,
+    "tauxRefus": 49,
+    "coursesParHeure": 1.12
    },
    "barre": {
     "parHeure": 18.37,
